@@ -1,0 +1,32 @@
+.registro {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Alinear los elementos de formulario en la misma línea */
+  .form-group {
+    padding: 0.5rem;
+  }
+  
+
+  
+  /* Ajustar el ancho de los campos de texto */
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="password"],
+  .form-group select {
+    width: 150%;
+    max-width: 150%;
+  }
+  
+
+  
+
+  #boton_registrarse {
+    margin-top: 20px;
+  }
+ 
+  

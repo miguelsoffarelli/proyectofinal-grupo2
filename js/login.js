@@ -29,14 +29,7 @@ const contrasenas = {
 //Codigo anterior para el log in, ahora para el registro. Anaden cualquier cosa y los deja entrar
 boton_registro.addEventListener('click', (e)=> {
     e.preventDefault()
-    if (username.value !== "" && contrasena.value !== ""){
-        localStorage.setItem(contrasena.value, username.value)
-        localStorage.setItem('isLoggedIn', 'true')
-        location.href = "index.html";
-    } else {
-        showAlertError()
-        
-    }
+    location.href = "register.html";
 })
 function verif(){
     if (username === 'usuario' && contrasena === 'contrasena') {
