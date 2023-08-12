@@ -1,6 +1,7 @@
 const salir = document.getElementById("exit");
 const dropbtn = document.getElementById("nav-dropbtn");
 const menu = document.getElementById("menu");
+const nombreUsuario = localStorage.getItem('user');
 
 document.addEventListener("DOMContentLoaded", validar() );
 // Verificar si el usuario está logueado
@@ -11,7 +12,9 @@ function validar(){
                                                  por lo que agregar la condición "isLoggedIn === "false" solucionó el problema.*/
     dropbtn.style.display = "none"; //Si no se está logeado (es decir, si "isLoggedIn" es falso), ocultamos el menu Cuenta
     window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
-    }  
+    } else {
+      welcome();
+    }
 }
 
   dropbtn.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
@@ -31,5 +34,14 @@ function cerrarSesion(event) { //creamos una función que registre en el almacen
 }
 
   salir.addEventListener("click", cerrarSesion); //agregamos un manejador de eventos para cuando se hace click en "Salir", que ejecuta la función cerrarSesion.
+
   
-  
+
+  function welcome() {
+    document.getElementById("alert-success").classList.add("show");
+    document.getElementById("welcome").textContent += `Bienvenido ${nombreUsuario}!`;
+    setTimeout(function() {
+        document.getElementById("alert-success").classList.remove("show");
+    }, 2000);
+}
+    
