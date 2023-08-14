@@ -1,7 +1,7 @@
 const salir = document.getElementById("exit");
 const dropbtn = document.getElementById("nav-dropbtn");
 const menu = document.getElementById("menu");
-const nombreUsuario = localStorage.getItem('user');
+const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacenado en el local storage para la clave user (ver register.js, el valor es usuario.value)
 
 document.addEventListener("DOMContentLoaded", validar() );
 // Verificar si el usuario está logueado
@@ -37,11 +37,11 @@ function cerrarSesion(event) { //creamos una función que registre en el almacen
 
   
 
-  function welcome() {
-    document.getElementById("alert-success").classList.add("show");
-    document.getElementById("welcome").textContent += `Bienvenido ${nombreUsuario}!`;
+  function welcome() { //función que muestra alerta de bienvenida
+    document.getElementById("alert-success").classList.add("show"); //añadimos la clase show a la alerta para que se vuelva visible
+    document.getElementById("welcome").textContent += `Bienvenido ${nombreUsuario}!`; //accedemos al párrafo de id welcome para añadirle el texto deseado
     setTimeout(function() {
-        document.getElementById("alert-success").classList.remove("show");
+        document.getElementById("alert-success").classList.remove("show"); //luego de el tiempo especificado se elimina la clase show para que la alerta vuelva a estar oculta
     }, 2000);
 }
     

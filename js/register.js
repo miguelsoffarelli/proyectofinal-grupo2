@@ -9,7 +9,7 @@ const email = document.getElementById("email");
 
 regbtn.addEventListener('click', (e)=> { //añadimos un manejador de eventos para click
     e.preventDefault()
-    if (fname.value !== "" && lname.value !=="" && uName.value !== "" && pass1.value !== "" && pass2.value && email.value !== ""){ //si se cumplen estas condiciones 
+    if (fname.value !== "" && lname.value !=="" && usuario.value !== "" && pass1.value !== "" && pass2.value && email.value !== ""){ //si se cumplen estas condiciones 
         localStorage.setItem("user", usuario.value);                                                                             //se guardan los datos en localStorage
         localStorage.setItem('isLoggedIn', 'true');                                                                        //se guarda la sesión 
         showAlertSuccess();                                                                                                //se muestra alerta de éxito
