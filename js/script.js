@@ -2,6 +2,7 @@ const salir = document.getElementById("exit");
 const dropbtn = document.getElementById("nav-dropbtn");
 const menu = document.getElementById("menu");
 const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacenado en el local storage para la clave user (ver register.js, el valor es usuario.value)
+const enlaceLogin = document.getElementById("linkLogin");
 
 document.addEventListener("DOMContentLoaded", validar() );
 // Verificar si el usuario está logueado
@@ -12,10 +13,14 @@ function validar(){
                                                  por lo que agregar la condición "isLoggedIn === "false" solucionó el problema.*/
     dropbtn.style.display = "none"; //Si no se está logeado (es decir, si "isLoggedIn" es falso), ocultamos el menu Cuenta
     window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
+    } else if (nombreUsuario === 'Invitado') {
+      dropbtn.style.display = "none";
+      enlaceLogin.removeAttribute('hidden');
+      welcome();
     } else {
       welcome();
-    }
-}
+    };
+};
 
   dropbtn.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
     event.stopPropagation();
@@ -30,6 +35,7 @@ function validar(){
 function cerrarSesion(event) { //creamos una función que registre en el almacenamiento del navegador que la sesión está cerrada.
     event.preventDefault(); //Evitamos el comportamiento por defecto del elemento, que al tratarse de un enlace con el atributo href="#", nos redireccionaría hacia /#
     localStorage.setItem('isLoggedIn', 'false'); //indicamos que la sesión está cerrada
+    localStorage.removeItem('user'); // Eliminamos el dato guardado para que al volver a loguearse o registrarse pueda guardar uno nuevo
     validar(); //invocamos la función validar para que se oculte el elemento con el menu y nos redireccione al login sin necesidad de refrescar la página.
 }
 

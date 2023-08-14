@@ -15,10 +15,10 @@ function showProducts(products) {
           <p class="product-sold">${product.soldCount} vendidos</p>
         </div>
       `;
-    }
+    };
 
     container.innerHTML = htmlContentToAppend;
-}
+};
 
 
 async function getProducts() {
@@ -28,7 +28,7 @@ async function getProducts() {
         showProducts(data.products);
     } else {
         alert("ERROR!" + response.status);
-    }
+    };
 };
 
 getProducts();
