@@ -5,6 +5,7 @@ const contrasena = document.getElementById('contrasena');
 const boton_login = document.getElementById('boton_login');
 const boton_registro = document.getElementById('boton_register');
 const saltarLogin = document.getElementById('skip');
+const rememberMeCheckbox = document.getElementById('rememberMe');
 
 
 //Codigo anterior para el log in, ahora para el registro. Anaden cualquier cosa y los deja entrar
@@ -17,6 +18,13 @@ boton_registro.addEventListener('click', (e)=> {
 boton_login.addEventListener('click', (e)=> {
     e.preventDefault();
     if (username.value !== "" && contrasena.value !== ""){
+        if (rememberMeCheckbox.checked) {
+            localStorage.setItem('savedUser', username.value);
+            localStorage.setItem('savedPassword', contrasena.value);
+        } else {
+            localStorage.removeItem('savedUser');
+            localStorage.removeItem('savedPassword');
+        }
         localStorage.setItem('user', username.value);
         localStorage.setItem('isLoggedIn', 'true');
         location.href = "index.html";
@@ -42,3 +50,13 @@ saltarLogin.addEventListener('click', (e)=> {
     localStorage.setItem('isLoggedIn', 'true');
     location.href = "index.html";
 });
+
+window.addEventListener('load', () => {
+    const savedUser = localStorage.getItem('savedUser');
+    const savedPassword = localStorage.getItem('savedPassword');
+  
+    if (savedUser && savedPassword) {
+      username.value = savedUser;
+      contrasena.value = savedPassword;
+    };
+  });
