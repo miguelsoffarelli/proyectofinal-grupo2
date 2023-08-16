@@ -222,3 +222,7 @@ a.custom-card:hover {
   right: 0.5rem;
   bottom: 0.5rem;
 }
+
+.row:hover {
+  background-color:rgba(132, 143, 217, 0.2);
+}

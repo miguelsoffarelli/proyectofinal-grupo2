@@ -9,9 +9,9 @@ function showProducts(products) {
     for (let i = 0; i < products.length; i++) {
         let product = products[i];
         htmlContentToAppend += `
-        <div class="container list-group">
-        <div class="product row m-4 ">
-        <div class="col-3 list-group-item d-flex justify-content-between">
+        <div class="container list-group m-4">
+        <div class="product row list-group-item d-flex justify-content-between">
+        <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
         </div>
         <div class="col-7">
