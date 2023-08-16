@@ -32,3 +32,14 @@ async function getProducts() {
 };
 
 getProducts();
+
+
+/* Otra forma:
+
+fetch(DATA_URL)
+.then(respuesta => respuesta.json())
+.then(data => {
+    showProducts(data)
+})
+
+*/
