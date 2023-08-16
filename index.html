@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
 <body>
@@ -29,8 +30,15 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="profile" href="my-profile.html">My profile</a>
+          <li class="nav-item">           
+              <a class="dropbtn" id="nav-dropbtn" href="#">Cuenta</a>
+              <div class="dropdown-content" id="menu">
+                <a href="my-profile.html">My Profile</a>
+                <a href="#" id="exit">Salir</a>
+              </div>                  
+          </li>
+          <li class="nav-item" id="linkLogin" hidden>
+            <a href="login.html" class="nav-link">Login</a>
           </li>
         </ul>
       </div>
@@ -77,6 +85,12 @@
         </div>
       </div>
     </div>
+
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p id="welcome"></p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">
@@ -89,7 +103,6 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/index.js"></script>
   <script src="js/init.js"></script>
-  <script src="js/script.js"></script>
 </body>
 
 </html>

@@ -188,6 +188,41 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
-#profile {
-  visibility: hidden;
+
+.dropdown-content {
+  position: absolute;
+  display: none; 
+  padding: 1rem;
+  background-color: #212529;
+  padding-left: 0.5rem;
+}
+
+.dropdown-content a {
+  display: block;
+  color:rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.dropdown-content a:hover {
+  color:rgba(255, 255, 255, 0.75);
+}
+
+.dropbtn:hover {
+  color:rgba(255, 255, 255, 0.75);
+}
+
+.dropbtn {
+  color:rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 1;
+  left: 0.5rem;
+  top: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+}
+
+.row:hover {
+  background-color:rgba(132, 143, 217, 0.2);
 }

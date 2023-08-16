@@ -46,10 +46,13 @@
         <form method="post" action="" id="registroForm">
           <input type="text" name="u" placeholder="Usuario" required="required" id="username" />
             <input type="password" name="p" placeholder="Contraseña" required="required" id="contrasena"/>
+            <input type="checkbox" name="remember" id="rememberMe">Recordarme
             <button type="submit" class="btn btn-primary btn-block btn-large" id="boton_login">Ingresar</button>
         </form>
         <br>
-        <button class="btn btn-primary btn-block btn-large" id="boton_register">Registrarse</button>
+        <p>¿Aún no estás registrado?</p>
+        <button class="btn btn-primary btn-block btn-large" id="boton_register">Registrarse</button><br>
+        <p><a href="#" id="skip">Continuar sin iniciar sesión</a></p>
     </div>
     <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
       <p>Por favor complete los datos solicitados para continuar.</p>
@@ -58,9 +61,6 @@
   </main>
   <footer class="text-muted">
     <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
       <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
     </div>
   </footer>
