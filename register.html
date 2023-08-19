@@ -39,7 +39,7 @@
                     <form action="" method="post" id="formReg">
                         <div class="form-group">
                             <label for="fname">
-                                Nombre completo: <input type="text" class="form-control vertical" name="nombre" placeholder="Nombre" required id="fname"/>
+                                Nombre completo: <span style="color: red;">*</span><input type="text" class="form-control vertical" name="nombre" placeholder="Nombre" required id="fname"/>
                             </label>
                         </div>
                         <div class="form-group">
@@ -49,22 +49,22 @@
                         </div>
                         <div class="form-group">
                             <label for="uName">
-                                Nombre de usuario: <input type="text" class="form-control vertical" name="username" placeholder="Nombre de usuario" id="uName" required/>
+                                Nombre de usuario: <span style="color: red;">*</span><input type="text" class="form-control vertical" name="username" placeholder="Nombre de usuario" id="uName" required/>
                             </label>
                         </div>
                         <div class="form-group">
                             <label for="email">
-                                Correo electrónico: <input type="email" class="form-control vertical" name="mail" placeholder="alguien@ejemplo.com" id="email" required/>
+                                Correo electrónico: <span style="color: red;">*</span><input type="email" class="form-control vertical" name="mail" placeholder="alguien@ejemplo.com" id="email" required/>
                             </label>
                         </div>
                         <div class="form-group">
                             <label for="pass1">
-                                Contraseña: <input type="password" class="form-control vertical" name="password1" placeholder="Contraseña" id="pass1" required/>
+                                Contraseña: <span style="color: red;">*</span><input type="password" class="form-control vertical" name="password1" placeholder="Contraseña" id="pass1" required/>
                             </label>
                         </div>
                         <div class="form-group">
                             <label for="pass2">
-                                Confirmar contraseña: <input type="password" class="form-control vertical" name="password2" placeholder="Repite la contraseña" id="pass2" required/>
+                                Confirmar contraseña: <span style="color: red;">*</span><input type="password" class="form-control vertical" name="password2" placeholder="Repite la contraseña" id="pass2" required/>
                             </label>
                         </div>
                         <div class="form-group">
@@ -101,10 +101,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="terms">
-                                    <input type="checkbox" name="terminos" id="terms" required> He leído y acepto los términos y condiciones.
+                                    <input type="checkbox" name="terminos" id="terms" required> He leído y acepto los términos y condiciones. <span style="color: red;">*</span>
                                 </label>
                             </div>  
                         </div>
+                        <small>Los campos marcados con (<span style="color: red;">*</span>) son obligatorios.</small>
                              
                         <button type="submit" class="btn btn-primary btn-block btn-large" id="boton_registrarse">Registrarse</button>
                     </form>
