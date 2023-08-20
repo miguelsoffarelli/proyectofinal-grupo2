@@ -29,13 +29,25 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item">           
+              <a class="dropbtn" id="nav-dropbtn" href="#">Cuenta</a>
+              <div class="dropdown-content" id="menu">
+                <a href="my-profile.html">My Profile</a>
+                <a href="#" id="exit">Salir</a>
+              </div>                  
+          </li>
+          <li class="nav-item" id="linkLogin" hidden>
+            <a href="login.html" class="nav-link">Login</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <main>
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p id="welcome"></p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="jumbotron text-center"></div>
     <div class="album py-5 bg-light">
       <div class="container">
@@ -76,6 +88,9 @@
         </div>
       </div>
     </div>
+
+    
+
   </main>
   <footer class="text-muted">
     <div class="container">

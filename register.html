@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link href="css/register.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100 justify-content-between">
+              <li class="nav-item">
+                <a class="nav-link active" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="categories.html">Categorías</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sell.html">Vender</a>
+              </li>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="registro">
+                    <h1 id="registrarse">Registrarse</h1><br>
+                    <form action="" method="post" id="formReg">
+                        <div class="form-group">
+                            <label for="fname">
+                                Nombre completo: <span style="color: red;">*</span><input type="text" class="form-control vertical" name="nombre" placeholder="Nombre" required id="fname"/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">
+                                <input type="text" class="form-control vertical" name="apellido" placeholder="Apellido" id="lname" required/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="uName">
+                                Nombre de usuario: <span style="color: red;">*</span><input type="text" class="form-control vertical" name="username" placeholder="Nombre de usuario" id="uName" required/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">
+                                Correo electrónico: <span style="color: red;">*</span><input type="email" class="form-control vertical" name="mail" placeholder="alguien@ejemplo.com" id="email" required/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass1">
+                                Contraseña: <span style="color: red;">*</span><input type="password" class="form-control vertical" name="password1" placeholder="Contraseña" id="pass1" required/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass2">
+                                Confirmar contraseña: <span style="color: red;">*</span><input type="password" class="form-control vertical" name="password2" placeholder="Repite la contraseña" id="pass2" required/>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="departamento">
+                                Departamento: <select name="dpto" class="form-control vertical" id="departamento">
+                                    <option selected disabled value="nada">Seleccione una opción</option>
+                                    <option value="artigas">Artigas</option>
+                                    <option value="canelones">Canelones</option>
+                                    <option value="cerrolargo">Cerro Largo</option>
+                                    <option value="colonia">Colonia</option>
+                                    <option value="durazno">Durazno</option>
+                                    <option value="flores">Flores</option>
+                                    <option value="florida">Florida</option>
+                                    <option value="lavalleja">Lavalleja</option>
+                                    <option value="maldonado">Maldonado</option>
+                                    <option value="montevideo">Montevideo</option>
+                                    <option value="paysandu">Paysandú</option>
+                                    <option value="rionegro">Río Negro</option>
+                                    <option value="rivera">Rivera</option>
+                                    <option value="rocha">Rocha</option>
+                                    <option value="salto">Salto</option>
+                                    <option value="sanjose">San José</option>
+                                    <option value="soriano">Soriano</option>
+                                    <option value="tacuarembo">Tacuarembó</option>
+                                    <option value="tyt">Treinta y Tres</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label for="offers">
+                                    <input type="checkbox" name="ofertas" id="offers"> Marque esta casilla si desea recibir nuestro boletín semanal con las mejores ofertas.
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="terms">
+                                    <input type="checkbox" name="terminos" id="terms" required> He leído y acepto los términos y condiciones. <span style="color: red;">*</span>
+                                </label>
+                            </div>  
+                        </div>
+                        <small>Los campos marcados con (<span style="color: red;">*</span>) son obligatorios.</small>
+                             
+                        <button type="submit" class="btn btn-primary btn-block btn-large" id="boton_registrarse">Registrarse</button>
+                    </form>
+                </div>
+            </div>    
+        </div>
+
+        <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+            <p>Registro completo. En breve serás redireccionado a la página principal.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+        <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+            <p>Por favor complete los datos solicitados para continuar.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+    </main>
+
+    <footer class="text-muted">
+        <div class="container">
+          <p class="float-end">
+            <a href="#">Volver arriba</a>
+          </p>
+          <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+        </div>
+      </footer>
+
+    <script src="js/register.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/init.js"></script>
+</body>
+</html>
