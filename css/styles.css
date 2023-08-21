@@ -238,3 +238,7 @@ height: 15px;
 input[type="checkbox"] + label {
   color: white;
 }
+
+.filtro {
+  display:none
+}

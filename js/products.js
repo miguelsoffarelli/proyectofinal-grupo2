@@ -9,7 +9,7 @@ function showProducts(products) {
     for (let i = 0; i < products.length; i++) {
         let product = products[i];
         htmlContentToAppend += `
-        <div class="container list-group m-4">
+        <div class="container list-group m-4 producto" id="${product.name}">
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
@@ -53,3 +53,13 @@ fetch(DATA_URL)
 })
 
 */
+
+document.addEventListener('keyup', e =>{
+  if (e.target.matches("#buscador")){
+    document.querySelectorAll(".producto").forEach(product =>{
+      product.id.toLowerCase().includes(e.target.value.toLowerCase())
+        ?product.classList.remove('filtro')
+        :product.classList.add("filtro")
+    })
+  }
+})
