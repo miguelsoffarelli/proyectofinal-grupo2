@@ -242,3 +242,14 @@ input[type="checkbox"] + label {
 .filtro {
   display:none
 }
+
+.barra_buscador{
+  margin-top: 2%;
+  max-width: 500px;
+}
+
+#buscador{
+  outline:0 none;
+  box-shadow: none;
+
+}
