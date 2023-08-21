@@ -54,12 +54,18 @@ fetch(DATA_URL)
 
 */
 
-document.addEventListener('keyup', e =>{
-  if (e.target.matches("#buscador")){
-    document.querySelectorAll(".producto").forEach(product =>{
-      product.id.toLowerCase().includes(e.target.value.toLowerCase())
-        ?product.classList.remove('filtro')
-        :product.classList.add("filtro")
+document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
+  if (e.target.matches("#buscador")){ //si el parametro hace "match" con el buscador
+    document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
+      product.id.toLowerCase().includes(e.target.value.toLowerCase()) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
+        ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
+        :product.classList.add("filtro") // si no, se le agrega la clase filtro
     })
   }
 })
+
+//En products.html agregue el buscador con el id="buscador". 
+// En la funcion showProducts modifique la primer linea de lo que se apendea esto:
+// <div class="container list-group m-4 producto" id="${product.name}">
+// le agregue como id el nombre del producto para compararlo con la busqueda.
+// en styles.css agregue la clase filtro para que cuando se le agrega al div no se vea.
