@@ -2,7 +2,8 @@ const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js
                                                  // categoría en localStorage, accedemos a ella
 const DATA_URL = "https://japceibal.github.io/emercado-api/cats_products/" + categoria + ".json"; // y reemplazamos en la url por la id de la api correspondiente
 const container = document.getElementById("product-list");
-const ordenar_mayor = document.getElementById('ordenar_mayor')
+const ordenar_desc = document.getElementById('priceDesc')
+const ordenar_asc = document.getElementById('priceAsc')
 
 function showProducts(products) {
     let htmlContentToAppend = "";
@@ -44,7 +45,7 @@ async function getProducts() {
 
 getProducts();
 
-function ordenar_mayor_precio(){
+function ordenar_menor_precio(){
   //const para_borrar = document.getElementsByClassName('producto')
   //container.removeChild(para_borrar)
   fetch(DATA_URL)
@@ -62,7 +63,7 @@ function ordenar_mayor_precio(){
     for (producto of data.products){
       console.log(precio);
       console.log(producto);
-      if (precio.value == producto.cost.value  && !(lista_ordenada_menor.includes(producto))){
+      if (precio == producto.cost  && !(lista_ordenada_menor.includes(producto))){
         lista_ordenada_menor.push(producto);
       }
     }
@@ -97,8 +98,8 @@ function ordenar_mayor_precio(){
 )}
 
 
-ordenar_mayor.addEventListener('click', ()=>{
-  ordenar_mayor_precio()
+ordenar_asc.addEventListener('click', ()=>{
+  ordenar_menor_precio()
   
 })
 
