@@ -223,6 +223,18 @@ a.custom-card:hover {
   bottom: 0.5rem;
 }
 
-.row:hover {
+.product.row.list-group-item.d-flex.justify-content-between:hover {
   background-color:rgba(132, 143, 217, 0.2);
+}
+
+#rememberMe{
+align-items: center;
+padding: 4px;
+border: 3px blue;
+width: 15px;
+height: 15px;
+}
+
+input[type="checkbox"] + label {
+  color: white;
 }

@@ -1,4 +1,4 @@
-//Volver al "tercer commit" para volver a lo de antes
+
 
 const username = document.getElementById('username');
 const contrasena = document.getElementById('contrasena');
@@ -8,7 +8,7 @@ const saltarLogin = document.getElementById('skip');
 const rememberMeCheckbox = document.getElementById('rememberMe');
 
 
-//Codigo anterior para el log in, ahora para el registro. Anaden cualquier cosa y los deja entrar
+
 boton_registro.addEventListener('click', (e)=> {
     e.preventDefault();
     location.href = "register.html";
