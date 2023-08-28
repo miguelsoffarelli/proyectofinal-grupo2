@@ -209,20 +209,6 @@ a.custom-card:hover {
   color:rgba(255, 255, 255, 0.75);
 }
 
-.dropbtn:hover {
-  color:rgba(255, 255, 255, 0.75);
-}
-
-.dropbtn {
-  color:rgba(255, 255, 255, 0.5);
-  position: relative;
-  z-index: 1;
-  left: 0.5rem;
-  top: 0.5rem;
-  right: 0.5rem;
-  bottom: 0.5rem;
-}
-
 .product.row.list-group-item.d-flex.justify-content-between:hover {
   background-color:rgba(132, 143, 217, 0.2);
 }
@@ -252,4 +238,10 @@ input[type="checkbox"] + label {
   outline:0 none;
   box-shadow: none;
 
+}
+
+#avatar{
+  width: 30px;
+  margin-right: 10px;
+  top: 50%;
 }

@@ -17,7 +17,7 @@ boton_registro.addEventListener('click', (e)=> {
 
 boton_login.addEventListener('click', (e)=> {
     e.preventDefault();
-    if (username.value !== "" && contrasena.value !== ""){
+    if (username.value !== "" && contrasena.value !== "" && contrasena.value.length >= 6){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
         if (rememberMeCheckbox.checked) {
             localStorage.setItem('savedUser', username.value);
             localStorage.setItem('savedPassword', contrasena.value);
@@ -29,6 +29,10 @@ boton_login.addEventListener('click', (e)=> {
         localStorage.setItem('isLoggedIn', 'true');
         location.href = "index.html";
     } else {
+        if (username.value !== "" && contrasena.value.length < 6){ // Cambiamos la alerta para cuando sí se ingresan los campos solicitados pero la contraseña no tiene 6 caracteres o más.
+            document.getElementById('alertMessage').innerHTML = "Contraseña incorrecta. La contraseña debe tener como mínimo 6 caracteres";
+            showAlertError();
+        };
         showAlertError();
         
     };
