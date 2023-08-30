@@ -103,7 +103,63 @@ ordenar_asc.addEventListener('click', ()=>{
   
 })
 
+function ordenar_mayor_precio(){
+  //const para_borrar = document.getElementsByClassName('producto')
+  //container.removeChild(para_borrar)
+  fetch(DATA_URL)
+  .then(respuesta => respuesta.json())
+  .then(data => {
+  let numeros = []
+  let lista_ordenada_mayor = []
+  for (producto of data.products){
+      numeros.push(producto.cost);
+  }
+  
+  numeros.sort((a, b) => b - a);
+  console.log(numeros);
+  for (precio of numeros){
+    for (producto of data.products){
+      console.log(precio);
+      console.log(producto);
+      if (precio == producto.cost  && !(lista_ordenada_mayor.includes(producto))){
+        lista_ordenada_mayor.push(producto);
+      }
+    }
+  }
 
+
+  console.log(lista_ordenada_mayor)
+  let htmlContentToAppend = "";
+
+    for (let i = 0; i < lista_ordenada_mayor.length; i++) {
+        let product = lista_ordenada_mayor[i];
+        htmlContentToAppend += `
+        <div class="container list-group m-4 producto" id="${product.name}">
+        <div class="product row list-group-item d-flex justify-content-between">
+        <div class="col-3">
+          <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
+        </div>
+        <div class="col-7">
+          <h2 class="product-name">${product.name}</h2>
+          <p class="product-description">${product.description}</p>
+          <p class="product-cost">${product.currency} ${product.cost}</p>
+        </div>
+        <div class="col-2 text-muted">
+          <p class="product-sold">${product.soldCount} vendidos</p>
+        </div>
+        </div>
+        </div>
+      `;
+    }
+  container.innerHTML = htmlContentToAppend;
+}
+)}
+
+
+ordenar_desc.addEventListener('click', ()=>{
+  ordenar_mayor_precio()
+  
+})
 
 /* Otra forma:
 
