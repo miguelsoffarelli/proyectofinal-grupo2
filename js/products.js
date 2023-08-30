@@ -7,77 +7,27 @@ const ordenar_asc = document.getElementById('priceAsc');
 const ordenar_rel = document.getElementById('rel');
 const minimo = document.getElementById('rangeFilterCountMin');
 const maximo = document.getElementById('rangeFilterCountMax');
+const limpiar = document.getElementById('clearRangeFilter');
+let products = "";
 
-function showProducts(products) {
-    let htmlContentToAppend = "";
-
-    for (let i = 0; i < products.length; i++) {
-        let product = products[i];
-        htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.name}">
-        <div class="product row list-group-item d-flex justify-content-between">
-        <div class="col-3">
-          <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
-        </div>
-        <div class="col-7">
-          <h2 class="product-name">${product.name}</h2>
-          <p class="product-description">${product.description}</p>
-          <p class="product-cost">${product.currency} ${product.cost}</p>
-        </div>
-        <div class="col-2 text-muted">
-          <p class="product-sold">${product.soldCount} vendidos</p>
-        </div>
-        </div>
-        </div>
-      `;
-    }
-
-    container.innerHTML = htmlContentToAppend;
-}
-
-
-async function getProducts() {
-    let response = await fetch(DATA_URL);
-    if (response.ok){
-        let data = await response.json();
-        showProducts(data.products);
-    } else {
-        alert("ERROR!" + response.status);
-    };
+function fetchData(funcion) {
+  try {
+    return fetch(DATA_URL)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      funcion(data);
+    })
+  } catch {
+    alert("ERROR!" + response.status);
+  };
 };
 
-getProducts();
-
-function ordenar_menor_precio(){
-  //const para_borrar = document.getElementsByClassName('producto')
-  //container.removeChild(para_borrar)
-  fetch(DATA_URL)
-  .then(respuesta => respuesta.json())
-  .then(data => {
-  let numeros = []
-  let lista_ordenada_menor = []
-  for (producto of data.products){
-      numeros.push(producto.cost);
-  }
-  
-  numeros.sort((a, b) => a - b);
-  console.log(numeros);
-  for (precio of numeros){
-    for (producto of data.products){
-      console.log(precio);
-      console.log(producto);
-      if (precio == producto.cost  && !(lista_ordenada_menor.includes(producto))){
-        lista_ordenada_menor.push(producto);
-      }
-    }
-  }
-
-
-  console.log(lista_ordenada_menor)
+function showProducts(data) {
   let htmlContentToAppend = "";
-
-    for (let i = 0; i < lista_ordenada_menor.length; i++) {
-        let product = lista_ordenada_menor[i];
+  let products = data.products;
+  console.log(products);  
+    for (let product of products) {     
         htmlContentToAppend += `
         <div class="container list-group m-4 producto" id="${product.name}">
         <div class="product row list-group-item d-flex justify-content-between">
@@ -95,143 +45,89 @@ function ordenar_menor_precio(){
         </div>
         </div>
       `;
-    }
-  container.innerHTML = htmlContentToAppend;
-}
-)}
+    };
+    container.innerHTML = htmlContentToAppend;
+};
+
+
+
+window.addEventListener('load', () => {
+  fetchData(showProducts);
+});
+
+
+function ordenar_menor_precio(data){   
+  let lista_ordenada_menor = [];
+  let numeros = [];
+  for (product of data.products){
+      numeros.push(product.cost);
+  }
+  numeros.sort((a, b) => a - b);
+  for (precio of numeros){
+    for (product of data.products){
+      if (precio == product.cost  && !(lista_ordenada_menor.includes(product))){
+        lista_ordenada_menor.push(product);
+      };
+    };
+  };
+  showProducts({products: lista_ordenada_menor});
+};
 
 
 ordenar_asc.addEventListener('click', ()=>{
-  ordenar_menor_precio()
-  
-})
+  fetchData(ordenar_menor_precio);  
+});
 
-function ordenar_mayor_precio(){
-  //const para_borrar = document.getElementsByClassName('producto')
-  //container.removeChild(para_borrar)
-  fetch(DATA_URL)
-  .then(respuesta => respuesta.json())
-  .then(data => {
-  let numeros = []
-  let lista_ordenada_mayor = []
-  for (producto of data.products){
-      numeros.push(producto.cost);
+
+function ordenar_mayor_precio(data){
+  let lista_ordenada_mayor = [];
+  let numeros = [];
+  for (product of data.products){
+      numeros.push(product.cost);
   }
-  
   numeros.sort((a, b) => b - a);
-  console.log(numeros);
   for (precio of numeros){
-    for (producto of data.products){
-      console.log(precio);
-      console.log(producto);
-      if (precio == producto.cost  && !(lista_ordenada_mayor.includes(producto))){
-        lista_ordenada_mayor.push(producto);
-      }
-    }
-  }
+    for (product of data.products){
+      if (precio == product.cost  && !(lista_ordenada_mayor.includes(product))){
+        lista_ordenada_mayor.push(product);
+      };
+    };
+  };
+  showProducts({products: lista_ordenada_mayor});
+};
 
-
-  console.log(lista_ordenada_mayor)
-  let htmlContentToAppend = "";
-
-    for (let i = 0; i < lista_ordenada_mayor.length; i++) {
-        let product = lista_ordenada_mayor[i];
-        htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.name}">
-        <div class="product row list-group-item d-flex justify-content-between">
-        <div class="col-3">
-          <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
-        </div>
-        <div class="col-7">
-          <h2 class="product-name">${product.name}</h2>
-          <p class="product-description">${product.description}</p>
-          <p class="product-cost">${product.currency} ${product.cost}</p>
-        </div>
-        <div class="col-2 text-muted">
-          <p class="product-sold">${product.soldCount} vendidos</p>
-        </div>
-        </div>
-        </div>
-      `;
-    }
-  container.innerHTML = htmlContentToAppend;
-}
-)}
 
 
 ordenar_desc.addEventListener('click', ()=>{
-  ordenar_mayor_precio()
-  
+  fetchData(ordenar_mayor_precio);  
 });
 
-function ordenar_relevancia(){
-  //const para_borrar = document.getElementsByClassName('producto')
-  //container.removeChild(para_borrar)
-  fetch(DATA_URL)
-  .then(respuesta => respuesta.json())
-  .then(data => {
-  let numeros = []
+
+
+function ordenar_relevancia(data){
+  let numeros = [];
   let lista_ordenada_relevancia = []
-  for (producto of data.products){
-      numeros.push(producto.soldCount);
+  for (product of data.products){
+      numeros.push(product.soldCount);
   }
-  
   numeros.sort((a, b) => b - a);
-  console.log(numeros);
   for (vendidos of numeros){
-    for (producto of data.products){
-      console.log(vendidos);
-      console.log(producto);
-      if (vendidos == producto.soldCount  && !(lista_ordenada_relevancia.includes(producto))){
-        lista_ordenada_relevancia.push(producto);
-      }
-    }
-  }
+    for (product of data.products){
+      if (vendidos == product.soldCount  && !(lista_ordenada_relevancia.includes(product))){
+        lista_ordenada_relevancia.push(product);
+      };
+    };
+  };
+  showProducts({products: lista_ordenada_relevancia});
+};
 
-
-  console.log(lista_ordenada_relevancia)
-  let htmlContentToAppend = "";
-
-    for (let i = 0; i < lista_ordenada_relevancia.length; i++) {
-        let product = lista_ordenada_relevancia[i];
-        htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.name}">
-        <div class="product row list-group-item d-flex justify-content-between">
-        <div class="col-3">
-          <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
-        </div>
-        <div class="col-7">
-          <h2 class="product-name">${product.name}</h2>
-          <p class="product-description">${product.description}</p>
-          <p class="product-cost">${product.currency} ${product.cost}</p>
-        </div>
-        <div class="col-2 text-muted">
-          <p class="product-sold">${product.soldCount} vendidos</p>
-        </div>
-        </div>
-        </div>
-      `;
-    }
-  container.innerHTML = htmlContentToAppend;
-}
-)}
 
 
 ordenar_rel.addEventListener('click', ()=>{
-  ordenar_relevancia();
-  
+  fetchData(ordenar_relevancia);  
 });
 
-/* Otra forma:
 
-fetch(DATA_URL)
-.then(respuesta => respuesta.json())
-.then(data => {
-    showProducts(data)
-    
-})
-
-*/
 
 document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
   if (e.target.matches("#buscador")){ //si el parametro hace "match" con el buscador
@@ -239,9 +135,9 @@ document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apr
       product.id.toLowerCase().includes(e.target.value.toLowerCase()) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
         ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
         :product.classList.add("filtro") // si no, se le agrega la clase filtro
-    })
-  }
-})
+    });
+  };
+});
 
 //En products.html agregue el buscador con el id="buscador". 
 // En la funcion showProducts modifique la primer linea de lo que se apendea esto:
@@ -254,14 +150,14 @@ minimo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apret
   .then(respuesta => respuesta.json())
   .then(data => {
   showProductsMinMax(data);
-  if (maximo.value) {
+  if (maximo.value) {    
     if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
     document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
       parseInt(product.id) >= parseInt(minimo.value) && parseInt(product.id) <= parseInt(maximo.value) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
         ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
         :product.classList.add("filtro") // si no, se le agrega la clase filtro
-    })
-  }
+      })
+    }
   } else {
      if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
       document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
@@ -269,11 +165,11 @@ minimo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apret
           ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
           :product.classList.add("filtro") // si no, se le agrega la clase filtro
         });
-  };
-}
-e.stopPropagation();
-})
-})
+      };
+    };  
+  });
+  e.stopPropagation();
+});
 
 
 maximo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
@@ -289,24 +185,23 @@ maximo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apret
           :product.classList.add("filtro") // si no, se le agrega la clase filtro
         })
       }
-    } else {
-      if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
-        document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-          parseInt(product.id) <= parseInt(maximo.value)//toma el id del producto y se fija si lo que escribimos en el buscador coincide
-            ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-            :product.classList.add("filtro") // si no, se le agrega la clase filtro
-          });
+  } else {
+    if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
+      document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
+        parseInt(product.id) <= parseInt(maximo.value)//toma el id del producto y se fija si lo que escribimos en el buscador coincide
+          ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
+          :product.classList.add("filtro") // si no, se le agrega la clase filtro
+        });
+      };
     };
-  }
-e.stopPropagation();
-});
+  });
+  e.stopPropagation();
 });
 
 
 function showProductsMinMax(data) {
-  let htmlContentToAppend = ``
-      for (let product of data.products) {
-        
+  let htmlContentToAppend = "";
+      for (let product of data.products) {        
         htmlContentToAppend += `
         <div class="container list-group m-4 producto" id="${product.cost}">
         <div class="product row list-group-item d-flex justify-content-between">
@@ -324,7 +219,33 @@ function showProductsMinMax(data) {
         </div>
         </div>
       `;
-    }
+    };
   container.innerHTML = htmlContentToAppend;
 }
 
+function minOfMax(){
+  if (minimo.value > maximo.value) {
+    maximo.value = minimo.value;
+    maximo.setAttribute("min", minimo.value);
+    };
+    maximo.addEventListener('focus', function() {
+      maximo.setSelectionRange(0, maximo.value.length);
+    });
+    maximo.focus();
+};
+
+
+  
+function clean(){
+  minimo.value = "";
+  maximo.value = "";
+  fetchData(showProducts);
+};
+
+
+maximo.addEventListener('click', () => {
+  minOfMax();
+});
+
+
+limpiar.addEventListener('click', () => {clean()});
