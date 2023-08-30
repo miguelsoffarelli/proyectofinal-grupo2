@@ -228,10 +228,8 @@ function minOfMax(){
     maximo.value = minimo.value;
     maximo.setAttribute("min", minimo.value);
     };
-    maximo.addEventListener('focus', function() {
-      maximo.setSelectionRange(0, maximo.value.length);
-    });
     maximo.focus();
+    maximo.select();
 };
 
 
@@ -243,7 +241,7 @@ function clean(){
 };
 
 
-maximo.addEventListener('click', () => {
+maximo.addEventListener('focus', () => {
   minOfMax();
 });
 

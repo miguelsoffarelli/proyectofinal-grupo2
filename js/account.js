@@ -40,5 +40,6 @@ function validar(){
       menu.remove();
     } else {
       dropbtn.innerHTML += nombreUsuario;
+      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
     };
 };
