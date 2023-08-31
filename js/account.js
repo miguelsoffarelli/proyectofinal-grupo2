@@ -35,7 +35,7 @@ function validar(){
     dropbtn.style.display = "none"; //Si no se está logeado (es decir, si "isLoggedIn" es falso), ocultamos el menu Cuenta
     window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
     } else if (nombreUsuario === 'Invitado') {
-      dropbtn.innerHTML = 'Login';
+      dropbtn.innerHTML = 'Iniciar Sesión';
       dropbtn.setAttribute('href', 'login.html');
       menu.remove();
     } else {

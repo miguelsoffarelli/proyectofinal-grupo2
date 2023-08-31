@@ -1,5 +1,4 @@
-const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la
-                                                 // categoría en localStorage, accedemos a ella
+const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
 const DATA_URL = "https://japceibal.github.io/emercado-api/cats_products/" + categoria + ".json"; // y reemplazamos en la url por la id de la api correspondiente
 const container = document.getElementById("product-list");
 const ordenar_desc = document.getElementById('priceDesc');
@@ -130,19 +129,19 @@ function elMinimo (data, e){
   limpiar.removeAttribute("disabled");
   showProductsMinMax(data);
   if (maximo.value) {    
-    if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
-    document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-      parseInt(product.id) >= parseInt(minimo.value) && parseInt(product.id) <= parseInt(maximo.value) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
-        ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-        :product.classList.add("filtro") // si no, se le agrega la clase filtro
+    if (e.target.matches('#rangeFilterCountMin')){ 
+    document.querySelectorAll(".producto").forEach(product =>{ 
+      parseInt(product.id) >= parseInt(minimo.value) && parseInt(product.id) <= parseInt(maximo.value)
+        ?product.classList.remove('filtro') 
+        :product.classList.add("filtro") 
       })
     }
   } else {
-     if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
-      document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-        parseInt(product.id) >= parseInt(minimo.value)//toma el id del producto y se fija si lo que escribimos en el buscador coincide
-          ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-          :product.classList.add("filtro") // si no, se le agrega la clase filtro
+     if (e.target.matches('#rangeFilterCountMin')){ 
+      document.querySelectorAll(".producto").forEach(product =>{ 
+        parseInt(product.id) >= parseInt(minimo.value)
+          ?product.classList.remove('filtro') 
+          :product.classList.add("filtro") 
         });
       };
     };  
@@ -153,19 +152,19 @@ function elMaximo (data, e){
   limpiar.removeAttribute("disabled");
   showProductsMinMax(data);
   if (minimo.value) {
-    if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
-      document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-        parseInt(product.id) <= parseInt(maximo.value) && parseInt(product.id) >= parseInt(minimo.value) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
-          ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-          :product.classList.add("filtro") // si no, se le agrega la clase filtro
+    if (e.target.matches('#rangeFilterCountMax')){ 
+      document.querySelectorAll(".producto").forEach(product =>{ 
+        parseInt(product.id) <= parseInt(maximo.value) && parseInt(product.id) >= parseInt(minimo.value) 
+          ?product.classList.remove('filtro') 
+          :product.classList.add("filtro") 
         })
       }
   } else {
-    if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
-      document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-        parseInt(product.id) <= parseInt(maximo.value)//toma el id del producto y se fija si lo que escribimos en el buscador coincide
-          ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-          :product.classList.add("filtro") // si no, se le agrega la clase filtro
+    if (e.target.matches('#rangeFilterCountMax')){ 
+      document.querySelectorAll(".producto").forEach(product =>{ 
+        parseInt(product.id) <= parseInt(maximo.value)
+          ?product.classList.remove('filtro')  
+          :product.classList.add("filtro") 
         });
       };
     };
