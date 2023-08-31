@@ -22,6 +22,7 @@ function cerrarSesion(event) { //creamos una función que registre en el almacen
     validar(); //invocamos la función validar para que se oculte el elemento con el menu y nos redireccione al login sin necesidad de refrescar la página.
 };
 
+
 salir.addEventListener("click", cerrarSesion); //agregamos un manejador de eventos para cuando se hace click en "Salir", que ejecuta la función cerrarSesion.
 
 

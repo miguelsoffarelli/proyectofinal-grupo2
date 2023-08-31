@@ -16,7 +16,6 @@ function fetchData(funcion) {
     return fetch(DATA_URL)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       funcion(data);
       titulo.innerText = data.catName;
     })
@@ -27,11 +26,10 @@ function fetchData(funcion) {
 
 function showProducts(data) {
   let htmlContentToAppend = "";
-  let products = data.products;
-  console.log(products);  
+  let products = data.products; 
     for (let product of products) {     
         htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.name}">
+        <div class="container list-group m-4 producto" data-name="${product.name}" data-description="${product.description}">
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
@@ -105,13 +103,14 @@ function ordenar_relevancia(data){
   showProducts({products: lista_ordenada_relevancia});
 };
 
-function buscador (data, e){
-  limpiar.removeAttribute("disabled");
-  if (e.target.matches("#buscador")){ //si el parametro hace "match" con el buscador
-    document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
-      product.id.toLowerCase().includes(e.target.value.toLowerCase()) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
-        ?product.classList.remove('filtro') // esto es una funcion pregunta, por lo que entendi. Si lo que escribimos en el buscador incluye el id del producto se le remueve la clase filtro
-        :product.classList.add("filtro") // si no, se le agrega la clase filtro
+ function buscador (data, e){
+  if (e.target.matches("#buscador")){ 
+    document.querySelectorAll(".producto").forEach(product =>{
+      if (product.dataset.name.toLowerCase().includes(e.target.value.toLowerCase()) || product.dataset.description.toLowerCase().includes(e.target.value.toLowerCase()) ){                                   
+        product.classList.remove('filtro');
+      } else{
+      product.classList.add("filtro"); 
+      };
     });
   };
 };
@@ -131,7 +130,7 @@ function elMinimo (data, e){
   if (maximo.value) {    
     if (e.target.matches('#rangeFilterCountMin')){ 
     document.querySelectorAll(".producto").forEach(product =>{ 
-      parseInt(product.id) >= parseInt(minimo.value) && parseInt(product.id) <= parseInt(maximo.value)
+      parseInt(product.dataset.cost) >= parseInt(minimo.value) && parseInt(product.dataset.cost) <= parseInt(maximo.value)
         ?product.classList.remove('filtro') 
         :product.classList.add("filtro") 
       })
@@ -139,7 +138,7 @@ function elMinimo (data, e){
   } else {
      if (e.target.matches('#rangeFilterCountMin')){ 
       document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.id) >= parseInt(minimo.value)
+        parseInt(product.dataset.cost) >= parseInt(minimo.value)
           ?product.classList.remove('filtro') 
           :product.classList.add("filtro") 
         });
@@ -154,7 +153,7 @@ function elMaximo (data, e){
   if (minimo.value) {
     if (e.target.matches('#rangeFilterCountMax')){ 
       document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.id) <= parseInt(maximo.value) && parseInt(product.id) >= parseInt(minimo.value) 
+        parseInt(product.dataset.cost) <= parseInt(maximo.value) && parseInt(product.dataset.cost) >= parseInt(minimo.value) 
           ?product.classList.remove('filtro') 
           :product.classList.add("filtro") 
         })
@@ -162,7 +161,7 @@ function elMaximo (data, e){
   } else {
     if (e.target.matches('#rangeFilterCountMax')){ 
       document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.id) <= parseInt(maximo.value)
+        parseInt(product.dataset.cost) <= parseInt(maximo.value)
           ?product.classList.remove('filtro')  
           :product.classList.add("filtro") 
         });
@@ -175,7 +174,7 @@ function showProductsMinMax(data) {
   let htmlContentToAppend = "";
       for (let product of data.products) {        
         htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.cost}">
+        <div class="container list-group m-4 producto" data-cost="${product.cost}">
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
