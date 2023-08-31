@@ -8,6 +8,8 @@ const ordenar_rel = document.getElementById('rel');
 const minimo = document.getElementById('rangeFilterCountMin');
 const maximo = document.getElementById('rangeFilterCountMax');
 const limpiar = document.getElementById('clearRangeFilter');
+const titulo = document.getElementById('categoryName');
+const searchBar = document.getElementById('buscador');
 let products = "";
 
 function fetchData(funcion) {
@@ -17,6 +19,7 @@ function fetchData(funcion) {
     .then(data => {
       console.log(data);
       funcion(data);
+      titulo.innerText = data.catName;
     })
   } catch {
     alert("ERROR!" + response.status);
@@ -50,6 +53,7 @@ function showProducts(data) {
 };
 
 function ordenar_menor_precio(data){   
+  limpiar.removeAttribute("disabled");
   let lista_ordenada_menor = [];
   let numeros = [];
   for (product of data.products){
@@ -67,6 +71,7 @@ function ordenar_menor_precio(data){
 };
 
 function ordenar_mayor_precio(data){
+  limpiar.removeAttribute("disabled");
   let lista_ordenada_mayor = [];
   let numeros = [];
   for (product of data.products){
@@ -84,6 +89,7 @@ function ordenar_mayor_precio(data){
 };
 
 function ordenar_relevancia(data){
+  limpiar.removeAttribute("disabled");
   let numeros = [];
   let lista_ordenada_relevancia = []
   for (product of data.products){
@@ -101,6 +107,7 @@ function ordenar_relevancia(data){
 };
 
 function buscador (data, e){
+  limpiar.removeAttribute("disabled");
   if (e.target.matches("#buscador")){ //si el parametro hace "match" con el buscador
     document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
       product.id.toLowerCase().includes(e.target.value.toLowerCase()) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
@@ -120,6 +127,7 @@ function buscador (data, e){
 
 
 function elMinimo (data, e){
+  limpiar.removeAttribute("disabled");
   showProductsMinMax(data);
   if (maximo.value) {    
     if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
@@ -142,6 +150,7 @@ function elMinimo (data, e){
 };
 
 function elMaximo (data, e){
+  limpiar.removeAttribute("disabled");
   showProductsMinMax(data);
   if (minimo.value) {
     if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
@@ -199,14 +208,15 @@ function minOfMax(){
 function clean(){
   minimo.value = "";
   maximo.value = "";
+  searchBar.value = "";
   fetchData(showProducts);
+  limpiar.setAttribute("disabled", "");
 };
-
-
 
 
 window.addEventListener('load', () => {
   fetchData(showProducts);
+  
 });
 
 ordenar_asc.addEventListener('click', () => {

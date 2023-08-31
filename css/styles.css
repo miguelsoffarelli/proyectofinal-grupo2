@@ -195,6 +195,7 @@ a.custom-card:hover {
   padding: 1rem;
   background-color: #212529;
   padding-left: 0.5rem;
+  z-index: 2;
 }
 
 .dropdown-content a {
@@ -244,4 +245,14 @@ input[type="checkbox"] + label {
   width: 30px;
   margin-right: 10px;
   top: 50%;
+}
+
+#clearRangeFilter{
+  height: 36px;
+  vertical-align: middle;
+  width: 85px;
+}
+
+#sortInfo{
+  padding: 5px;
 }

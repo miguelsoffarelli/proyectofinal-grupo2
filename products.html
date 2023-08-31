@@ -42,16 +42,20 @@
     </div>
   </nav>
   <main class="pb-5 container">
+    <div class="text-center p-4">
+      <h2 id="categoryName"></h2>
+    </div>
     <div class="container">
-      <div class="row">
+      <div class="row">       
         <div class="col text-end">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+            <span id="sortInfo">Ordenar:</span>
             <input type="radio" class="btn-check" name="options" id="priceDesc">
-            <label class="btn btn-light" for="priceDesc"><i class="fas fa-sort-amount-up mr-1 text-muted active">$</i></label>
+            <label class="btn btn-light" for="priceDesc"><i class="fas fa-sort-amount-up mr-1 text-muted active" title="Mayor precio">$</i></label>
             <input type="radio" class="btn-check" name="options" id="priceAsc">
-            <label class="btn btn-light" for="priceAsc"><i class="fas fa-sort-amount-down mr-1 text-muted">$</i></label>
+            <label class="btn btn-light" for="priceAsc"><i class="fas fa-sort-amount-down mr-1 text-muted" title="Menor precio">$</i></label>
             <input type="radio" class="btn-check" name="options" id="rel" checked>
-            <label class="btn btn-light" for="rel"><i class="fas fa-sort-amount-up mr-1 text-muted">Rel.</i></label>
+            <label class="btn btn-light" for="rel"><i class="fas fa-sort-amount-up mr-1 text-muted" title="Más vendidos">Rel.</i></label>
           </div>
         </div>
       </div>
@@ -69,7 +73,7 @@
             </div>
             <div class="col-3 p-0">
               <div class="btn-group" role="group">
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+                <button class="btn btn-primary btn-sm" id="clearRangeFilter" disabled>Limpiar</button>
               </div>
             </div>
           </div>
@@ -80,8 +84,7 @@
         <div class="input-group-append">
           <span class="input-group-text" id="basic-addon2">&#128270</span>
         </div>
-        <input type="text" class="form-control" name="buscador" id="buscador" placeholder="Busqueda de productos">
-        
+        <input type="text" class="form-control" name="buscador" id="buscador" placeholder="Busqueda de productos">  
       </div>
       
       
