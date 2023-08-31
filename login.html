@@ -32,9 +32,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="sell.html">Vender</a>
-        </li>
-        <li class="nav-item">
-        </li>
       </ul>
     </div>
   </div>
@@ -42,7 +39,7 @@
 <body>
   <main class="mt-5">
     <div class="login">
-      <h1>Log in</h1>
+      <h1>Iniciar Sesión</h1>
         <form method="post" action="" id="registroForm">
           <input type="text" name="u" placeholder="Usuario" required="required" id="username" />
             <input type="password" name="p" placeholder="Contraseña" required="required" id="contrasena"/>
@@ -55,7 +52,7 @@
         <p><a href="#" id="skip">Continuar sin iniciar sesión</a></p>
     </div>
     <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
-      <p>Por favor complete los datos solicitados para continuar.</p>
+      <p id="alertMessage">Por favor complete los datos solicitados para continuar.</p>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   </main>

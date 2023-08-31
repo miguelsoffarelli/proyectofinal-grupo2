@@ -18,6 +18,7 @@ const dropbtn = document.getElementById("nav-dropbtn");
 const menu = document.getElementById("menu");
 const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacenado en el local storage para la clave user (ver register.js, el valor es usuario.value)
 const enlaceLogin = document.getElementById("linkLogin");
+const account = document.getElementById('accountDropdown');
 
 document.addEventListener("DOMContentLoaded", validar() );
 // Verificar si el usuario está logueado
@@ -28,12 +29,15 @@ function validar(){
                                                  por lo que agregar la condición "isLoggedIn === "false" solucionó el problema.*/
     dropbtn.style.display = "none"; //Si no se está logeado (es decir, si "isLoggedIn" es falso), ocultamos el menu Cuenta
     window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
-    } else if (nombreUsuario === 'Invitado') {
-      dropbtn.style.display = "none";
-      enlaceLogin.removeAttribute('hidden');
-      welcome();
-    } else {
-      welcome();
+    } else if (nombreUsuario === 'Invitado') { // Si el nombre de usuario es "Invitado"
+      dropbtn.innerHTML = 'Login'; // Se cambia el contenido del menú de usuario a un enlace a Login
+      dropbtn.setAttribute('href', 'login.html');
+      menu.remove(); // Se elimina el menú desplegable
+      welcome(); // Y se muestra aviso de bienvenida
+    } else { // En caso de no cumplirse ninguna de las condiciones anteriores, significa que el usuario está logueado con su cuenta, por lo que
+      welcome(); // Se muestra aviso de bienvenida
+      dropbtn.innerHTML += nombreUsuario; // Y se cambia el contenido del menú desplegable al nombre del usuario.
+      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
     };
 };
 
@@ -42,7 +46,7 @@ function validar(){
     menu.style.display = "block";
   });
   
-  menu.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
+  account.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone cualquier elemento dentro del elemento <li> en el que está el menú de usuario, estos dejen de estar visibles.
     event.stopPropagation();
     menu.style.display = "none";
   });
@@ -65,3 +69,4 @@ function cerrarSesion(event) { //creamos una función que registre en el almacen
         document.getElementById("alert-success").classList.remove("show"); //luego de el tiempo especificado se elimina la clase show para que la alerta vuelva a estar oculta
     }, 2000);
 };
+

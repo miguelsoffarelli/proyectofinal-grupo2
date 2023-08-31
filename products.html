@@ -30,22 +30,64 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">           
-            <a class="dropbtn" id="nav-dropbtn" href="#">Cuenta</a>
+          <li class="nav-item" id="accountDropdown">           
+            <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><img src="img/user.png" id="avatar" alt=""></a>
             <div class="dropdown-content" id="menu">
               <a href="my-profile.html">My Profile</a>
               <a href="#" id="exit">Salir</a>
             </div>                  
-        </li>
-        <li class="nav-item" id="linkLogin" hidden>
-          <a href="login.html" class="nav-link">Login</a>
         </li>
         </ul>
       </div>
     </div>
   </nav>
   <main class="pb-5 container">
+    <div class="text-center p-4">
+      <h2 id="categoryName"></h2>
+    </div>
     <div class="container">
+      <div class="row">       
+        <div class="col text-end">
+          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+            <span id="sortInfo">Ordenar:</span>
+            <input type="radio" class="btn-check" name="options" id="priceDesc">
+            <label class="btn btn-light" for="priceDesc"><i class="fas fa-sort-amount-up mr-1 text-muted active" title="Mayor precio">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="priceAsc">
+            <label class="btn btn-light" for="priceAsc"><i class="fas fa-sort-amount-down mr-1 text-muted" title="Menor precio">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="rel" checked>
+            <label class="btn btn-light" for="rel"><i class="fas fa-sort-amount-up mr-1 text-muted" title="Más vendidos">Rel.</i></label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+          <div class="row container p-0 m-0">
+            <div class="col">
+              <p class="font-weight-normal text-end my-2">Cant.</p>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin" min=0>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+            </div>
+            <div class="col-3 p-0">
+              <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-sm" id="clearRangeFilter" disabled>Limpiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="container">
+      <div class="input-group mb-3 barra_buscador">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">&#128270</span>
+        </div>
+        <input type="text" class="form-control" name="buscador" id="buscador" placeholder="Busqueda de productos">  
+      </div>
+      
+      
       <div class="product-list" id="product-list">
 
       </div>
