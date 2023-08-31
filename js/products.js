@@ -49,13 +49,6 @@ function showProducts(data) {
     container.innerHTML = htmlContentToAppend;
 };
 
-
-
-window.addEventListener('load', () => {
-  fetchData(showProducts);
-});
-
-
 function ordenar_menor_precio(data){   
   let lista_ordenada_menor = [];
   let numeros = [];
@@ -72,12 +65,6 @@ function ordenar_menor_precio(data){
   };
   showProducts({products: lista_ordenada_menor});
 };
-
-
-ordenar_asc.addEventListener('click', ()=>{
-  fetchData(ordenar_menor_precio);  
-});
-
 
 function ordenar_mayor_precio(data){
   let lista_ordenada_mayor = [];
@@ -96,14 +83,6 @@ function ordenar_mayor_precio(data){
   showProducts({products: lista_ordenada_mayor});
 };
 
-
-
-ordenar_desc.addEventListener('click', ()=>{
-  fetchData(ordenar_mayor_precio);  
-});
-
-
-
 function ordenar_relevancia(data){
   let numeros = [];
   let lista_ordenada_relevancia = []
@@ -121,15 +100,7 @@ function ordenar_relevancia(data){
   showProducts({products: lista_ordenada_relevancia});
 };
 
-
-
-ordenar_rel.addEventListener('click', ()=>{
-  fetchData(ordenar_relevancia);  
-});
-
-
-
-document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
+function buscador (data, e){
   if (e.target.matches("#buscador")){ //si el parametro hace "match" con el buscador
     document.querySelectorAll(".producto").forEach(product =>{ //selecciona a todos los divs con clase producto y realiza la funcion para cada uno
       product.id.toLowerCase().includes(e.target.value.toLowerCase()) //toma el id del producto y se fija si lo que escribimos en el buscador coincide
@@ -137,7 +108,9 @@ document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apr
         :product.classList.add("filtro") // si no, se le agrega la clase filtro
     });
   };
-});
+};
+
+
 
 //En products.html agregue el buscador con el id="buscador". 
 // En la funcion showProducts modifique la primer linea de lo que se apendea esto:
@@ -145,10 +118,8 @@ document.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apr
 // le agregue como id el nombre del producto para compararlo con la busqueda.
 // en styles.css agregue la clase filtro para que cuando se le agrega al div no se vea.
 
-minimo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
-  fetch(DATA_URL)
-  .then(respuesta => respuesta.json())
-  .then(data => {
+
+function elMinimo (data, e){
   showProductsMinMax(data);
   if (maximo.value) {    
     if (e.target.matches('#rangeFilterCountMin')){ //si el parametro hace "match" con el buscador
@@ -167,15 +138,10 @@ minimo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apret
         });
       };
     };  
-  });
   e.stopPropagation();
-});
+};
 
-
-maximo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apretamos alguna tecla. "e" es el parametro
-  fetch(DATA_URL)
-  .then(respuesta => respuesta.json())
-  .then(data => {
+function elMaximo (data, e){
   showProductsMinMax(data);
   if (minimo.value) {
     if (e.target.matches('#rangeFilterCountMax')){ //si el parametro hace "match" con el buscador
@@ -194,10 +160,8 @@ maximo.addEventListener('keyup', e =>{ //el evento keyup se acciona cuando apret
         });
       };
     };
-  });
   e.stopPropagation();
-});
-
+};
 
 function showProductsMinMax(data) {
   let htmlContentToAppend = "";
@@ -232,8 +196,6 @@ function minOfMax(){
     maximo.select();
 };
 
-
-  
 function clean(){
   minimo.value = "";
   maximo.value = "";
@@ -241,9 +203,40 @@ function clean(){
 };
 
 
+
+
+window.addEventListener('load', () => {
+  fetchData(showProducts);
+});
+
+ordenar_asc.addEventListener('click', () => {
+  fetchData(ordenar_menor_precio);  
+});
+
+ordenar_desc.addEventListener('click', () => {
+  fetchData(ordenar_mayor_precio);  
+});
+
+ordenar_rel.addEventListener('click', () => {
+  fetchData(ordenar_relevancia);  
+});
+
 maximo.addEventListener('focus', () => {
   minOfMax();
 });
 
+document.addEventListener('keyup', e =>{
+  fetchData(data => buscador(data, e))
+});
 
-limpiar.addEventListener('click', () => {clean()});
+minimo.addEventListener('keyup', e =>{
+  fetchData(data => elMinimo(data, e));
+});
+
+maximo.addEventListener('keyup', e =>{
+  fetchData(data => elMaximo(data, e))
+});
+
+limpiar.addEventListener('click', () => {
+  clean()
+});
