@@ -24,12 +24,17 @@ function fetchData(funcion) {
   };
 };
 
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html"
+};
+
 function showProducts(data) {
   let htmlContentToAppend = "";
   let products = data.products; 
     for (let product of products) {     
         htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
+        <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
@@ -183,9 +188,9 @@ function clean(){
   limpiar.setAttribute("disabled", "");
 };
 
+
 window.addEventListener('load', () => {
-  fetchData(showProducts);
-  
+  fetchData(showProducts);  
 });
 
 ordenar_asc.addEventListener('click', () => {
