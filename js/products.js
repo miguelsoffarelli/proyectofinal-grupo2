@@ -29,7 +29,7 @@ function showProducts(data) {
   let products = data.products; 
     for (let product of products) {     
         htmlContentToAppend += `
-        <div class="container list-group m-4 producto" data-name="${product.name}" data-description="${product.description}">
+        <div class="container list-group m-4 producto" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
@@ -114,19 +114,15 @@ function ordenar_relevancia(data){
     });
   };
 };
-
-
-
 //En products.html agregue el buscador con el id="buscador". 
 // En la funcion showProducts modifique la primer linea de lo que se apendea esto:
 // <div class="container list-group m-4 producto" id="${product.name}">
 // le agregue como id el nombre del producto para compararlo con la busqueda.
 // en styles.css agregue la clase filtro para que cuando se le agrega al div no se vea.
 
-
 function elMinimo (data, e){
   limpiar.removeAttribute("disabled");
-  showProductsMinMax(data);
+  showProducts(data);
   if (maximo.value) {    
     if (e.target.matches('#rangeFilterCountMin')){ 
     document.querySelectorAll(".producto").forEach(product =>{ 
@@ -149,7 +145,7 @@ function elMinimo (data, e){
 
 function elMaximo (data, e){
   limpiar.removeAttribute("disabled");
-  showProductsMinMax(data);
+  showProducts(data);
   if (minimo.value) {
     if (e.target.matches('#rangeFilterCountMax')){ 
       document.querySelectorAll(".producto").forEach(product =>{ 
@@ -170,30 +166,6 @@ function elMaximo (data, e){
   e.stopPropagation();
 };
 
-function showProductsMinMax(data) {
-  let htmlContentToAppend = "";
-      for (let product of data.products) {        
-        htmlContentToAppend += `
-        <div class="container list-group m-4 producto" data-cost="${product.cost}">
-        <div class="product row list-group-item d-flex justify-content-between">
-        <div class="col-3">
-          <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
-        </div>
-        <div class="col-7">
-          <h2 class="product-name">${product.name}</h2>
-          <p class="product-description">${product.description}</p>
-          <p class="product-cost">${product.currency} ${product.cost}</p>
-        </div>
-        <div class="col-2 text-muted">
-          <p class="product-sold">${product.soldCount} vendidos</p>
-        </div>
-        </div>
-        </div>
-      `;
-    };
-  container.innerHTML = htmlContentToAppend;
-}
-
 function minOfMax(){
   if (minimo.value > maximo.value) {
     maximo.value = minimo.value;
@@ -210,7 +182,6 @@ function clean(){
   fetchData(showProducts);
   limpiar.setAttribute("disabled", "");
 };
-
 
 window.addEventListener('load', () => {
   fetchData(showProducts);
