@@ -256,3 +256,16 @@ input[type="checkbox"] + label {
 #sortInfo{
   padding: 5px;
 }
+
+.carousel-control-next,
+.carousel-control-prev {
+  width: 50px; 
+  filter: invert(100%);
+  background-color: rgba(235, 235, 235, 0.3);
+  bottom: 33%;    
+}
+
+.carousel-control-next:hover,
+.carousel-control-prev:hover{
+  background-color: rgba(235, 235, 235, 0.6);
+}
