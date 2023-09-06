@@ -30,29 +30,40 @@ function showProduct(data){
             </div>
             <div class="row m-4">
                 <div class="col-7">
-                    <div id="prodImg" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-item active" data-bs-interval="2000"> 
-                            <img src="${data.images[0]}" class="d-block w-100"> 
-                        </div> 
-                        <div class="carousel-item" data-bs-interval="2000"> 
-                            <img src="${data.images[1]}" class="d-block w-100"> 
-                        </div> 
-                        <div class="carousel-item" data-bs-interval="2000"> 
-                            <img src="${data.images[2]}" class="d-block w-100"> 
-                        </div> 
-                        <div class="carousel-item" data-bs-interval="2000"> 
-                            <img src="${data.images[3]}" class="d-block w-100"> 
-                        </div> 
-                    </div> 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#prodImg" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#prodImg" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                  <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+                      <li data-target="#carouselExampleIndicators2" data-slide-to="3"></li>
+                    </ol>
+                    <div class="carousel-inner border rounded">
+                      <div class="carousel-item active" >
+                        <img src="${data.images[0]}" class="d-block w-100">  
+                      </div>
+                      <div class="carousel-item " >
+                        <img src="${data.images[1]}" class="d-block w-100">  
+                      </div>
+                      <div class="carousel-item "  >
+                        <img src="${data.images[2]}" class="d-block w-100">  
+                      </div>
+                      <div class="carousel-item "  >
+                        <img src="${data.images[3]}" class="d-block w-100">  
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                    
                 </div>
+            </div>
+          
                 <div class="col-4">
                     <div class="row">
                         <h1 class="display-4 fw-normal">${data.name}</h1>
