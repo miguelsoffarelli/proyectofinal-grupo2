@@ -10,6 +10,7 @@ const limpiar = document.getElementById('clearRangeFilter');
 const titulo = document.getElementById('categoryName');
 const searchBar = document.getElementById('buscador');
 let products = "";
+let coincidencias = false;
 
 function fetchData(funcion) {
   try {
@@ -34,6 +35,7 @@ function showProducts(data) {
   let products = data.products; 
     for (let product of products) {     
         htmlContentToAppend += `
+        <h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>
         <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
         <div class="product row list-group-item d-flex justify-content-between">
         <div class="col-3">
@@ -81,15 +83,28 @@ function sort(data, criteria, by){
 
  function buscador (data, e){
   if (e.target.matches("#buscador")){ 
-    document.querySelectorAll(".producto").forEach(product =>{
+    const productos = document.querySelectorAll(".producto");
+    
+    productos.forEach(product =>{
       if (product.dataset.name.toLowerCase().includes(e.target.value.toLowerCase()) || product.dataset.description.toLowerCase().includes(e.target.value.toLowerCase()) ){                                   
         product.classList.remove('filtro');
+        coincidencias = true
       } else{
-      product.classList.add("filtro"); 
+      product.classList.add("filtro");
       };
     });
+       
+    
   };
 };
+
+function noResults(){
+  if (coincidencias) {
+    document.getElementById('mensaje').classList.add('filtro');
+  } else{
+    document.getElementById('mensaje').classList.remove('filtro');
+  }
+}
 //En products.html agregue el buscador con el id="buscador". 
 // En la funcion showProducts modifique la primer linea de lo que se apendea esto:
 // <div class="container list-group m-4 producto" id="${product.name}">
