@@ -1,5 +1,5 @@
 const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
-const DATA_URL = "https://japceibal.github.io/emercado-api/cats_products/" + categoria + ".json"; // y reemplazamos en la url por la id de la api correspondiente
+const DATA_URL = PRODUCTS_URL + categoria + EXT_TYPE; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
 const container = document.getElementById("product-list");
 const ordenar_desc = document.getElementById('priceDesc');
 const ordenar_asc = document.getElementById('priceAsc');
@@ -12,26 +12,15 @@ const searchBar = document.getElementById('buscador');
 let products = "";
 let coincidencias = false;
 
-// Fetch---------------------------------------------------------
-function fetchData(funcion) {
-  try {
-    return fetch(DATA_URL)
-    .then(response => response.json())
-    .then(data => {
-      funcion(data);
-      titulo.innerText = data.catName;
-    })
-  } catch {
-    alert("ERROR!" + response.status);
-  };
-};
+
+//* La función fetch que estaba acá se trasladó al init.js para poder re-utilizarla en product-info.js
+
 
 // Función para asignar id del producto al localStorage---------------------------------------------------------------
 function setProdID(id) {
   localStorage.setItem("prodID", id);
   window.location = "product-info.html"
 };
-
 
 
 // Función para mostrar los productos------------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,6 +46,7 @@ function showProducts(data) {
         </div>
       `;
     };
+    titulo.innerText = data.catName;
     let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
     htmlContentToAppend += mensaje;
     container.innerHTML = htmlContentToAppend;
@@ -195,26 +185,26 @@ function clean(){
   minimo.value = "";
   maximo.value = "";
   searchBar.value = "";
-  fetchData(showProducts);
+  fetchData(showProducts, DATA_URL);
   limpiar.setAttribute("disabled", "");
 };
 
 
 // Event listeners------------------------------------------------------------------------------
 window.addEventListener('load', () => {
-  fetchData(showProducts);  
+  fetchData(showProducts, DATA_URL);  
 });
 
 ordenar_asc.addEventListener('click', () => {
-  fetchData(data => sort(data, "asc", "cost"));  
+  fetchData(data => sort(data, "asc", "cost"), DATA_URL);  
 });
 
 ordenar_desc.addEventListener('click', () => {
-  fetchData(data => sort(data, "desc", "cost"));  
+  fetchData(data => sort(data, "desc", "cost"), DATA_URL);  
 });
 
 ordenar_rel.addEventListener('click', () => {
-  fetchData(data => sort(data, "desc", "soldCount"));  
+  fetchData(data => sort(data, "desc", "soldCount"), DATA_URL);  
 });
 
 maximo.addEventListener('focus', () => {
@@ -222,7 +212,7 @@ maximo.addEventListener('focus', () => {
 });
 
 searchBar.addEventListener('keyup', e =>{ // * Cambié window por searchBar para que sólo escuche los keyups en caso de que el foco esté en la barra de búsqueda.
-  fetchData(buscador(e))
+  fetchData(buscador(e), DATA_URL)
 });
 
 searchBar.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
@@ -234,11 +224,11 @@ searchBar.addEventListener('input', () => { //*Esta escucha la agregué porque a
 });
 
 minimo.addEventListener('keyup', e =>{
-  fetchData(data => costRange(data, e));
+  fetchData(data => costRange(data, e), DATA_URL);
 });
 
 maximo.addEventListener('keyup', e =>{
-  fetchData(data => costRange(data, e))
+  fetchData(data => costRange(data, e), DATA_URL);
 });
 
 minimo.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se

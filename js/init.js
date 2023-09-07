@@ -39,3 +39,16 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+// Fetch---------------------------------------------------------
+function fetchData(funcion, url) {
+  try {
+    return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      funcion(data);
+    })
+  } catch {
+    console.log("Error");
+  };
+};

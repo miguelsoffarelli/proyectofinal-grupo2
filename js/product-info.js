@@ -1,29 +1,17 @@
 const idProducto = localStorage.getItem("prodID");
-const CURRENT_PRODUCT_URL =
-  "https://japceibal.github.io/emercado-api/products/" + idProducto + ".json";
+const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + idProducto + EXT_TYPE; //* Actualizado para hacer uso de las variables declaradas en init.js
 const container = document.getElementById("product-info");
 let currentProductArray = [];
 
-function fetchData(funcion) {
-  try {
-    return fetch(CURRENT_PRODUCT_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        funcion(data);
-      });
-  } catch {
-    alert("ERROR!" + response.status);
-  }
-}
 
 function currencyConverter(data) {
   let price = data.cost;
-  if (data.currency === "USD") {
+  if (data.currency != "UYU") {
     price = price * 38;
     return price;
-  }
+  };
   return price;
-}
+};
 
 function showProduct(data) {
   let htmlContentToAppend = "";
@@ -134,5 +122,5 @@ function showProduct(data) {
 }
 
 window.addEventListener("load", () => {
-  fetchData(showProduct);
+  fetchData(showProduct, CURRENT_PRODUCT_URL);
 });
