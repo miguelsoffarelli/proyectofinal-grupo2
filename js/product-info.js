@@ -1,6 +1,8 @@
 const idProducto = localStorage.getItem("prodID");
 const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + idProducto + EXT_TYPE; //* Actualizado para hacer uso de las variables declaradas en init.js
+const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + idProducto + EXT_TYPE;
 const container = document.getElementById("product-info");
+const comments = document.getElementById("comments")
 let currentProductArray = [];
 
 
@@ -12,6 +14,10 @@ function currencyConverter(data) {
   };
   return price;
 };
+
+function stars (data){
+
+}
 
 function showProduct(data) {
   let htmlContentToAppend = "";
@@ -114,13 +120,46 @@ function showProduct(data) {
                   </div>
                 </div>
               </div>
-            </div>    
-            
+            </div> 
+            <div>
                 
             `;
   container.innerHTML = htmlContentToAppend;
 }
 
+function showComments(data){
+    let htmlContentToAppend = "";
+    let products = data.products; 
+      for (review of data) {
+          htmlContentToAppend += `
+         <div class="ms-5" 
+          <div class="row">
+            <div class="col-md-6">
+             <div class="list-group overflow-auto">
+               <div class="list-group-item">
+                 <div><strong><a href="#">${review.user}</a></strong>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star checked"></span>
+                 <span class="fa fa-star"></span>
+                 <span class="fa fa-star"></span></div>
+                 <div>${review.description}</div>
+                 <div><small> ${review.dateTime}</small></div>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>`};
+
+  
+  comments.innerHTML = htmlContentToAppend;
+}
+
 window.addEventListener("load", () => {
   fetchData(showProduct, CURRENT_PRODUCT_URL);
 });
+
+window.addEventListener("load", () => {
+  fetchData(showComments, CURRENT_COMMENTS_URL);
+});
+
