@@ -15,9 +15,7 @@ function currencyConverter(data) {
   return price;
 };
 
-function stars (data){
 
-}
 
 function showProduct(data) {
   let htmlContentToAppend = "";
@@ -35,7 +33,7 @@ function showProduct(data) {
                      }</a>
                 </p>
             </div>
-            <div class="row m-4">
+            <div class="row m-1">
                 <div class="col-7">
                   <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -121,35 +119,45 @@ function showProduct(data) {
                 </div>
               </div>
             </div> 
-            <div>
+            
                 
             `;
   container.innerHTML = htmlContentToAppend;
 }
 
+
+function stars(userScore){
+  let starsToAppend = ""
+  for(let i = 0; i < userScore; i++){
+    starsToAppend += `<span class="fa fa-star checked"></span>`;
+  };
+  for(let i = 0; i < 5 - userScore; i++){
+    starsToAppend += `<span class="fa fa-star"></span>`;
+  };
+  return starsToAppend;
+};
+
+
 function showComments(data){
-    let htmlContentToAppend = "";
-    let products = data.products; 
+    let htmlContentToAppend = ""; 
       for (review of data) {
-          htmlContentToAppend += `
+        htmlContentToAppend += `
          <div class="ms-5" 
           <div class="row">
             <div class="col-md-6">
              <div class="list-group overflow-auto">
                <div class="list-group-item">
-                 <div><strong><a href="#">${review.user}</a></strong>
-                 <span class="fa fa-star checked"></span>
-                 <span class="fa fa-star checked"></span>
-                 <span class="fa fa-star checked"></span>
-                 <span class="fa fa-star"></span>
-                 <span class="fa fa-star"></span></div>
+                <div><strong><a href="#">${review.user}</a></strong>
+                  ${stars(review.score)}
+                </div>
                  <div>${review.description}</div>
                  <div><small> ${review.dateTime}</small></div>
                </div>
               </div>
             </div>
           </div>
-        </div>`};
+        </div>
+        `};
 
   
   comments.innerHTML = htmlContentToAppend;
@@ -157,9 +165,8 @@ function showComments(data){
 
 window.addEventListener("load", () => {
   fetchData(showProduct, CURRENT_PRODUCT_URL);
-});
-
-window.addEventListener("load", () => {
   fetchData(showComments, CURRENT_COMMENTS_URL);
 });
+
+
 
