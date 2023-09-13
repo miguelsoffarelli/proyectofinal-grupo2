@@ -52,3 +52,19 @@ function fetchData(funcion, url) {
     console.log("Error");
   };
 };
+
+// Función para limitar la cantidad de caracteres que se muestran----------------------
+function cutString(string, limit) {
+  if(string.length > limit){
+      return string.slice(0, limit - 1)+"..."
+  } else{
+      return string
+  }; 
+};
+
+const body = document.querySelector("body");
+const btnMode = document.getElementById("modeBtn");
+
+btnMode.addEventListener("click", ()=> {
+  body.classList.toggle("darkMode");
+})

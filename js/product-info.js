@@ -4,6 +4,14 @@ const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + idProducto + EXT_TYPE;
 const container = document.getElementById("product-info");
 const comments = document.getElementById("comments")
 let currentProductArray = [];
+const commentTxt = document.getElementById('comentarioNuevo');
+const SUBMIT_COMMENT = document.getElementById('enviarComentario');
+const fecha = localStorage.getItem('fecha');
+const comentario = localStorage.getItem('comentario');
+const commentStars = document.getElementById('floatingSelect');
+let currentUser = localStorage.getItem('user');
+
+
 
 
 function currencyConverter(data) {
@@ -102,12 +110,12 @@ function showProduct(data) {
                     </div>
                 </div>
               </div>
-              <div class="row m-5">
+              <div class="row ms-5 mt-5">
                 <div class="accordion accordion-flush" id="descriptionAccordion">
                   <div class="accordion-item">
-                    <h2 class="accordion-header mb-4" id="headingOne" style="color: #514F4F">
+                    <h2 class="accordion-header mb-4 fs-1" id="headingOne" style="color: #514F4F">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Descripción del producto
+                        <h5>Descripción del producto</h5>
                       </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#descriptionAccordion">
@@ -137,20 +145,24 @@ function stars(userScore){
   return starsToAppend;
 };
 
+let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
 
 function showComments(data){
+  for(let comentario of savedComments){
+    data.push(comentario);
+  };
     let htmlContentToAppend = ""; 
       for (review of data) {
         htmlContentToAppend += `
-         <div class="ms-5" 
+         <div class="shadow p-3 mb-3 bg-white" style="border-color: white"> 
           <div class="row">
-            <div class="col-md-6">
-             <div class="list-group overflow-auto">
-               <div class="list-group-item">
-                <div><strong><a href="#">${review.user}</a></strong>
+            <div class="col-md-12">
+             <div class="list-group">
+               <div class="list-group-item" style="border-color: white">
+                <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
                   ${stars(review.score)}
                 </div>
-                 <div>${review.description}</div>
+                 <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
                  <div><small> ${review.dateTime}</small></div>
                </div>
               </div>
@@ -158,15 +170,48 @@ function showComments(data){
           </div>
         </div>
         `};
-
-  
   comments.innerHTML = htmlContentToAppend;
-}
+
+};
 
 window.addEventListener("load", () => {
   fetchData(showProduct, CURRENT_PRODUCT_URL);
   fetchData(showComments, CURRENT_COMMENTS_URL);
 });
 
+function addedComments(){
+  
+  const NEW_COMMENT = commentTxt.value;
+  
+  const SCORE = commentStars.value;
+  
+  const CURRENT_DATE = new Date().toLocaleString();
+  
+  savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+   
+  const nuevoComentarioObj = {
+    user: currentUser,
+    score: SCORE,
+    description: NEW_COMMENT,
+    dateTime: CURRENT_DATE,
+  };
+   
+  savedComments.push(nuevoComentarioObj);
+  
+  localStorage.setItem("comentarios", JSON.stringify(savedComments));
 
+  commentTxt.value = "";
+}
 
+SUBMIT_COMMENT.addEventListener("click", () => {
+  addedComments();
+  location.reload();
+});
+
+function cutString(string, limite) {
+  if(string.length > limite){
+      return string.slice(0, limite - 1)+"..."
+  } else{
+      return string
+  }; 
+};

@@ -20,6 +20,14 @@ const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacen
 const enlaceLogin = document.getElementById("linkLogin");
 const account = document.getElementById('accountDropdown');
 
+function cutString(string, limit) {
+  if(string.length > limit){
+      return string.slice(0, limit - 1)+"..."
+  } else{
+      return string
+  }; 
+};
+
 document.addEventListener("DOMContentLoaded", validar() );
 // Verificar si el usuario está logueado
 function validar(){
@@ -37,8 +45,8 @@ function validar(){
       welcome(); // Y se muestra aviso de bienvenida
     } else { // En caso de no cumplirse ninguna de las condiciones anteriores, significa que el usuario está logueado con su cuenta, por lo que
       welcome(); // Se muestra aviso de bienvenida
-      dropbtn.innerHTML += nombreUsuario; // Y se cambia el contenido del menú desplegable al nombre del usuario.
-      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
+      dropbtn.innerHTML += cutString(nombreUsuario, 20); // Y se cambia el contenido del menú desplegable al nombre del usuario.
+      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
     };
 };
 

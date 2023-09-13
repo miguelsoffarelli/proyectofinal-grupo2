@@ -50,16 +50,16 @@
       <div id="product-info">
 
       </div>
-      <div class="row m-5">
-        <div class="accordion accordion-flush" id="commentsAccordion">
+      <div class="row ms-5">
+        <div class="accordion accordion-flush mb-5" id="commentsAccordion">
           <div class="accordion-item">
-            <h2 class="accordion-header mb-4" id="headingTwo" style="color: #514F4F">
+            <h2 class="accordion-header mb-4 fs-1" id="headingTwo" style="color: #514F4F">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                Comentarios
+                <h5>Comentarios</h5>
               </button>
             </h2>
             <div class="list-group accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#commentsAccordion">
-              <div class="accordion-body" id="comments">
+              <div class="accordion-body overflow-auto" id="comments" style="max-height: 30rem">
   
               </div>
             </div>
@@ -67,11 +67,25 @@
         </div>
   
         <br><br>  
-        <div class="ps-5">
-          <h3>Comentar</h3>
-          <p>Deja tu opinión</p>
+        <div class="ps-5 mb-4">
+          <h3>Deja tu opinión</h3>
+          
           <br>
-          <input type="text" name="" id="comentarioNuevo" placeholder="Que opina del producto?">
+          <div class="form-floating col-6 mb-3">
+            <textarea class="form-control" id="comentarioNuevo" style="height: 200px"></textarea>
+            <label for="comentarioNuevo">Haz tu comentario aquí...</label>
+          </div>
+          <div class="form-floating col-3">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+              <option selected>Selecciona tu calificación</option>
+              <option value="1">Uno</option>
+              <option value="2">Dos</option>
+              <option value="3">Tres</option>
+              <option value="4">Cuatro</option>
+              <option value="5">Cinco</option>
+            </select>
+            <label for="floatingSelect">Tu puntuación:</label>
+          </div>
           <br><br>
           <button type="button" class="btn btn-primary" id="enviarComentario">Enviar</button>
         </div>

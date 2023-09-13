@@ -40,7 +40,7 @@ function validar(){
       dropbtn.setAttribute('href', 'login.html');
       menu.remove();
     } else {
-      dropbtn.innerHTML += nombreUsuario;
-      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
+      dropbtn.innerHTML += cutString(nombreUsuario, 20); // Y se cambia el contenido del menú desplegable al nombre del usuario.
+      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
     };
 };
