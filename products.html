@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -29,6 +30,34 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
+          </li>
+          <li class="nav-item" id="settingsDropdown">
+            <a href="#" class="nav-link dropbtn" id="settings">
+              <i class="fas fa-cog m-2"></i>Opciones<i class="fas fa-caret-down m-2"></i>
+            </a>
+            <div class="dropdown-content" id="settingsMenu" style="width: 150px;">                          
+              <div id="languageDiv">
+                <a class="dropbtn" href="#" id="language">Idioma<i class="fas fa-play m-2"></i></a>
+                <div class="dropdown-content" id="languageMenu">
+                  <a href="#">Español</a>
+                  <a href="#">English</a>
+                </div>
+              </div> 
+              <div id="currencyDiv">
+                <a class="dropbtn" href="#" id="currency">Moneda<i class="fas fa-play m-2"></i></a>
+                <div class="dropdown-content" id="currencyMenu">
+                  <a href="#">UYU</a>
+                  <a href="#"">USD</a>
+                </div>
+              </div>
+              <div id="modeBtn" class="modeBtn">
+                <div class="modeBtnIndicator">
+                  <div class="modeBtnIcon-Container">
+                    <i class="modeBtnIcon fas fa-sun"></i>
+                  </div>
+                </div>
+              </div> 
+            </div>   
           </li>
           <li class="nav-item" id="accountDropdown">           
             <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><img src="img/user.png" id="avatar" alt=""></a>
@@ -113,6 +142,7 @@
   <script src="js/init.js"></script>
   <script src="js/products.js" defer></script>
   <script src="js/account.js"></script>
+  <script src="js/mode.js"></script>
 </body>
 
 </html>

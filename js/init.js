@@ -62,9 +62,3 @@ function cutString(string, limit) {
   }; 
 };
 
-const body = document.querySelector("body");
-const btnMode = document.getElementById("modeBtn");
-
-btnMode.addEventListener("click", ()=> {
-  body.classList.toggle("darkMode");
-})

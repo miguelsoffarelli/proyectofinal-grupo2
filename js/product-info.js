@@ -10,6 +10,8 @@ const fecha = localStorage.getItem('fecha');
 const comentario = localStorage.getItem('comentario');
 const commentStars = document.getElementById('floatingSelect');
 let currentUser = localStorage.getItem('user');
+let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+const PRODUCT_ID = localStorage.getItem('prodID');
 
 
 
@@ -77,7 +79,7 @@ function showProduct(data) {
                 </div>
             
           
-                <div class="col-4 card" style="border-color: white">
+                <div class="col-4 card border-0">
                     <div class="row card-title">
                         <h1 class="display-5 fw-normal">${data.name}
                         </h1>
@@ -97,10 +99,10 @@ function showProduct(data) {
                         )} sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
-                      <button type="button" class="btn btn-primary btn-lg">Comprar!</button>
+                      <button type="button" class="btn btn-warning btn-lg">Comprar!</button>
                     </div>
                     <div class="row col-11 mx-auto mt-2">
-                      <button type="button" class="btn btn-outline-success">Añadir al carrito</button>
+                      <button type="button" class="btn btn-outline-warning">Añadir al carrito</button>
                     </div>
                     
                 </div>
@@ -145,11 +147,13 @@ function stars(userScore){
   return starsToAppend;
 };
 
-let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+
 
 function showComments(data){
   for(let comentario of savedComments){
+    if(comentario.ID === PRODUCT_ID){
     data.push(comentario);
+    };
   };
     let htmlContentToAppend = ""; 
       for (review of data) {
@@ -174,44 +178,31 @@ function showComments(data){
 
 };
 
-window.addEventListener("load", () => {
-  fetchData(showProduct, CURRENT_PRODUCT_URL);
-  fetchData(showComments, CURRENT_COMMENTS_URL);
-});
-
 function addedComments(){
-  
   const NEW_COMMENT = commentTxt.value;
-  
   const SCORE = commentStars.value;
-  
   const CURRENT_DATE = new Date().toLocaleString();
-  
   savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
-   
+  
   const nuevoComentarioObj = {
     user: currentUser,
     score: SCORE,
     description: NEW_COMMENT,
     dateTime: CURRENT_DATE,
+    ID: PRODUCT_ID,
   };
    
   savedComments.push(nuevoComentarioObj);
-  
   localStorage.setItem("comentarios", JSON.stringify(savedComments));
-
   commentTxt.value = "";
-}
+};
 
 SUBMIT_COMMENT.addEventListener("click", () => {
   addedComments();
   location.reload();
 });
 
-function cutString(string, limite) {
-  if(string.length > limite){
-      return string.slice(0, limite - 1)+"..."
-  } else{
-      return string
-  }; 
-};
+window.addEventListener("load", () => {
+  fetchData(showProduct, CURRENT_PRODUCT_URL);
+  fetchData(showComments, CURRENT_COMMENTS_URL);
+});
