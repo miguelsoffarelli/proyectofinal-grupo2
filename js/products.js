@@ -30,7 +30,7 @@ function showProducts(data) {
     for (let product of products) {     
         htmlContentToAppend += `
         <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
-        <div class="product row list-group-item d-flex justify-content-between">
+        <div class="product row list-group-item list-group-item-action d-flex justify-content-between ${listGroupItemsDkM()}">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
         </div>

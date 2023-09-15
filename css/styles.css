@@ -11,7 +11,7 @@
 
 nav a {
   text-decoration: none;
-}
+} 
 
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -29,11 +29,26 @@ nav a {
 }
 
 .jumbotron {
+  
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
   background-color: #53C0FB;
   background: url('../img/cover_back.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  font-weight: bold;
+}
+
+/* Jumbotron del modo oscuro*/
+.jumbotronDarkMode {
+  height: 50vh;
+  padding: 5em inherit;
+  margin-bottom: 0;
+  background-color: #53C0FB;
+  background: url('../img/cover_back_transparent.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -186,7 +201,7 @@ a.custom-card:hover {
 }
 
 .checked {
-  color: orange;
+  color: orange !important;
 }
 
 .dropdown-content {
@@ -277,9 +292,149 @@ h3.m-3 {
   text-align: center;
 }
 
-#sold{
-  text-align: right;
-  margin-top: -10px;
-  margin-bottom: 10px;
+/* BOTON DARK MODE */
+/* ROOT, Los colores principales de nuestra pagina. */
+:root {
+  --main-color: orange;
+  --content-color: black;
+  --dark-color: #2b2b2b;
+  --very-dark-color: rgb(10, 10, 10);
+  --light-color: #f7f7f7;
+  --light-icon-color: #ffde59;
+  --dark-icon-color: #fff;
 }
 
+body {
+  background-color: var(--light-color) !important;
+  color: var(--content-color);
+}
+
+body a{
+  color: orange !important;
+}
+
+
+
+/* BOTON */
+.modeBtn {
+  margin-top: 0.4em;
+  background-color: white;
+  width: 4em;
+  height: 2em;
+  padding: 0 0.1em;
+  border-radius: 10em;
+  box-shadow: inset 0 8px 60px rgba(0, 0, 0, .1),
+              inset 0 8px 8px rgba(0, 0, 0, .1),
+              inset 0 -4px 4px rgba(0, 0, 0, .1);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modeBtnIndicator {
+  background-color: white;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  
+
+  position: absolute;
+
+  box-shadow: 0 8px 40px rgba(0, 0, 0, .2);
+
+  transition: transform .3s ease;
+}
+
+.modeBtnIcon-Container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+
+.modeBtnIcon {
+  color: var(--light-icon-color);
+  font-size: 1rem;
+}
+
+
+
+/* DK MODE */
+.darkMode .modeBtnIndicator{
+  transform: translateX(2em);
+  background-color: var(--dark-color);
+  box-shadow: 0 8px 4px rgba(0, 0, 0, .3);
+}
+
+.darkMode .modeBtn {
+  box-shadow: inset 0 8px 60px rgba(0, 0, 0, .3),
+              inset 8px 0 8px rgba(0, 0, 0, .3),
+              inset 0 -4px 4px rgba(0, 0, 0, .3);
+}
+
+body.darkMode nav{
+  background-color: grey !important;
+}
+
+body.darkMode {
+  color: var(--light-color);
+}
+body.darkMode main div *{
+  color: var(--light-color);
+}
+
+body.darkMode .modeBtnIcon{
+  color: var(--dark-icon-color);
+}
+
+
+.fa-play {
+  font-size: 0.5rem;
+}
+
+#languageMenu{
+  position: absolute;
+  right: -78px;
+  top: -22px;
+}
+
+#currencyMenu{
+  position: absolute;
+  right: -51px;
+  top: -22px;
+}
+
+#languageDiv, #currencyDiv {
+  width: 150px;
+  position: relative;
+}
+
+.dropbtn {
+  position: relative; 
+}
+
+sub {
+  left: 75%;
+}
+
+.list-group-item.list-group-item-action.cursor-active.bg-dark:hover{
+  background-color: rgba(64, 69, 77, 0.503) !important;
+}
+
+.product.row.list-group-item.list-group-item-action.d-flex.justify-content-between.bg-dark:hover{
+  background-color: rgba(64, 69, 77, 0.503) !important;
+}
+
+option {
+  color: black !important;
+}
+
+body.darkMode textarea {
+  color: #fff !important;
+}

@@ -1,7 +1,19 @@
 const idProducto = localStorage.getItem("prodID");
 const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + idProducto + EXT_TYPE; //* Actualizado para hacer uso de las variables declaradas en init.js
+const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + idProducto + EXT_TYPE;
 const container = document.getElementById("product-info");
+const comments = document.getElementById("comments")
 let currentProductArray = [];
+const commentTxt = document.getElementById('comentarioNuevo');
+const SUBMIT_COMMENT = document.getElementById('enviarComentario');
+const fecha = localStorage.getItem('fecha');
+const comentario = localStorage.getItem('comentario');
+const commentStars = document.getElementById('floatingSelect');
+let currentUser = localStorage.getItem('user');
+let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+const PRODUCT_ID = localStorage.getItem('prodID');
+
+
 
 
 function currencyConverter(data) {
@@ -12,6 +24,8 @@ function currencyConverter(data) {
   };
   return price;
 };
+
+
 
 function showProduct(data) {
   let htmlContentToAppend = "";
@@ -29,7 +43,7 @@ function showProduct(data) {
                      }</a>
                 </p>
             </div>
-            <div class="row m-4">
+            <div class="row m-1">
                 <div class="col-7">
                   <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -65,7 +79,7 @@ function showProduct(data) {
                 </div>
             
           
-                <div class="col-4 card" style="border-color: white">
+                <div class="col-4 card border-0 ${listGroupItemsDkM()}">
                     <div class="row card-title">
                         <h1 class="display-5 fw-normal">${data.name}
                         </h1>
@@ -98,12 +112,12 @@ function showProduct(data) {
                     </div>
                 </div>
               </div>
-              <div class="row m-5">
+              <div class="row ms-5 mt-5">
                 <div class="accordion accordion-flush" id="descriptionAccordion">
                   <div class="accordion-item">
-                    <h2 class="accordion-header mb-4" id="headingOne" style="color: #514F4F">
+                    <h2 class="accordion-header mb-4 fs-1" id="headingOne" style="color: #514F4F">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Descripción del producto
+                        <h5>Descripción del producto</h5>
                       </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#descriptionAccordion">
@@ -114,13 +128,89 @@ function showProduct(data) {
                   </div>
                 </div>
               </div>
-            </div>    
+            </div> 
             
                 
             `;
   container.innerHTML = htmlContentToAppend;
-}
+  commentTxt.classList.add(listGroupItemsDkM());
+  commentStars.classList.add(listGroupItemsDkM());
+  let elementsToChangeBg = [document.querySelectorAll(".accordion-item"), document.querySelectorAll(".accordion-button"), document.querySelectorAll(".accordion-collapse")];
+  elementsToChangeBg.forEach(element => {
+    element.forEach(innerElement => {
+      innerElement.classList.add(listGroupItemsDkM());
+    });
+  });
+};
+
+
+function stars(userScore){
+  let starsToAppend = ""
+  for(let i = 0; i < userScore; i++){
+    starsToAppend += `<span class="fa fa-star checked"></span>`;
+  };
+  for(let i = 0; i < 5 - userScore; i++){
+    starsToAppend += `<span class="fa fa-star"></span>`;
+  };
+  return starsToAppend;
+};
+
+
+
+function showComments(data){
+  for(let comentario of savedComments){
+    if(comentario.ID === PRODUCT_ID){
+    data.push(comentario);
+    };
+  };
+    let htmlContentToAppend = ""; 
+      for (review of data) {
+        htmlContentToAppend += `
+         <div class="shadow p-3 mb-3"> 
+          <div class="row">
+            <div class="col-md-12">
+             <div class="list-group">
+               <div class="list-group-item ${listGroupItemsDkM()} border-0">
+                <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
+                  ${stars(review.score)}
+                </div>
+                 <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
+                 <div><small> ${review.dateTime}</small></div>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        `};
+  comments.innerHTML = htmlContentToAppend;
+
+};
+
+function addedComments(){
+  const NEW_COMMENT = commentTxt.value;
+  const SCORE = commentStars.value;
+  const CURRENT_DATE = new Date().toLocaleString();
+  savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+  
+  const nuevoComentarioObj = {
+    user: currentUser,
+    score: SCORE,
+    description: NEW_COMMENT,
+    dateTime: CURRENT_DATE,
+    ID: PRODUCT_ID,
+  };
+   
+  savedComments.push(nuevoComentarioObj);
+  localStorage.setItem("comentarios", JSON.stringify(savedComments));
+  commentTxt.value = "";
+};
+
+SUBMIT_COMMENT.addEventListener("click", () => {
+  addedComments();
+  location.reload();
+});
 
 window.addEventListener("load", () => {
   fetchData(showProduct, CURRENT_PRODUCT_URL);
+  fetchData(showComments, CURRENT_COMMENTS_URL);
 });
