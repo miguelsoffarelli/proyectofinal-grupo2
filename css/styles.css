@@ -213,6 +213,15 @@ a.custom-card:hover {
   z-index: 2;
 }
 
+body.darkMode .dropdown-content {
+  position: absolute;
+  display: none; 
+  padding: 1rem;
+  background-color: grey;
+  padding-left: 0.5rem;
+  z-index: 2;
+}
+
 .dropdown-content a {
   display: block;
   color:rgba(255, 255, 255, 0.5);
@@ -420,17 +429,17 @@ body.darkMode .modeBtnIcon{
 }
 
 sub {
-  left: 75%;
+  display: flex;
+  position: relative;
+  justify-content: right;
 }
 
-.list-group-item.list-group-item-action.cursor-active.bg-dark:hover{
-  background-color: rgba(64, 69, 77, 0.503) !important;
-}
-
-.product.row.list-group-item.list-group-item-action.d-flex.justify-content-between.bg-dark:hover{
-  background-color: rgba(64, 69, 77, 0.503) !important;
-}
-
-body.darkMode textarea, body.darkMode option, body.darkMode input {
+body.darkMode textarea, body.darkMode option, body.darkMode input, body.darkMode select {
   color: #fff !important;
+}
+
+body.darkMode, body.darkMode main, body.darkMode .col-4.card.border-0, body.darkMode .accordion-button, body.darkMode .accordion-body,
+body.darkMode .accordion-item, body.darkMode .list-group-item, body.darkMode textarea, body.darkMode select, body.darkMode textarea:focus,
+body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkMode footer {
+  background-color: rgb(33, 37, 41);
 }

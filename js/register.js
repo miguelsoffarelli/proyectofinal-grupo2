@@ -81,8 +81,4 @@ SETTINGS_DROPBTN.addEventListener("mouseover", function(event) { //indicamos que
     BODY.classList.toggle("darkMode");
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll("input").forEach(element => {
-        element.classList.add(listGroupItemsDkM());
-    })
-  })
+  
