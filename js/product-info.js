@@ -163,27 +163,26 @@ function showComments(data){
     data.push(comentario);
     };
   };
-    let htmlContentToAppend = ""; 
-      for (review of data) {
-        htmlContentToAppend += `
-         <div class="shadow p-3 mb-3"> 
-          <div class="row">
-            <div class="col-md-12">
-             <div class="list-group">
-               <div class="list-group-item ${listGroupItemsDkM()} border-0">
-                <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
-                  ${stars(review.score)}
-                </div>
-                 <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
-                 <div><small> ${review.dateTime}</small></div>
-               </div>
+  let htmlContentToAppend = ""; 
+    for (review of data) {
+      htmlContentToAppend += `
+       <div class="shadow p-3 mb-3"> 
+        <div class="row">
+          <div class="col-md-12">
+           <div class="list-group">
+             <div class="list-group-item ${listGroupItemsDkM()} border-0">
+              <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
+                ${stars(review.score)}
+              </div>
+               <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
+               <div><small> ${review.dateTime}</small></div>
+              </div>
               </div>
             </div>
           </div>
         </div>
-        `};
+      `};
   comments.innerHTML = htmlContentToAppend;
-
 };
 
 function addedComments(){

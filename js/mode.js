@@ -6,6 +6,7 @@ const jumbotronDKMode = document.querySelector(".jumbotronDarkMode");
 const icon = document.querySelector(".modeBtnIcon");
 const main = document.querySelector("main");
 const footer = document.querySelector("footer");
+const INPUT_ELEMENTS = document.getElementsByTagName('input');
 
 
 btnMode.addEventListener("click", ()=> {
@@ -18,6 +19,11 @@ btnMode.addEventListener("click", ()=> {
     jumbotron.toggleAttribute("hidden");
     jumbotronDKMode.toggleAttribute("hidden");
   };
+  if(INPUT_ELEMENTS !== null){
+    Array.from(INPUT_ELEMENTS).forEach(element => {
+      element.classList.toggle("bg-dark");
+    });
+  };
   storeDarkMode(body.classList.contains("darkMode"));
   
   if(body.classList.contains("darkMode")){
@@ -29,7 +35,7 @@ btnMode.addEventListener("click", ()=> {
   }
   location.reload();
 
-})
+});
 
 //Para salvar el modo oscuro en el localstorage.
 
@@ -52,6 +58,11 @@ function loadDarkMode(){
       jumbotron.toggleAttribute("hidden");
       jumbotronDKMode.toggleAttribute("hidden");
     }
+    if(INPUT_ELEMENTS !== null){
+      Array.from(INPUT_ELEMENTS).forEach(element => {
+        element.classList.toggle("bg-dark");
+      });
+    };
   }
 }
 

@@ -378,7 +378,7 @@ body a{
               inset 0 -4px 4px rgba(0, 0, 0, .3);
 }
 
-body.darkMode nav{
+body.darkMode nav, body.darkMode #navbarBar{
   background-color: grey !important;
 }
 
@@ -431,10 +431,6 @@ sub {
   background-color: rgba(64, 69, 77, 0.503) !important;
 }
 
-option {
-  color: black !important;
-}
-
-body.darkMode textarea {
+body.darkMode textarea, body.darkMode option, body.darkMode input {
   color: #fff !important;
 }
