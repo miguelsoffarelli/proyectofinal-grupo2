@@ -30,7 +30,7 @@ function currencyConverter(data) {
 function showProduct(data) {
   let htmlContentToAppend = "";
   htmlContentToAppend = `
-            <div class="row m-4">
+            <div class="row p-3">
                 <p class="font-monospace text-muted user-select-none">
                     <a href="products.html" class="text-decoration-none fw-bold" style="color: black">Volver</a>
                      | <a href="index.html" class="text-decoration-none" style="color: grey">e-Mercado</a>
@@ -43,7 +43,7 @@ function showProduct(data) {
                      }</a>
                 </p>
             </div>
-            <div class="row m-1">
+            <div class="row">
                 <div class="col-7">
                   <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -79,7 +79,7 @@ function showProduct(data) {
                 </div>
             
           
-                <div class="col-4 card border-0 ${listGroupItemsDkM()}">
+                <div class="col-4 card border-0">
                     <div class="row card-title">
                         <h1 class="display-5 fw-normal">${data.name}
                         </h1>
@@ -106,7 +106,7 @@ function showProduct(data) {
                     </div>
                     
                 </div>
-                <div class="col m-4">
+                <div class="col m-3">
                     <div class="row">
                         <i class="far fa-heart fa-2x" title="Añadir a favoritos"></i>
                     </div>
@@ -133,14 +133,6 @@ function showProduct(data) {
                 
             `;
   container.innerHTML = htmlContentToAppend;
-  commentTxt.classList.add(listGroupItemsDkM());
-  commentStars.classList.add(listGroupItemsDkM());
-  let elementsToChangeBg = [document.querySelectorAll(".accordion-item"), document.querySelectorAll(".accordion-button"), document.querySelectorAll(".accordion-collapse")];
-  elementsToChangeBg.forEach(element => {
-    element.forEach(innerElement => {
-      innerElement.classList.add(listGroupItemsDkM());
-    });
-  });
 };
 
 
@@ -163,27 +155,26 @@ function showComments(data){
     data.push(comentario);
     };
   };
-    let htmlContentToAppend = ""; 
-      for (review of data) {
-        htmlContentToAppend += `
-         <div class="shadow p-3 mb-3"> 
-          <div class="row">
-            <div class="col-md-12">
-             <div class="list-group">
-               <div class="list-group-item ${listGroupItemsDkM()} border-0">
-                <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
-                  ${stars(review.score)}
-                </div>
-                 <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
-                 <div><small> ${review.dateTime}</small></div>
-               </div>
+  let htmlContentToAppend = ""; 
+    for (review of data) {
+      htmlContentToAppend += `
+       <div class="shadow p-3 mb-3"> 
+        <div class="row">
+          <div class="col-md-12">
+           <div class="list-group">
+             <div class="list-group-item border-0">
+              <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
+                ${stars(review.score)}
+              </div>
+               <div class="box overflow-auto text-break" style="max-height: 15rem">${review.description}</div>
+               <div><small> ${review.dateTime}</small></div>
+              </div>
               </div>
             </div>
           </div>
         </div>
-        `};
+      `};
   comments.innerHTML = htmlContentToAppend;
-
 };
 
 function addedComments(){
