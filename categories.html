@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -22,7 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
+            <a class="nav-link" href="index.html"><img src="img/intento de logo.png" alt="" style="height: 30px;"></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="categories.html">Categorías</a>
@@ -30,13 +31,41 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
+          <li class="nav-item" id="settingsDropdown">
+            <a href="#" class="nav-link dropbtn" id="settings">
+              <i class="fas fa-cog m-2"></i>Opciones<i class="fas fa-caret-down m-2"></i>
+            </a>
+            <div class="dropdown-content" id="settingsMenu" style="width: 150px;">                          
+              <div id="languageDiv">
+                <a class="dropbtn" href="#" id="language">Idioma<i class="fas fa-play m-2"></i></a>
+                <div class="dropdown-content" id="languageMenu">
+                  <a href="#">Español</a>
+                  <a href="#">English</a>
+                </div>
+              </div> 
+              <div id="currencyDiv">
+                <a class="dropbtn" href="#" id="currency">Moneda<i class="fas fa-play m-2"></i></a>
+                <div class="dropdown-content" id="currencyMenu">
+                  <a href="#">UYU</a>
+                  <a href="#"">USD</a>
+                </div>
+              </div>
+              <div id="modeBtn" class="modeBtn">
+                <div class="modeBtnIndicator">
+                  <div class="modeBtnIcon-Container">
+                    <i class="modeBtnIcon fas fa-sun"></i>
+                  </div>
+                </div>
+              </div> 
+            </div>   
+          </li>
           <li class="nav-item" id="accountDropdown">           
             <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><img src="img/user.png" id="avatar" alt=""></a>
             <div class="dropdown-content" id="menu">
               <a href="my-profile.html">Mi Perfil</a>
               <a href="#" id="exit">Salir</a>
             </div>                  
-        </li>
+          </li>
         </ul>
       </div>
     </div>
@@ -51,11 +80,11 @@
         <div class="col text-end">
           <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
             <input type="radio" class="btn-check" name="options" id="sortAsc">
-            <label class="btn btn-light" for="sortAsc">A-Z</label>
+            <label class="btn" for="sortAsc">A-Z</label>
             <input type="radio" class="btn-check" name="options" id="sortDesc">
-            <label class="btn btn-light" for="sortDesc">Z-A</label>
+            <label class="btn" for="sortDesc">Z-A</label>
             <input type="radio" class="btn-check" name="options" id="sortByCount" checked>
-            <label class="btn btn-light" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
+            <label class="btn" for="sortByCount"><i class="fas fa-sort-amount-down mr-1"></i></label>
           </div>
         </div>
       </div>
@@ -73,7 +102,7 @@
             </div>
             <div class="col-3 p-0">
               <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
+                <button class="btn btn-primary btn-block" id="rangeFilterCount">Filtrar</button>
                 <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
               </div>
             </div>
@@ -106,6 +135,7 @@
   <script src="js/init.js"></script>
   <script src="js/categories.js"></script>
   <script src="js/account.js"></script>
+  <script src="js/mode.js"></script>
 </body>
 
 </html>

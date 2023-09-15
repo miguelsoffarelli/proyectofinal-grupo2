@@ -1,5 +1,5 @@
 const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
-const DATA_URL = "https://japceibal.github.io/emercado-api/cats_products/" + categoria + ".json"; // y reemplazamos en la url por la id de la api correspondiente
+const DATA_URL = PRODUCTS_URL + categoria + EXT_TYPE; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
 const container = document.getElementById("product-list");
 const ordenar_desc = document.getElementById('priceDesc');
 const ordenar_asc = document.getElementById('priceAsc');
@@ -10,27 +10,27 @@ const limpiar = document.getElementById('clearRangeFilter');
 const titulo = document.getElementById('categoryName');
 const searchBar = document.getElementById('buscador');
 let products = "";
+let coincidencias = false;
 
-function fetchData(funcion) {
-  try {
-    return fetch(DATA_URL)
-    .then(response => response.json())
-    .then(data => {
-      funcion(data);
-      titulo.innerText = data.catName;
-    })
-  } catch {
-    alert("ERROR!" + response.status);
-  };
+
+//* La función fetch que estaba acá se trasladó al init.js para poder re-utilizarla en product-info.js
+
+
+// Función para asignar id del producto al localStorage---------------------------------------------------------------
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html"
 };
 
+
+// Función para mostrar los productos------------------------------------------------------------------------------------------------------------------------------------------------
 function showProducts(data) {
   let htmlContentToAppend = "";
   let products = data.products; 
     for (let product of products) {     
         htmlContentToAppend += `
-        <div class="container list-group m-4 producto" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
-        <div class="product row list-group-item d-flex justify-content-between">
+        <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
+        <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
         <div class="col-3">
           <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
         </div>
@@ -46,125 +46,129 @@ function showProducts(data) {
         </div>
       `;
     };
+    titulo.innerText = data.catName;
+    let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
+    htmlContentToAppend += mensaje;
     container.innerHTML = htmlContentToAppend;
 };
 
-function ordenar_menor_precio(data){   
-  limpiar.removeAttribute("disabled");
-  let lista_ordenada_menor = [];
-  let numeros = [];
-  for (product of data.products){
-      numeros.push(product.cost);
+// Funciones para mostrar u ocultar productos mediante el uso de la clase filtro----------------------------------------------------------------------
+function filterOn(element) {
+  element.classList.add("filtro");
+};
+
+function filterOff(element){
+  element.classList.remove("filtro");
+};
+
+
+// Función para ordenar los productos-------------------------------------------------------------------
+function sort(data, criteria, by){
+  let order = "";
+  if (criteria === "asc"){
+    order = 1;
+  } else if (criteria === "desc"){
+    order = -1;
   }
-  numeros.sort((a, b) => a - b);
-  for (precio of numeros){
+  limpiar.removeAttribute("disabled");
+  let sortedList = [];
+  let numbers = [];
+  for (product of data.products){
+      numbers.push(product[by]);
+  }
+  numbers.sort((a, b) => (a - b) * order);
+  for (precio of numbers){
     for (product of data.products){
-      if (precio == product.cost  && !(lista_ordenada_menor.includes(product))){
-        lista_ordenada_menor.push(product);
+      if (precio == product[by]  && !(sortedList.includes(product))){
+        sortedList.push(product);
       };
     };
   };
-  showProducts({products: lista_ordenada_menor});
+  showProducts({products: sortedList});
 };
 
-function ordenar_mayor_precio(data){
-  limpiar.removeAttribute("disabled");
-  let lista_ordenada_mayor = [];
-  let numeros = [];
-  for (product of data.products){
-      numeros.push(product.cost);
-  }
-  numeros.sort((a, b) => b - a);
-  for (precio of numeros){
-    for (product of data.products){
-      if (precio == product.cost  && !(lista_ordenada_mayor.includes(product))){
-        lista_ordenada_mayor.push(product);
-      };
-    };
-  };
-  showProducts({products: lista_ordenada_mayor});
-};
 
-function ordenar_relevancia(data){
-  limpiar.removeAttribute("disabled");
-  let numeros = [];
-  let lista_ordenada_relevancia = []
-  for (product of data.products){
-      numeros.push(product.soldCount);
-  }
-  numeros.sort((a, b) => b - a);
-  for (vendidos of numeros){
-    for (product of data.products){
-      if (vendidos == product.soldCount  && !(lista_ordenada_relevancia.includes(product))){
-        lista_ordenada_relevancia.push(product);
-      };
-    };
-  };
-  showProducts({products: lista_ordenada_relevancia});
-};
-
- function buscador (data, e){
+// Función del buscador----------------------------------------------------------------------------------------------------------------------------------------------------
+ function buscador (e){ // *el parámetro data no se utilizaba, probé a borrarlo aquí y en la escucha y no se rompió nada, por lo que podemos concluir que no era necesario.
   if (e.target.matches("#buscador")){ 
-    document.querySelectorAll(".producto").forEach(product =>{
+    const productos = document.querySelectorAll(".producto");
+    coincidencias = false
+    productos.forEach(product =>{
       if (product.dataset.name.toLowerCase().includes(e.target.value.toLowerCase()) || product.dataset.description.toLowerCase().includes(e.target.value.toLowerCase()) ){                                   
-        product.classList.remove('filtro');
+        filterOff(product);
+        coincidencias = true
       } else{
-      product.classList.add("filtro"); 
+        filterOn(product);
       };
-    });
+    });    
   };
+  noResults();
 };
-//En products.html agregue el buscador con el id="buscador". 
+// En products.html agregue el buscador con el id="buscador". 
 // En la funcion showProducts modifique la primer linea de lo que se apendea esto:
 // <div class="container list-group m-4 producto" id="${product.name}">
 // le agregue como id el nombre del producto para compararlo con la busqueda.
 // en styles.css agregue la clase filtro para que cuando se le agrega al div no se vea.
 
-function elMinimo (data, e){
-  limpiar.removeAttribute("disabled");
+// Función para búsquedas sin resultados-----------------------------------------------------
+function noResults(){
+  const noCoincidence = document.getElementById('mensaje');
+
+  if (coincidencias) {
+    filterOn(noCoincidence);
+  } else{
+    filterOff(noCoincidence);
+  };
+};
+
+
+// Filtro por rango de precios---------------------------------------------------------------
+function costRange(data, e) {
   showProducts(data);
-  if (maximo.value) {    
-    if (e.target.matches('#rangeFilterCountMin')){ 
-    document.querySelectorAll(".producto").forEach(product =>{ 
-      parseInt(product.dataset.cost) >= parseInt(minimo.value) && parseInt(product.dataset.cost) <= parseInt(maximo.value)
-        ?product.classList.remove('filtro') 
-        :product.classList.add("filtro") 
-      })
-    }
-  } else {
-     if (e.target.matches('#rangeFilterCountMin')){ 
-      document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.dataset.cost) >= parseInt(minimo.value)
-          ?product.classList.remove('filtro') 
-          :product.classList.add("filtro") 
-        });
-      };
-    };  
+  const productos = document.querySelectorAll(".producto");
+
+  if (e.target.matches('#rangeFilterCountMin')) {
+    if (minimo.value && maximo.value) {
+      bothInputs(productos);
+    } else if (minimo.value){
+      oneInput("minimo", productos);
+    };
+  } ;
+  if (e.target.matches('#rangeFilterCountMax')) {
+    if (maximo.value && minimo.value) {
+      bothInputs(productos);
+    } else if (maximo.value) {
+      oneInput("maximo", productos);
+    };
+  };
   e.stopPropagation();
 };
 
-function elMaximo (data, e){
-  limpiar.removeAttribute("disabled");
-  showProducts(data);
-  if (minimo.value) {
-    if (e.target.matches('#rangeFilterCountMax')){ 
-      document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.dataset.cost) <= parseInt(maximo.value) && parseInt(product.dataset.cost) >= parseInt(minimo.value) 
-          ?product.classList.remove('filtro') 
-          :product.classList.add("filtro") 
-        })
-      }
-  } else {
-    if (e.target.matches('#rangeFilterCountMax')){ 
-      document.querySelectorAll(".producto").forEach(product =>{ 
-        parseInt(product.dataset.cost) <= parseInt(maximo.value)
-          ?product.classList.remove('filtro')  
-          :product.classList.add("filtro") 
-        });
-      };
-    };
-  e.stopPropagation();
+// Funciones auxiliares para filtro por rango de precios-------------------------------------
+function bothInputs(productos){
+  productos.forEach(product =>{ 
+    const price = product.dataset.cost;
+    parseInt(price) >= parseInt(minimo.value) && parseInt(price) <= parseInt(maximo.value)
+      ? (filterOff(product), coincidencias = true) 
+      : filterOn(product); 
+    });
 };
+
+function oneInput(input, productos){
+  productos.forEach(product =>{
+    const price = product.dataset.cost;
+    if (input === "maximo"){
+      parseInt(price) <= parseInt(maximo.value)
+      ? (filterOff(product), coincidencias = true) 
+      : filterOn(product); 
+    } else if (input === "minimo"){
+      parseInt(price) >= parseInt(minimo.value)
+      ? (filterOff(product), coincidencias = true)
+      : filterOn(product); 
+    };    
+  });
+};
+
 
 function minOfMax(){
   if (minimo.value > maximo.value) {
@@ -175,47 +179,75 @@ function minOfMax(){
     maximo.select();
 };
 
+
+// Función del botón limpiar--------------------------------------------------------------------
 function clean(){
   minimo.value = "";
   maximo.value = "";
   searchBar.value = "";
-  fetchData(showProducts);
+  fetchData(showProducts, DATA_URL);
   limpiar.setAttribute("disabled", "");
 };
 
+
+// Event listeners------------------------------------------------------------------------------
 window.addEventListener('load', () => {
-  fetchData(showProducts);
-  
+  fetchData(showProducts, DATA_URL);  
 });
 
 ordenar_asc.addEventListener('click', () => {
-  fetchData(ordenar_menor_precio);  
+  fetchData(data => sort(data, "asc", "cost"), DATA_URL);  
 });
 
 ordenar_desc.addEventListener('click', () => {
-  fetchData(ordenar_mayor_precio);  
+  fetchData(data => sort(data, "desc", "cost"), DATA_URL);  
 });
 
 ordenar_rel.addEventListener('click', () => {
-  fetchData(ordenar_relevancia);  
+  fetchData(data => sort(data, "desc", "soldCount"), DATA_URL);  
 });
 
 maximo.addEventListener('focus', () => {
   minOfMax();
 });
 
-document.addEventListener('keyup', e =>{
-  fetchData(data => buscador(data, e))
+searchBar.addEventListener('keyup', e =>{ // * Cambié window por searchBar para que sólo escuche los keyups en caso de que el foco esté en la barra de búsqueda.
+  fetchData(buscador(e), DATA_URL)
+});
+
+searchBar.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (searchBar.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+    clean();                                
+  } else{                                   
+    limpiar.removeAttribute("disabled");
+  }
 });
 
 minimo.addEventListener('keyup', e =>{
-  fetchData(data => elMinimo(data, e));
+  fetchData(data => costRange(data, e), DATA_URL);
 });
 
 maximo.addEventListener('keyup', e =>{
-  fetchData(data => elMaximo(data, e))
+  fetchData(data => costRange(data, e), DATA_URL);
+});
+
+minimo.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (minimo.value.trim() === '' && maximo.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+    clean();                             
+  } else{                                   
+    limpiar.removeAttribute("disabled");
+  };
+});
+
+maximo.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (maximo.value.trim() === '' && minimo.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+    clean();                               
+  } else{                                   
+    limpiar.removeAttribute("disabled");
+  };
 });
 
 limpiar.addEventListener('click', () => {
   clean()
 });
+
