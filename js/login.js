@@ -42,7 +42,7 @@ boton_login.addEventListener('click', (e)=> {
 function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
     setTimeout(function() {
-        document.getElementById("alert-danger").reset;
+        document.getElementById("alert-danger").classList.remove("show");
         location.reload();
     }, 2000);
 };
