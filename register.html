@@ -61,7 +61,7 @@
     </nav>
 
     <main>
-        <div class="album py-5 bg-light">
+        <div class="album py-5">
             <div class="container">
                 <div class="registro">
                     <h1 id="registrarse">Registrarse</h1><br>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="form-group">
                             <label for="departamento">
-                                Departamento: <select name="dpto" class="form-control vertical" id="departamento">
+                                Departamento: <select name="dpto" class="form-control vertical text-dark" id="departamento">
                                     <option selected disabled value="nada">Seleccione una opción</option>
                                     <option value="artigas">Artigas</option>
                                     <option value="canelones">Canelones</option>
@@ -124,11 +124,13 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
+                                
+                            </div>
+                            <div class="form-group">
                                 <label for="offers">
                                     <input type="checkbox" name="ofertas" id="offers"> Marque esta casilla si desea recibir nuestro boletín semanal con las mejores ofertas.
                                 </label>
-                            </div>
-                            <div class="form-group">
+                                <br><br>
                                 <label for="terms">
                                     <input type="checkbox" name="terminos" id="terms" required> He leído y acepto los términos y condiciones. <span style="color: red;">*</span>
                                 </label>

@@ -79,7 +79,7 @@ function showProduct(data) {
                 </div>
             
           
-                <div class="col-4 card border-0">
+                <div class="col-4 card border-0 ${listGroupItemsDkM()}">
                     <div class="row card-title">
                         <h1 class="display-5 fw-normal">${data.name}
                         </h1>
@@ -99,10 +99,10 @@ function showProduct(data) {
                         )} sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
-                      <button type="button" class="btn btn-warning btn-lg">Comprar!</button>
+                      <button type="button" class="btn btn-primary btn-lg">Comprar!</button>
                     </div>
                     <div class="row col-11 mx-auto mt-2">
-                      <button type="button" class="btn btn-outline-warning">Añadir al carrito</button>
+                      <button type="button" class="btn btn-outline-success">Añadir al carrito</button>
                     </div>
                     
                 </div>
@@ -133,7 +133,15 @@ function showProduct(data) {
                 
             `;
   container.innerHTML = htmlContentToAppend;
-}
+  commentTxt.classList.add(listGroupItemsDkM());
+  commentStars.classList.add(listGroupItemsDkM());
+  let elementsToChangeBg = [document.querySelectorAll(".accordion-item"), document.querySelectorAll(".accordion-button"), document.querySelectorAll(".accordion-collapse")];
+  elementsToChangeBg.forEach(element => {
+    element.forEach(innerElement => {
+      innerElement.classList.add(listGroupItemsDkM());
+    });
+  });
+};
 
 
 function stars(userScore){
@@ -158,11 +166,11 @@ function showComments(data){
     let htmlContentToAppend = ""; 
       for (review of data) {
         htmlContentToAppend += `
-         <div class="shadow p-3 mb-3 bg-white" style="border-color: white"> 
+         <div class="shadow p-3 mb-3" style="border-color: white"> 
           <div class="row">
             <div class="col-md-12">
              <div class="list-group">
-               <div class="list-group-item" style="border-color: white">
+               <div class="list-group-item ${listGroupItemsDkM()}" style="border-color: white">
                 <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
                   ${stars(review.score)}
                 </div>
