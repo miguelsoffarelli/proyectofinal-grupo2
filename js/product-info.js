@@ -15,7 +15,7 @@ const PRODUCT_ID = localStorage.getItem('prodID');
 
 
 
-
+// Función para convertir precios
 function currencyConverter(data) {
   let price = data.cost;
   if (data.currency != "UYU") {
@@ -26,7 +26,7 @@ function currencyConverter(data) {
 };
 
 
-
+// Función para mostrar el producto
 function showProduct(data) {
   let htmlContentToAppend = "";
   htmlContentToAppend = `
@@ -50,7 +50,6 @@ function showProduct(data) {
                       <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
                       <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
                       <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
-                      <li data-target="#carouselExampleIndicators2" data-slide-to="3"></li>
                     </ol>
                     <div class="carousel-inner border rounded">
                       <div class="carousel-item active" >
@@ -135,7 +134,7 @@ function showProduct(data) {
   container.innerHTML = htmlContentToAppend;
 };
 
-
+// Función que asigna un número de estrellas de acuerdo al puntaje que se le pasa como parámetro
 function stars(userScore){
   let starsToAppend = ""
   for(let i = 0; i < userScore; i++){
@@ -148,7 +147,7 @@ function stars(userScore){
 };
 
 
-
+// Función que carga los comentarios
 function showComments(data){
   for(let comentario of savedComments){
     if(comentario.ID === PRODUCT_ID){
@@ -177,6 +176,7 @@ function showComments(data){
   comments.innerHTML = htmlContentToAppend;
 };
 
+// Función que guarda los comentarios nuevos
 function addedComments(){
   const NEW_COMMENT = commentTxt.value;
   const SCORE = commentStars.value;
@@ -196,6 +196,8 @@ function addedComments(){
   commentTxt.value = "";
 };
 
+
+// Event Listeners
 SUBMIT_COMMENT.addEventListener("click", () => {
   addedComments();
   location.reload();

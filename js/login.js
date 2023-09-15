@@ -1,5 +1,3 @@
-
-
 const username = document.getElementById('username');
 const contrasena = document.getElementById('contrasena');
 const boton_login = document.getElementById('boton_login');
@@ -8,13 +6,16 @@ const saltarLogin = document.getElementById('skip');
 const rememberMeCheckbox = document.getElementById('rememberMe');
 
 
+// Función que muestra error si las credenciales son incorrectas
+function showAlertError() {
+    document.getElementById("alert-danger").classList.add("show");
+    setTimeout(function() {
+        document.getElementById("alert-danger").classList.remove("show");
+        location.reload();
+    }, 2000);
+};
 
-boton_registro.addEventListener('click', (e)=> {
-    e.preventDefault();
-    location.href = "register.html";
-});
-
-
+// Event Listener que valida si las credenciales son correctas, las guarda en localStorage y valida el checkbox "recordarme" 
 boton_login.addEventListener('click', (e)=> {
     e.preventDefault();
     if (username.value !== "" && contrasena.value !== "" && contrasena.value.length >= 6){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
@@ -39,14 +40,8 @@ boton_login.addEventListener('click', (e)=> {
 });
 
 
-function showAlertError() {
-    document.getElementById("alert-danger").classList.add("show");
-    setTimeout(function() {
-        document.getElementById("alert-danger").classList.remove("show");
-        location.reload();
-    }, 2000);
-};
 
+// Event Listeners
 
 saltarLogin.addEventListener('click', (e)=> {
     e.preventDefault();
@@ -64,3 +59,8 @@ window.addEventListener('load', () => {
       contrasena.value = savedPassword;
     };
   });
+  
+  boton_registro.addEventListener('click', (e)=> {
+    e.preventDefault();
+    location.href = "register.html";
+});
