@@ -4,17 +4,20 @@ const menu = document.getElementById("menu");
 const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacenado en el local storage para la clave user (ver register.js, el valor es usuario.value)
 const enlaceLogin = document.getElementById("linkLogin");
 const account = document.getElementById('accountDropdown');
+const SETTINGS = document.getElementById('settingsDropdown');
+const SETTINGS_DROPBTN = document.getElementById('settings');
+const SETTINGS_MENU = document.getElementById('settingsMenu');
+const LANGUAGE_DROPBTN = document.getElementById('language');
+const CURRENCY_DROPBTN = document.getElementById('currency');
+const LANGUAGE_MENU = document.getElementById('languageMenu');
+const CURRENCY_MENU = document.getElementById('currencyMenu');
+const LANGUAGE_DIV = document.getElementById('languageDiv');
+const CURRENCY_DIV = document.getElementById('currencyDiv');
+const BODY = document.querySelector("body");
+const BTN_MODE = document.getElementById("modeBtn");
 
-dropbtn.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
-  event.stopPropagation();
-  menu.style.display = "block";
-});
-  
-account.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
-  event.stopPropagation();
-  menu.style.display = "none";
-});
-  
+
+// Función para cerrar sesión-----------------------------------------------------------------------------------------------
 function cerrarSesion(event) { //creamos una función que registre en el almacenamiento del navegador que la sesión está cerrada.
     event.preventDefault(); //Evitamos el comportamiento por defecto del elemento, que al tratarse de un enlace con el atributo href="#", nos redireccionaría hacia /#
     localStorage.setItem('isLoggedIn', 'false'); //indicamos que la sesión está cerrada
@@ -23,11 +26,7 @@ function cerrarSesion(event) { //creamos una función que registre en el almacen
 };
 
 
-salir.addEventListener("click", cerrarSesion); //agregamos un manejador de eventos para cuando se hace click en "Salir", que ejecuta la función cerrarSesion.
-
-
-document.addEventListener("DOMContentLoaded", validar() );
-// Verificar si el usuario está logueado
+// Verificar si el usuario está logueado------------------------------------------------------------------------------------
 function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); //definimos la constante "isLoggedIn" para acceder mas fácilmente a ella
     if (!isLoggedIn || isLoggedIn === "false") { /*La funcionalidad no se implementaba correctamente, ya que al refrescar la página, aún con isLoggedIn=falso, seguía siendo visible
@@ -40,7 +39,57 @@ function validar(){
       dropbtn.setAttribute('href', 'login.html');
       menu.remove();
     } else {
-      dropbtn.innerHTML += nombreUsuario;
-      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
+      dropbtn.innerHTML += cutString(nombreUsuario, 20) + `<i class="fas fa-caret-down m-2"></i>`; // Y se cambia el contenido del menú desplegable al nombre del usuario.
+      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
     };
 };
+
+
+// Event Listeners--------------------------------------------------------------------------------------------------
+salir.addEventListener("click", cerrarSesion); //agregamos un manejador de eventos para cuando se hace click en "Salir", que ejecuta la función cerrarSesion.
+
+document.addEventListener("DOMContentLoaded", validar() );
+
+dropbtn.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
+  event.stopPropagation();
+  menu.style.display = "block";
+});
+  
+account.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
+  event.stopPropagation();
+  menu.style.display = "none";
+});
+
+SETTINGS_DROPBTN.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
+  event.stopPropagation();
+  SETTINGS_MENU.style.display = "block";
+});
+  
+SETTINGS.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
+  event.stopPropagation();
+  SETTINGS_MENU.style.display = "none";
+});
+
+LANGUAGE_DROPBTN.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
+  event.stopPropagation();
+  LANGUAGE_MENU.style.display = "block";
+});
+  
+LANGUAGE_DIV.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
+  event.stopPropagation();
+  LANGUAGE_MENU.style.display = "none";
+});
+
+CURRENCY_DROPBTN.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
+  event.stopPropagation();
+  CURRENCY_MENU.style.display = "block";
+});
+  
+CURRENCY_DIV.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
+  event.stopPropagation();
+  CURRENCY_MENU.style.display = "none";
+});
+
+BTN_MODE.addEventListener("click", ()=> {
+  BODY.classList.toggle("darkMode");
+});
