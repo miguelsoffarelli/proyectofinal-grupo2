@@ -166,11 +166,11 @@ function showComments(data){
     let htmlContentToAppend = ""; 
       for (review of data) {
         htmlContentToAppend += `
-         <div class="shadow p-3 mb-3" style="border-color: white"> 
+         <div class="shadow p-3 mb-3"> 
           <div class="row">
             <div class="col-md-12">
              <div class="list-group">
-               <div class="list-group-item ${listGroupItemsDkM()}" style="border-color: white">
+               <div class="list-group-item ${listGroupItemsDkM()} border-0">
                 <div><strong><a href="#">${cutString(review.user, 20)}</a></strong>
                   ${stars(review.score)}
                 </div>
