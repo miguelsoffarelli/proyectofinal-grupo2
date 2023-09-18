@@ -7,6 +7,7 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -60,5 +61,32 @@ function cutString(string, limit) {
   } else{
       return string
   }; 
+};
+
+
+// Función para descontar un porcentaje
+function percentage(num, per) {
+  return num - ((num/100)*per);
+};
+
+
+// Función para saber si un producto está en oferta (para así aplicar el descuento en products.js y product-info.js)
+function hasDiscount(id, price) {
+  const sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
+  for (const prod of sessionProducts) {
+    if (prod && prod.id === id) {
+      return percentage(price, 10);
+    } else {
+      return price;
+    }
+  }
+  return price;
+}
+
+
+// Función para asignar id del producto al localStorage---------------------------------------------------------------
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html"
 };
 

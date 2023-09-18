@@ -88,14 +88,11 @@ function showProduct(data) {
                       data.soldCount
                     } vendidos</sub>
                     <div class="row card-text">
-                        <p class="h2 fw-light">${data.currency} ${data.cost}</p>
+                        <p class="h2 fw-light">${data.currency} ${hasDiscount(data.id, data.cost)}</p>
                     </div>
                     <div class="row mb-0">
-                        <p class="fs-5">En 12x $ ${(
-                          currencyConverter(data) / 12
-                        ).toFixed(
-                          2
-                        )} sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
+                        <p class="fs-5">En 12x $ ${(hasDiscount(data.id, currencyConverter(data)) / 12).toFixed(2)} 
+                        sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
                       <button type="button" class="btn btn-primary btn-lg">Comprar!</button>
