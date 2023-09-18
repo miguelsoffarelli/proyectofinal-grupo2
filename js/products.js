@@ -37,7 +37,7 @@ function showProducts(data) {
         <div class="col-7">
           <h2 class="product-name">${product.name}</h2>
           <p class="product-description">${product.description}</p>
-          <p class="product-cost">${product.currency} ${product.cost}</p>
+          <p class="product-cost">${product.currency} ${hasDiscount(product.id, product.cost)}</p>
         </div>
         <div class="col-2 text-muted">
           <p class="product-sold">${product.soldCount} vendidos</p>

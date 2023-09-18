@@ -11,6 +11,30 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("catID", 103);
         window.location = "products.html"
     });
+    document.getElementById("herramientas").addEventListener("click", function() {
+        localStorage.setItem("catID", 104);
+        window.location = "products.html"
+  });
+    document.getElementById("computadoras").addEventListener("click", function() {
+        localStorage.setItem("catID", 105);
+        window.location = "products.html"
+    });
+    document.getElementById("vestimenta").addEventListener("click", function() {
+        localStorage.setItem("catID", 106);
+        window.location = "products.html"
+    });
+    document.getElementById("electrodomesticos").addEventListener("click", function() {
+        localStorage.setItem("catID", 107);
+        window.location = "products.html"
+    });
+    document.getElementById("deporte").addEventListener("click", function() {
+        localStorage.setItem("catID", 108);
+        window.location = "products.html"
+    });
+    document.getElementById("celulares").addEventListener("click", function() {
+        localStorage.setItem("catID", 109);
+        window.location = "products.html"
+    });
 });
 
 const salir = document.getElementById("exit");
@@ -30,6 +54,82 @@ const LANGUAGE_MENU = document.getElementById('languageMenu');
 const CURRENCY_MENU = document.getElementById('currencyMenu');
 const LANGUAGE_DIV = document.getElementById('languageDiv');
 const CURRENCY_DIV = document.getElementById('currencyDiv');
+const DISCOUNTS_CAROUSEL = document.getElementById('discounts');
+let currentCategory;
+let DATA_URL;
+const CATEGORIES_LIST = [101, 102, 103, 104, 105, 106, 107, 108, 109];
+let sessionProducts = sessionStorage.getItem('sessionProducts');
+let forSale = [];
+let urlList = [];
+
+
+
+// Función que hace fetch a las URL de todas las categorías
+function urlListFetch(urls) {
+  const fetchPromises = urls.map(url => fetch(url));
+  return Promise.all(fetchPromises)
+    .then(responses => {
+      return Promise.all(responses.map(response => response.json()));
+    })
+    .then(dataArray => {
+      return dataArray;
+    })
+    .catch(error => {
+      console.error("Error en la solicitud fetch:", error);
+    });
+};
+
+// Función para mostrar un producto al azar de cada categoría con un descuento
+function discount(){
+  let activeElement = false;
+  CATEGORIES_LIST.forEach(cat => {
+    currentCategory = cat;
+    DATA_URL = PRODUCTS_URL + currentCategory + EXT_TYPE;
+    urlList.push(DATA_URL);
+  });
+  urlListFetch(urlList)
+  .then(dataArray => {
+    dataArray.forEach(cat => {
+      let htmlContentToAppend = "";
+      let products = cat.products;
+      let sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
+      if (sessionProducts.length === 0) {
+        forSale.push(products[(Math.floor(Math.random() * products.length))]);
+        sessionStorage.setItem('sessionProducts', JSON.stringify(forSale));
+      };
+      let product = sessionProducts[CATEGORIES_LIST.indexOf(cat.catID)];
+      if(product != null){
+        if(!activeElement){
+          htmlContentToAppend = `
+            <div onclick="setProdID(${product.id})" class="carousel-item active cursor-active" id="${product.name}" >
+              <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
+              <img class="discountPer" src="img/10.png" alt="">
+              <br>
+              <h3 class="m-3">${product.name}</h3>
+              <h5>${product.currency} ${percentage(product.cost, 10)}</h5>
+              <p class="card-text">${product.description}</p>
+            </div>
+          `;
+          activeElement = true;
+          console.log(activeElement);
+          DISCOUNTS_CAROUSEL.innerHTML += htmlContentToAppend;
+        } else {
+          htmlContentToAppend += `
+            <div onclick="setProdID(${product.id})" class="carousel-item cursor-active" id="${product.name}" >
+              <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
+              <img class="discountPer" src="img/10.png" alt="">
+              <br>
+              <h3 class="m-3">${product.name}</h3>
+              <h5>${product.currency} ${percentage(product.cost, 10)}</h5>
+              <p class="card-text">${product.description}</p>
+            </div>
+          `;
+          DISCOUNTS_CAROUSEL.innerHTML += htmlContentToAppend;
+        };  
+      };
+    });
+  });
+};
 
 
 // Función para limitar los caracteres de un string (por ejemplo el nombre de usuario o un comentario)--------------------------
@@ -86,7 +186,10 @@ function cerrarSesion(event) {
 
 // Event Listeners--------------------------------------------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", validar() );
+document.addEventListener("DOMContentLoaded", () => {
+  validar(); 
+  discount();
+});
 
 dropbtn.addEventListener("mouseover", function(event) { 
   event.stopPropagation();
