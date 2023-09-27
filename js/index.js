@@ -236,3 +236,5 @@ CURRENCY_DIV.addEventListener("mouseleave", function(event) {
 BTN_MODE.addEventListener("click", ()=> {
   BODY.classList.toggle("darkMode");
 });
+
+
