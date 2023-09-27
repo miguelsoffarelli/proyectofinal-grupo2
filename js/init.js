@@ -9,6 +9,7 @@ const EXT_TYPE = ".json";
 const CART_BUTTON = document.getElementById("shopping-cart");
 
 
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -91,6 +92,7 @@ function setProdID(id) {
   window.location = "product-info.html"
 };
 
+
 // ---------------------------------------------------------- //
 
 const reproductor = document.getElementById("reproductor");
@@ -133,3 +135,4 @@ btnPausa.addEventListener("click", () => {
 CART_BUTTON.onclick = () => {
   window.location = "cart.html";
 };
+
