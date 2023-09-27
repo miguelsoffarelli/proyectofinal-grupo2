@@ -58,7 +58,10 @@ const DISCOUNTS_CAROUSEL = document.getElementById('discounts');
 let currentCategory;
 let DATA_URL;
 const CATEGORIES_LIST = [101, 102, 103, 104, 105, 106, 107, 108, 109];
-let sessionProducts = sessionStorage.getItem('sessionProducts');
+let sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
+if (!sessionProducts) {
+  sessionProducts = {}; // Inicializa sessionProducts como un objeto vacío si es nulo
+};
 let forSale = [];
 let urlList = [];
 
@@ -92,12 +95,14 @@ function discount(){
     dataArray.forEach(cat => {
       let htmlContentToAppend = "";
       let products = cat.products;
-      let sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
-      if (sessionProducts.length === 0) {
-        forSale.push(products[(Math.floor(Math.random() * products.length))]);
-        sessionStorage.setItem('sessionProducts', JSON.stringify(forSale));
+      
+      if (!sessionProducts[cat.catID]) {
+        const randomProduct = products[Math.floor(Math.random() * products.length)];
+        sessionProducts[cat.catID] = randomProduct;
+        sessionStorage.setItem('sessionProducts', JSON.stringify(sessionProducts));
       };
-      let product = sessionProducts[CATEGORIES_LIST.indexOf(cat.catID)];
+      let product = sessionProducts[cat.catID];
+
       if(product != null){
         if(!activeElement){
           htmlContentToAppend = `
@@ -111,7 +116,6 @@ function discount(){
             </div>
           `;
           activeElement = true;
-          console.log(activeElement);
           DISCOUNTS_CAROUSEL.innerHTML += htmlContentToAppend;
         } else {
           htmlContentToAppend += `
@@ -236,3 +240,5 @@ CURRENCY_DIV.addEventListener("mouseleave", function(event) {
 BTN_MODE.addEventListener("click", ()=> {
   BODY.classList.toggle("darkMode");
 });
+
+

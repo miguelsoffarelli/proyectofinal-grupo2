@@ -12,6 +12,7 @@ const commentStars = document.getElementById('floatingSelect');
 let currentUser = localStorage.getItem('user');
 let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
 const PRODUCT_ID = localStorage.getItem('prodID');
+const RELATED_PRODUCTS_DIV = document.querySelector(".related");
 
 
 
@@ -144,6 +145,7 @@ function stars(userScore){
 };
 
 
+
 // Función que carga los comentarios
 function showComments(data){
   for(let comentario of savedComments){
@@ -194,6 +196,25 @@ function addedComments(){
 };
 
 
+function showRelatedProducts(data) {
+  const RELATED_PROD = data.relatedProducts;
+  let htmlContentToAppend = "";
+  for (product of RELATED_PROD){
+    htmlContentToAppend += `           
+      <div onclick="setProdID(${product.id})" class="card m-3 cursor-active">
+        <img class="card-img-top" src="${product.image}"</img>
+        <div class="card-body">
+          <p class="card-title">${product.name}</p>
+        </div>
+      </div>      
+    `
+    console.log("a");
+  }
+  RELATED_PRODUCTS_DIV.innerHTML += htmlContentToAppend;
+}
+
+
+
 // Event Listeners
 SUBMIT_COMMENT.addEventListener("click", () => {
   addedComments();
@@ -203,4 +224,5 @@ SUBMIT_COMMENT.addEventListener("click", () => {
 window.addEventListener("load", () => {
   fetchData(showProduct, CURRENT_PRODUCT_URL);
   fetchData(showComments, CURRENT_COMMENTS_URL);
+  fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);
 });
