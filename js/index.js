@@ -93,7 +93,7 @@ function discount(){
       let htmlContentToAppend = "";
       let products = cat.products;
       let sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
-      if (sessionProducts.length === 0) {
+      if (!sessionProducts) {
         forSale.push(products[(Math.floor(Math.random() * products.length))]);
         sessionStorage.setItem('sessionProducts', JSON.stringify(forSale));
       };

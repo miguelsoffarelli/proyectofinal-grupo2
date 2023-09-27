@@ -16,13 +16,6 @@ let coincidencias = false;
 //* La función fetch que estaba acá se trasladó al init.js para poder re-utilizarla en product-info.js
 
 
-// Función para asignar id del producto al localStorage---------------------------------------------------------------
-function setProdID(id) {
-  localStorage.setItem("prodID", id);
-  window.location = "product-info.html"
-};
-
-
 // Función para mostrar los productos------------------------------------------------------------------------------------------------------------------------------------------------
 function showProducts(data) {
   let htmlContentToAppend = "";
