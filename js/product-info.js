@@ -208,7 +208,6 @@ function showRelatedProducts(data) {
         </div>
       </div>      
     `
-    console.log("a");
   }
   RELATED_PRODUCTS_DIV.innerHTML += htmlContentToAppend;
 }
