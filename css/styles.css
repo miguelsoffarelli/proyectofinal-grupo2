@@ -451,3 +451,6 @@ body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body
   width: 200px;
 }
 
+#exampleModalLabel {
+  color: black;
+}

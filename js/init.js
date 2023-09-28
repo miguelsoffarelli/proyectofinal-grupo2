@@ -74,15 +74,14 @@ function percentage(num, per) {
 // Función para saber si un producto está en oferta (para así aplicar el descuento en products.js y product-info.js)
 function hasDiscount(id, price) {
   const sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
-  for (const prod of sessionProducts) {
-    if (prod && prod.id === id) {
-      return percentage(price, 10);
-    } else {
-      return price;
-    }
-  }
-  return price;
-}
+  const productsArray = Object.values(sessionProducts);
+  const product = productsArray.find(prod => prod.id === id);
+  if (product) {
+    return percentage(price, 10);
+  } else {
+    return price;
+  };
+};
 
 
 // Función para asignar id del producto al localStorage---------------------------------------------------------------
@@ -90,6 +89,12 @@ function setProdID(id) {
   localStorage.setItem("prodID", id);
   window.location = "product-info.html"
 };
+
+// Función para asignar categoría del producto al localStorage 
+// sin redireccionar (para usar en el carrusel de ofertas)---------------------------------------------------------------
+function setCatID(id) {
+  localStorage.setItem("catID", id);
+}
 
 // ---------------------------------------------------------- //
 

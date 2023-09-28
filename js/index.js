@@ -106,7 +106,7 @@ function discount(){
       if(product != null){
         if(!activeElement){
           htmlContentToAppend = `
-            <div onclick="setProdID(${product.id})" class="carousel-item active cursor-active" id="${product.name}" >
+            <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item active cursor-active" id="${product.name}" >
               <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
               <img class="discountPer" src="img/10.png" alt="">
               <br>
@@ -119,7 +119,7 @@ function discount(){
           DISCOUNTS_CAROUSEL.innerHTML += htmlContentToAppend;
         } else {
           htmlContentToAppend += `
-            <div onclick="setProdID(${product.id})" class="carousel-item cursor-active" id="${product.name}" >
+            <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item cursor-active" id="${product.name}" >
               <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
               <img class="discountPer" src="img/10.png" alt="">
               <br>
