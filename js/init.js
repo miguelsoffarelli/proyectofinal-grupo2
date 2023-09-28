@@ -9,6 +9,7 @@ const EXT_TYPE = ".json";
 const CART_BUTTON = document.getElementById("shopping-cart");
 
 
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -138,3 +139,4 @@ btnPausa.addEventListener("click", () => {
 CART_BUTTON.onclick = () => {
   window.location = "cart.html";
 };
+

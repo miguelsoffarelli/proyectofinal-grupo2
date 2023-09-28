@@ -146,7 +146,6 @@ function stars(userScore){
 
 
 
-
 // Función que carga los comentarios
 function showComments(data){
   for(let comentario of savedComments){
@@ -212,6 +211,7 @@ function showRelatedProducts(data) {
   }
   RELATED_PRODUCTS_DIV.innerHTML += htmlContentToAppend;
 }
+
 
 
 // Event Listeners
