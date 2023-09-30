@@ -72,7 +72,7 @@ function percentage(num, per) {
 };
 
 
-// Función para saber si un producto está en oferta (para así aplicar el descuento en products.js y product-info.js)
+// Función para saber si un producto está en oferta (para así aplicar el descuento en products.html y product-info.html)
 function hasDiscount(id, price) {
   const sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
   const productsArray = Object.values(sessionProducts);
@@ -92,49 +92,38 @@ function setProdID(id) {
 };
 
 // Función para asignar categoría del producto al localStorage 
-// sin redireccionar (para usar en el carrusel de ofertas)---------------------------------------------------------------
+// sin redireccionar (para acceder a un producto fuera de products.html)---------------------------------------------------------------
 function setCatID(id) {
   localStorage.setItem("catID", id);
 }
 
 // ---------------------------------------------------------- //
 
-const reproductor = document.getElementById("reproductor");
-const btnReproducir = document.getElementById("btnReproducir");
-const btnPausa = document.getElementById("btnPausa");
-let reproduciendoAntes = false; // Variable para almacenar el estado de reproducción
-reproductor.volume = 0.1
+const MUSIC_PLAYER = document.getElementById("reproductor");
+let playingBefore = false; // Variable para almacenar el estado de reproducción
+MUSIC_PLAYER.volume = 0.1
 
 // Detectar cuando el usuario está abandonando la página
 window.addEventListener("unload", () => {
-  sessionStorage.setItem("posicionReproductor", reproductor.currentTime);
-  sessionStorage.setItem("reproduciendoAntes", reproductor.paused ? "no" : "si");
+  sessionStorage.setItem("posicionReproductor", MUSIC_PLAYER.currentTime);
+  sessionStorage.setItem("reproduciendoAntes", MUSIC_PLAYER.paused ? "no" : "si");
 });
 
 // Comprobar el estado de reproducción al cargar una nueva página o al retroceder
 window.addEventListener("DOMContentLoaded", () => {
-  const posicionGuardada = sessionStorage.getItem("posicionReproductor");
-  const reproduciendo = sessionStorage.getItem("reproduciendoAntes");
+  const SAVED_POSITION = sessionStorage.getItem("posicionReproductor");
+  const PLAYING = sessionStorage.getItem("reproduciendoAntes");
   
-  if (posicionGuardada) {
-    reproductor.currentTime = parseFloat(posicionGuardada);
-    reproduciendoAntes = reproduciendo === "si"; // Actualizar el estado de reproducción
+  if (SAVED_POSITION) {
+    MUSIC_PLAYER.currentTime = parseFloat(SAVED_POSITION);
+    playingBefore = PLAYING === "si"; // Actualiza el estado de reproducción
   }
   
-  if (reproduciendoAntes) {
-    reproductor.play(); // Reanudar la reproducción si estaba en reproducción antes
+  if (playingBefore) {
+    MUSIC_PLAYER.play(); // Reanuda la reproducción si se estaba en reproducción antes
   }
 });
 
-btnReproducir.addEventListener("click", () => {
-  reproductor.play();
-  reproduciendoAntes = true; 
-});
-
-btnPausa.addEventListener("click", () => {
-  reproductor.pause();
-  reproduciendoAntes = false; 
-});
 
 CART_BUTTON.onclick = () => {
   window.location = "cart.html";
