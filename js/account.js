@@ -1,9 +1,8 @@
-const salir = document.getElementById("exit");
-const dropbtn = document.getElementById("nav-dropbtn");
-const menu = document.getElementById("menu");
-const nombreUsuario = localStorage.getItem('user'); 
-const enlaceLogin = document.getElementById("linkLogin");
-const account = document.getElementById('accountDropdown');
+const LOGOUT = document.getElementById("exit");
+const DROPBTN = document.getElementById("nav-dropbtn");
+const MENU = document.getElementById("menu");
+const USERNAME = localStorage.getItem('user'); 
+const ACCOUNT = document.getElementById('accountDropdown');
 const SETTINGS = document.getElementById('settingsDropdown');
 const SETTINGS_DROPBTN = document.getElementById('settings');
 const SETTINGS_MENU = document.getElementById('settingsMenu');
@@ -30,32 +29,32 @@ function cerrarSesion(event) {
 function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); 
     if (!isLoggedIn || isLoggedIn === "false") { 
-    dropbtn.style.display = "none"; 
+    DROPBTN.style.display = "none"; 
     window.location.href = 'login.html'; 
-    } else if (nombreUsuario === 'Invitado') {
-      dropbtn.innerHTML = 'Iniciar Sesión';
-      dropbtn.setAttribute('href', 'login.html');
-      menu.remove();
+    } else if (USERNAME === 'Invitado') {
+      DROPBTN.innerHTML = 'Iniciar Sesión';
+      DROPBTN.setAttribute('href', 'login.html');
+      MENU.remove();
     } else {
-      dropbtn.innerHTML += cutString(nombreUsuario, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
-      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; 
+      DROPBTN.innerHTML += cutString(USERNAME, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
+      MENU.style.minWidth = USERNAME.length < 20 ?`${USERNAME.length}em` :`20em`; 
     };
 };
 
 
 // Event Listeners--------------------------------------------------------------------------------------------------
-salir.addEventListener("click", cerrarSesion); 
+LOGOUT.addEventListener("click", cerrarSesion); 
 
 document.addEventListener("DOMContentLoaded", validar() );
 
-dropbtn.addEventListener("mouseover", function(event) { 
+DROPBTN.addEventListener("mouseover", function(event) { 
   event.stopPropagation();
-  menu.style.display = "block";
+  MENU.style.display = "block";
 });
   
-account.addEventListener("mouseleave", function(event) { 
+ACCOUNT.addEventListener("mouseleave", function(event) { 
   event.stopPropagation();
-  menu.style.display = "none";
+  MENU.style.display = "none";
 });
 
 SETTINGS_DROPBTN.addEventListener("mouseover", function(event) { 
