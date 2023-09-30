@@ -95,7 +95,7 @@ function setProdID(id) {
 // sin redireccionar (para acceder a un producto fuera de products.html)---------------------------------------------------------------
 function setCatID(id) {
   localStorage.setItem("catID", id);
-}
+};
 
 // ---------------------------------------------------------- //
 

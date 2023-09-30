@@ -62,7 +62,6 @@ let sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
 if (!sessionProducts) {
   sessionProducts = {}; // Inicializa sessionProducts como un objeto vacío si es nulo
 };
-let forSale = [];
 let urlList = [];
 
 
@@ -150,11 +149,10 @@ function cutString(string, limit) {
 function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); 
     if (!isLoggedIn || isLoggedIn === "false") {
-    dropbtn.style.display = "none"; 
-    
+    dropbtn.style.display = "none";
     window.location.href = 'login.html'; 
     } else if (nombreUsuario === 'Invitado') { 
-      dropbtn.innerHTML = 'Login'; 
+      dropbtn.innerHTML = 'Iniciar Sesión'; 
       dropbtn.setAttribute('href', 'login.html');
       menu.remove();
       welcome(); 
