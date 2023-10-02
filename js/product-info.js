@@ -13,6 +13,8 @@ let currentUser = localStorage.getItem('user');
 let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
 const PRODUCT_ID = localStorage.getItem('prodID');
 const RELATED_PRODUCTS_DIV = document.querySelector(".related");
+const BUY_BTN = document.getElementById("buyBtn");
+const ADD_TO_CART = document.getElementById("addToCart");
 
 
 
@@ -96,10 +98,10 @@ function showProduct(data) {
                         sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
-                      <button type="button" class="btn btn-primary btn-lg">Comprar!</button>
+                      <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL); console.log(JSON.parse(localStorage.getItem('buyProduct')))" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
                     </div>
                     <div class="row col-11 mx-auto mt-2">
-                      <button type="button" class="btn btn-outline-success">Añadir al carrito</button>
+                      <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL); console.log(JSON.parse(localStorage.getItem('buyProduct')))" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
                     </div>
                     
                 </div>
@@ -208,9 +210,37 @@ function showRelatedProducts(data) {
         </div>
       </div>      
     `
-  }
+  };
   RELATED_PRODUCTS_DIV.innerHTML += htmlContentToAppend;
+};
+
+// Clase producto para guardar en el local storage
+// y poder utilizar en el carrito-------------------------------------------------------------------------------------------
+class Product {
+  constructor(img, name, cost) {
+    this.img = img;
+    this.name = name;
+    this.cost = cost;
+  }
+  buy(){
+    localStorage.setItem("buyProduct", JSON.stringify(this));
+    window.location = "cart.html";
+  }
+  addToCart() {
+    localStorage.setItem("buyProduct", JSON.stringify(this));
+  }
 }
+
+// Funciones para comprar y añadir al carrito--------------------------------
+function buyProduct(data) {
+  const currentProduct = new Product(data.images[0], data.name, data.cost);
+  currentProduct.buy();
+}
+
+function addProduct(data) {
+  const currentProduct = new Product(data.images[0], data.name, data.cost);
+  currentProduct.addToCart();
+};
 
 
 
@@ -225,3 +255,6 @@ window.addEventListener("load", () => {
   fetchData(showComments, CURRENT_COMMENTS_URL);
   fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);
 });
+
+
+
