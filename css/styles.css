@@ -440,7 +440,7 @@ body.darkMode textarea, body.darkMode option, body.darkMode input, body.darkMode
 
 body.darkMode, body.darkMode main, body.darkMode .col-4.card.border-0, body.darkMode .accordion-button, body.darkMode .accordion-body,
 body.darkMode .accordion-item, body.darkMode .list-group-item, body.darkMode textarea, body.darkMode select, body.darkMode textarea:focus,
-body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkMode footer {
+body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkmode .card-body, body.darkMode footer {
   background-color: rgb(33, 37, 41);
 }
 
