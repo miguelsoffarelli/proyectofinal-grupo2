@@ -201,7 +201,7 @@ function showRelatedProducts(data) {
   let htmlContentToAppend = "";
   for (product of RELATED_PROD){
     htmlContentToAppend += `           
-      <div onclick="setProdID(${product.id})" class="card m-3 cursor-active">
+      <div onclick="setProdID(${product.id})" class="card m-3 cursor-active bg-transparent">
         <img class="card-img-top" src="${product.image}"</img>
         <div class="card-body">
           <p class="card-title">${product.name}</p>
