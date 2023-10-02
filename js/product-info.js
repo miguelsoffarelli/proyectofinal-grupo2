@@ -35,12 +35,10 @@ function showProduct(data) {
                     <a href="products.html" class="text-decoration-none fw-bold" style="color: black">Volver</a>
                      | <a href="index.html" class="text-decoration-none" style="color: grey">e-Mercado</a>
                      &gt; <a href="categories.html" class="text-decoration-none" style="color: grey">Categorías</a>
-                     &gt; <a href="products.html" class="text-decoration-none" style="color: grey">${
-                       data.category
-                     }</a>
-                     &gt; <a href="product-info.html" class="text-decoration-none" style="color: grey">${
-                       data.name
-                     }</a>
+                     &gt; <a href="products.html" class="text-decoration-none" style="color: grey">${data.category
+    }</a>
+                     &gt; <a href="product-info.html" class="text-decoration-none" style="color: grey">${data.name
+    }</a>
                 </p>
             </div>
             <div class="row">
@@ -85,18 +83,17 @@ function showProduct(data) {
                         </h1>
                         
                     </div>
-                    <sub class="fs-6 fw-lighter" style="color: #514F4F" id="sold">${
-                      data.soldCount
-                    } vendidos</sub>
+                    <sub class="fs-6 fw-lighter" style="color: #514F4F" id="sold">${data.soldCount
+    } vendidos</sub>
                     <div class="row card-text">
                         <p class="h2 fw-light">${data.currency} ${data.cost}</p>
                     </div>
                     <div class="row mb-0">
                         <p class="fs-5">En 12x $ ${(
-                          currencyConverter(data) / 12
-                        ).toFixed(
-                          2
-                        )} sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
+      currencyConverter(data) / 12
+    ).toFixed(
+      2
+    )} sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
                       <button type="button" class="btn btn-primary btn-lg">Comprar!</button>
@@ -136,12 +133,12 @@ function showProduct(data) {
 };
 
 
-function stars(userScore){
+function stars(userScore) {
   let starsToAppend = ""
-  for(let i = 0; i < userScore; i++){
+  for (let i = 0; i < userScore; i++) {
     starsToAppend += `<span class="fa fa-star checked"></span>`;
   };
-  for(let i = 0; i < 5 - userScore; i++){
+  for (let i = 0; i < 5 - userScore; i++) {
     starsToAppend += `<span class="fa fa-star"></span>`;
   };
   return starsToAppend;
@@ -149,15 +146,15 @@ function stars(userScore){
 
 
 
-function showComments(data){
-  for(let comentario of savedComments){
-    if(comentario.ID === PRODUCT_ID){
-    data.push(comentario);
+function showComments(data) {
+  for (let comentario of savedComments) {
+    if (comentario.ID === PRODUCT_ID) {
+      data.push(comentario);
     };
   };
-  let htmlContentToAppend = ""; 
-    for (review of data) {
-      htmlContentToAppend += `
+  let htmlContentToAppend = "";
+  for (review of data) {
+    htmlContentToAppend += `
        <div class="shadow p-3 mb-3"> 
         <div class="row">
           <div class="col-md-12">
@@ -177,12 +174,12 @@ function showComments(data){
   comments.innerHTML = htmlContentToAppend;
 };
 
-function addedComments(){
+function addedComments() {
   const NEW_COMMENT = commentTxt.value;
   const SCORE = commentStars.value;
   const CURRENT_DATE = new Date().toLocaleString();
   savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
-  
+
   const nuevoComentarioObj = {
     user: currentUser,
     score: SCORE,
@@ -190,7 +187,7 @@ function addedComments(){
     dateTime: CURRENT_DATE,
     ID: PRODUCT_ID,
   };
-   
+
   savedComments.push(nuevoComentarioObj);
   localStorage.setItem("comentarios", JSON.stringify(savedComments));
   commentTxt.value = "";
