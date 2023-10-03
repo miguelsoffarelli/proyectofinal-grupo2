@@ -1,46 +1,91 @@
-const salir = document.getElementById("exit");
-const dropbtn = document.getElementById("nav-dropbtn");
-const menu = document.getElementById("menu");
-const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacenado en el local storage para la clave user (ver register.js, el valor es usuario.value)
-const enlaceLogin = document.getElementById("linkLogin");
-const account = document.getElementById('accountDropdown');
+const LOGOUT = document.getElementById("exit");
+const DROPBTN = document.getElementById("nav-dropbtn");
+const MENU = document.getElementById("menu");
+const USERNAME = localStorage.getItem('user'); 
+const ACCOUNT = document.getElementById('accountDropdown');
+const SETTINGS = document.getElementById('settingsDropdown');
+const SETTINGS_DROPBTN = document.getElementById('settings');
+const SETTINGS_MENU = document.getElementById('settingsMenu');
+const LANGUAGE_DROPBTN = document.getElementById('language');
+const CURRENCY_DROPBTN = document.getElementById('currency');
+const LANGUAGE_MENU = document.getElementById('languageMenu');
+const CURRENCY_MENU = document.getElementById('currencyMenu');
+const LANGUAGE_DIV = document.getElementById('languageDiv');
+const CURRENCY_DIV = document.getElementById('currencyDiv');
+const BODY = document.querySelector("body");
+const BTN_MODE = document.getElementById("modeBtn");
 
-dropbtn.addEventListener("mouseover", function(event) { //indicamos que al pasar con el mouse sobre el elemento dropbtn, los elementos "menu" se vuelvan visibles.
-  event.stopPropagation();
-  menu.style.display = "block";
-});
-  
-account.addEventListener("mouseleave", function(event) { //indicamos que cuando el mouse abandone los elementos menu, estos dejen de estar visibles.
-  event.stopPropagation();
-  menu.style.display = "none";
-});
-  
-function cerrarSesion(event) { //creamos una función que registre en el almacenamiento del navegador que la sesión está cerrada.
-    event.preventDefault(); //Evitamos el comportamiento por defecto del elemento, que al tratarse de un enlace con el atributo href="#", nos redireccionaría hacia /#
-    localStorage.setItem('isLoggedIn', 'false'); //indicamos que la sesión está cerrada
-    localStorage.removeItem('user'); // Eliminamos el dato guardado para que al volver a loguearse o registrarse pueda guardar uno nuevo
-    validar(); //invocamos la función validar para que se oculte el elemento con el menu y nos redireccione al login sin necesidad de refrescar la página.
+
+// Función para cerrar sesión-----------------------------------------------------------------------------------------------
+function cerrarSesion(event) { 
+    event.preventDefault(); 
+    localStorage.setItem('isLoggedIn', 'false'); 
+    localStorage.removeItem('user'); 
+    validar();
 };
 
 
-salir.addEventListener("click", cerrarSesion); //agregamos un manejador de eventos para cuando se hace click en "Salir", que ejecuta la función cerrarSesion.
-
-
-document.addEventListener("DOMContentLoaded", validar() );
-// Verificar si el usuario está logueado
+// Verificar si el usuario está logueado------------------------------------------------------------------------------------
 function validar(){
-    const isLoggedIn = localStorage.getItem("isLoggedIn"); //definimos la constante "isLoggedIn" para acceder mas fácilmente a ella
-    if (!isLoggedIn || isLoggedIn === "false") { /*La funcionalidad no se implementaba correctamente, ya que al refrescar la página, aún con isLoggedIn=falso, seguía siendo visible
-                                                 el menú "Cuenta" y no redirigía a login.html. El problema radicaba en que el sistema no interpretaba correctamente "!isLoggedIn", 
-                                                 por lo que agregar la condición "isLoggedIn === "false" solucionó el problema.*/
-    dropbtn.style.display = "none"; //Si no se está logeado (es decir, si "isLoggedIn" es falso), ocultamos el menu Cuenta
-    window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
-    } else if (nombreUsuario === 'Invitado') {
-      dropbtn.innerHTML = 'Iniciar Sesión';
-      dropbtn.setAttribute('href', 'login.html');
-      menu.remove();
+    const isLoggedIn = localStorage.getItem("isLoggedIn"); 
+    if (!isLoggedIn || isLoggedIn === "false") { 
+    DROPBTN.style.display = "none"; 
+    window.location.href = 'login.html'; 
+    } else if (USERNAME === 'Invitado') {
+      DROPBTN.innerHTML = 'Iniciar Sesión';
+      DROPBTN.setAttribute('href', 'login.html');
+      MENU.remove();
     } else {
-      dropbtn.innerHTML += nombreUsuario;
-      menu.style.minWidth = `${nombreUsuario.length}em`; // Opcional, ajusta el ancho mínimo del menú desplegable al largo del nombre de usuario, para que en caso de un nombre de usuario largo el menú no se vea demasiado pequeño en comparación.
+      DROPBTN.innerHTML += cutString(USERNAME, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
+      MENU.style.minWidth = USERNAME.length < 20 ?`${USERNAME.length}em` :`20em`; 
     };
 };
+
+
+// Event Listeners--------------------------------------------------------------------------------------------------
+LOGOUT.addEventListener("click", cerrarSesion); 
+
+document.addEventListener("DOMContentLoaded", validar() );
+
+DROPBTN.addEventListener("mouseover", function(event) { 
+  event.stopPropagation();
+  MENU.style.display = "block";
+});
+  
+ACCOUNT.addEventListener("mouseleave", function(event) { 
+  event.stopPropagation();
+  MENU.style.display = "none";
+});
+
+SETTINGS_DROPBTN.addEventListener("mouseover", function(event) { 
+  event.stopPropagation();
+  SETTINGS_MENU.style.display = "block";
+});
+  
+SETTINGS.addEventListener("mouseleave", function(event) { 
+  event.stopPropagation();
+  SETTINGS_MENU.style.display = "none";
+});
+
+LANGUAGE_DROPBTN.addEventListener("mouseover", function(event) {
+  LANGUAGE_MENU.style.display = "block";
+});
+  
+LANGUAGE_DIV.addEventListener("mouseleave", function(event) { 
+  event.stopPropagation();
+  LANGUAGE_MENU.style.display = "none";
+});
+
+CURRENCY_DROPBTN.addEventListener("mouseover", function(event) { 
+  event.stopPropagation();
+  CURRENCY_MENU.style.display = "block";
+});
+  
+CURRENCY_DIV.addEventListener("mouseleave", function(event) { 
+  event.stopPropagation();
+  CURRENCY_MENU.style.display = "none";
+});
+
+BTN_MODE.addEventListener("click", ()=> {
+  BODY.classList.toggle("darkMode");
+});

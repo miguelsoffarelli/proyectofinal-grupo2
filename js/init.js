@@ -6,6 +6,9 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japceibal.github.io/emercado-api/prod
 const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
+const CART_BUTTON = document.getElementById("shopping-cart");
+
+
 
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -39,3 +42,90 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+// Fetch---------------------------------------------------------
+function fetchData(funcion, url) {
+  try {
+    return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      funcion(data);
+    })
+  } catch {
+    console.log("Error");
+  };
+};
+
+// Función para limitar la cantidad de caracteres que se muestran----------------------
+function cutString(string, limit) {
+  if(string.length > limit){
+      return string.slice(0, limit - 1)+"..."
+  } else{
+      return string
+  }; 
+};
+
+
+// Función para descontar un porcentaje
+function percentage(num, per) {
+  return num - ((num/100)*per);
+};
+
+
+// Función para saber si un producto está en oferta (para así aplicar el descuento en products.html y product-info.html)
+function hasDiscount(id, price) {
+  const sessionProducts = JSON.parse(sessionStorage.getItem('sessionProducts'));
+  const productsArray = Object.values(sessionProducts);
+  const product = productsArray.find(prod => prod.id === id);
+  if (product) {
+    return percentage(price, 10);
+  } else {
+    return price;
+  };
+};
+
+
+// Función para asignar id del producto al localStorage---------------------------------------------------------------
+function setProdID(id) {
+  localStorage.setItem("prodID", id);
+  window.location = "product-info.html"
+};
+
+// Función para asignar categoría del producto al localStorage 
+// sin redireccionar (para acceder a un producto fuera de products.html)---------------------------------------------------------------
+function setCatID(id) {
+  localStorage.setItem("catID", id);
+};
+
+// ---------------------------------------------------------- //
+
+const MUSIC_PLAYER = document.getElementById("reproductor");
+let playingBefore = false; // Variable para almacenar el estado de reproducción
+MUSIC_PLAYER.volume = 0.1
+
+// Detectar cuando el usuario está abandonando la página
+window.addEventListener("unload", () => {
+  sessionStorage.setItem("posicionReproductor", MUSIC_PLAYER.currentTime);
+  sessionStorage.setItem("reproduciendoAntes", MUSIC_PLAYER.paused ? "no" : "si");
+});
+
+// Comprobar el estado de reproducción al cargar una nueva página o al retroceder
+window.addEventListener("DOMContentLoaded", () => {
+  const SAVED_POSITION = sessionStorage.getItem("posicionReproductor");
+  const PLAYING = sessionStorage.getItem("reproduciendoAntes");
+  
+  if (SAVED_POSITION) {
+    MUSIC_PLAYER.currentTime = parseFloat(SAVED_POSITION);
+    playingBefore = PLAYING === "si"; // Actualiza el estado de reproducción
+  }
+  
+  if (playingBefore) {
+    MUSIC_PLAYER.play(); // Reanuda la reproducción si se estaba en reproducción antes
+  }
+});
+
+
+CART_BUTTON.onclick = () => {
+  window.location = "cart.html";
+};
+
