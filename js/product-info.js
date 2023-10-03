@@ -15,6 +15,10 @@ const PRODUCT_ID = localStorage.getItem('prodID');
 const RELATED_PRODUCTS_DIV = document.querySelector(".related");
 const BUY_BTN = document.getElementById("buyBtn");
 const ADD_TO_CART = document.getElementById("addToCart");
+let cartProducts = JSON.parse(sessionStorage.getItem('buyProduct'));
+if (!Array.isArray(cartProducts)) {
+  cartProducts = [];
+};
 
 
 
@@ -98,10 +102,10 @@ function showProduct(data) {
                         sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                     </div>
                     <div class="row mt-3">
-                      <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL); console.log(JSON.parse(localStorage.getItem('buyProduct')))" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
+                      <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
                     </div>
                     <div class="row col-11 mx-auto mt-2">
-                      <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL); console.log(JSON.parse(localStorage.getItem('buyProduct')))" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
+                      <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
                     </div>
                     
                 </div>
@@ -222,19 +226,19 @@ class Product {
     this.name = name;
     this.cost = cost;
   }
-  buy(){
-    localStorage.setItem("buyProduct", JSON.stringify(this));
-    window.location = "cart.html";
-  }
+  
   addToCart() {
-    localStorage.setItem("buyProduct", JSON.stringify(this));
+    cartProducts.push(this);
+    sessionStorage.setItem("buyProduct", JSON.stringify(cartProducts));
   }
 }
+
 
 // Funciones para comprar y añadir al carrito--------------------------------
 function buyProduct(data) {
   const currentProduct = new Product(data.images[0], data.name, data.cost);
-  currentProduct.buy();
+  currentProduct.addToCart();
+  window.location = "cart.html";
 }
 
 function addProduct(data) {

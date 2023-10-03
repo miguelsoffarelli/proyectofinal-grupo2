@@ -1,1 +1,1 @@
-console.log(localStorage.getItem('buyProduct'));
+console.log(sessionStorage.getItem('buyProduct'));
