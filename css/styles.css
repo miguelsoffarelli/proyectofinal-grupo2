@@ -499,6 +499,6 @@ body.darkMode footer{
   background-color: var(--grey-color);
 }
 
-.animate__animated {
+.animate__heartBeat, .animate__tada {
   animation-iteration-count: infinite;
 }
