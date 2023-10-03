@@ -4,7 +4,7 @@ const boton_login = document.getElementById('boton_login');
 const boton_registro = document.getElementById('boton_register');
 const saltarLogin = document.getElementById('skip');
 const rememberMeCheckbox = document.getElementById('rememberMe');
-
+const savedUsers = JSON.parse(localStorage.getItem("usersList"));
 
 // Función que muestra error si las credenciales son incorrectas
 function showAlertError() {
@@ -18,22 +18,23 @@ function showAlertError() {
 // Event Listener que valida si las credenciales son correctas, las guarda en localStorage y valida el checkbox "recordarme" 
 boton_login.addEventListener('click', (e)=> {
     e.preventDefault();
-    if (username.value !== "" && contrasena.value !== "" && contrasena.value.length >= 6){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
-        if (rememberMeCheckbox.checked) {
-            localStorage.setItem('savedUser', username.value);
-            localStorage.setItem('savedPassword', contrasena.value);
+    if(username.value, contrasena.value){
+        if (savedUsers.some(user => user.uName === username.value) && savedUsers.some(user => user.password === contrasena.value)){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
+            if (rememberMeCheckbox.checked) {
+                localStorage.setItem('savedUser', username.value);
+                localStorage.setItem('savedPassword', contrasena.value);
+            } else {
+                localStorage.removeItem('savedUser');
+                localStorage.removeItem('savedPassword');
+            }
+            localStorage.setItem('user', username.value);
+            localStorage.setItem('isLoggedIn', 'true');
+            location.href = "index.html";
         } else {
-            localStorage.removeItem('savedUser');
-            localStorage.removeItem('savedPassword');
-        }
-        localStorage.setItem('user', username.value);
-        localStorage.setItem('isLoggedIn', 'true');
-        location.href = "index.html";
-    } else {
-        if (username.value !== "" && contrasena.value.length < 6){ // Cambiamos la alerta para cuando sí se ingresan los campos solicitados pero la contraseña no tiene 6 caracteres o más.
-            document.getElementById('alertMessage').innerHTML = "Contraseña incorrecta. La contraseña debe tener como mínimo 6 caracteres";
+            document.getElementById('alertMessage').innerHTML = "Credenciales inválidas. Chequea tu contraseña o regístrate si aún no lo estás.";
             showAlertError();
-        };
+        }
+    } else {
         showAlertError();
         
     };
@@ -51,14 +52,14 @@ saltarLogin.addEventListener('click', (e)=> {
 });
 
 window.addEventListener('load', () => {
-    const savedUser = localStorage.getItem('savedUser');
-    const savedPassword = localStorage.getItem('savedPassword');
-  
-    if (savedUser && savedPassword) {
-      username.value = savedUser;
-      contrasena.value = savedPassword;
-    };
-  });
+  const savedUser = localStorage.getItem('savedUser');
+  const savedPassword = localStorage.getItem('savedPassword');
+
+  if (savedUser && savedPassword) {
+    username.value = savedUser;
+    contrasena.value = savedPassword;
+  };
+});
   
   boton_registro.addEventListener('click', (e)=> {
     e.preventDefault();
