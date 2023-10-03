@@ -16,12 +16,17 @@ const LANGUAGE_DIV = document.getElementById('languageDiv');
 const CURRENCY_DIV = document.getElementById('currencyDiv');
 const BODY = document.querySelector("body");
 const BTN_MODE = document.getElementById("modeBtn");
+let usersList = [];
+if (!Array.isArray(usersList)) {
+  usersList = [];
+};
 
 // Event Listener que valida los datos ingresados y, en caso positivo los guarda e inicia sesión, o de lo contrario muestra alerta de error
 regbtn.addEventListener('click', (e)=> { 
     e.preventDefault()
     if (fname.value !== "" && lname.value !=="" && usuario.value !== "" && pass1.value !== "" && pass2.value && pass1.value.length >= 6 && email.value !== ""){ 
-        localStorage.setItem("user", usuario.value);                                                                             
+        saveUser();
+        localStorage.setItem('user', usuario.value);                                                                             
         localStorage.setItem('isLoggedIn', 'true');                                                                        
         showAlertSuccess();                                                                                                
         setTimeout(function() {
@@ -49,6 +54,27 @@ function showAlertSuccess() {
     }, 2000);
 };
 
+
+// Clase para guardar los datos de usuario-----------------------------------------------------------------------------------------------------------
+class User {
+  constructor(fName, lName, uName, email, password) {
+    this.fName = fName;
+    this.lName = lName;
+    this.uName = uName;
+    this.email = email;
+    this.password = password;
+  }
+  
+  saveUserData() {
+    usersList.push(this);
+    localStorage.setItem("usersList", JSON.stringify(usersList));
+  }
+}
+
+function saveUser(){
+  const currentUser = new User(fname.value, lname.value, usuario.value, email.value, pass1.value);
+  currentUser.saveUserData();
+}
 
 // Event Listeners para elementos de la navbar (ya que en esta página no se utiliza el script account.js ni el index.js) //TODO Intentar juntar los event listeners en una función y llamarla cuando sea necesario (en account.js, index.js y aquí)
   SETTINGS_DROPBTN.addEventListener("mouseover", function(event) { 
