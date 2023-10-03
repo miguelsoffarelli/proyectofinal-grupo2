@@ -311,6 +311,7 @@ h3.m-3 {
   --light-color: #f7f7f7;
   --light-icon-color: #ffde59;
   --dark-icon-color: #fff;
+  --grey-color: grey;
 }
 
 body {
@@ -454,3 +455,47 @@ body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body
 #exampleModalLabel {
   color: black;
 }
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
+}
+
+abbr button i {
+  color: orange;
+}
+
+footer {
+  height: 5rem;
+  background-color: var(--dark-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  /* position: absolute; */
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  text-decoration: none;
+  color: var(--light-color);
+  margin-bottom: 0;
+}
+
+footer p a {
+  text-decoration: none;
+}
+
+body.darkMode footer{
+  background-color: var(--grey-color);
+}
+
