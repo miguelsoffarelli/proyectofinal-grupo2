@@ -63,6 +63,12 @@ if (!sessionProducts) {
   sessionProducts = {}; // Inicializa sessionProducts como un objeto vacío si es nulo
 };
 let urlList = [];
+const UYU = document.getElementById('uy');
+const USD = document.getElementById('us');
+const BRL = document.getElementById('br');
+const EUR = document.getElementById('eu');
+const ARS = document.getElementById('ar');
+const GBP = document.getElementById('gb');
 
 
 
@@ -239,4 +245,38 @@ BTN_MODE.addEventListener("click", ()=> {
   BODY.classList.toggle("darkMode");
 });
 
+UYU.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'UYU');
+  location.reload();
+})
 
+USD.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'USD');
+  location.reload();
+})
+
+BRL.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'BRL');
+  location.reload();
+})
+
+EUR.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'EUR');
+  location.reload();
+})
+
+ARS.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'ARS');
+  location.reload();
+})
+
+GBP.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'GBP');
+  location.reload();
+})
