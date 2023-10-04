@@ -13,7 +13,7 @@ nav a {
   text-decoration: none;
 } 
 
-.bd-placeholder-img {
+/* .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
   -webkit-user-select: none;
@@ -26,8 +26,9 @@ nav a {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
-}
+} */
 
+/* JUMBOTRON */
 .jumbotron {
   
   height: 50vh;
@@ -56,39 +57,54 @@ nav a {
   font-weight: bold;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
-}
+} */
 
-.jumbotron p:last-child {
+/* .jumbotron p:last-child {
   margin-bottom: 0;
-}
+} */
 
-.jumbotron-heading {
+/* .jumbotron-heading {
   font-weight: 300;
-}
+} */
 
-.jumbotron .container {
+/* .jumbotron .container {
   max-width: 40rem;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
   text-shadow: 1px 1px 2px grey;
-}
+} */
 
-.jumbotron .lead {
+/* .jumbotron .lead {
   font-size: 38px;
-}
+} */
+
+/* FOOTER */
 
 footer {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  height: 5rem;
+  background-color: var(--dark-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  /* position: absolute; */
+  bottom: 0;
+  width: 100%;
 }
 
 footer p {
-  margin-bottom: .25rem;
+  text-decoration: none;
+  color: var(--light-color);
+  margin-bottom: 0;
+}
+
+footer a {
+  text-decoration: none;
 }
 
 .site-header a {
@@ -191,7 +207,7 @@ footer p {
 }
 
 main {
-  min-height: calc(100vh - 210px);
+  min-height: 100vh;
 }
 
 a.custom-card,
@@ -453,4 +469,51 @@ body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body
 
 #exampleModalLabel {
   color: black;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
+}
+
+abbr button i {
+  color: orange;
+}
+
+footer {
+  height: 5rem;
+  background-color: var(--dark-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  /* position: absolute; */
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  text-decoration: none;
+  color: var(--light-color);
+  margin-bottom: 0;
+}
+
+footer p a {
+  text-decoration: none;
+}
+
+body.darkMode footer{
+  background-color: var(--grey-color);
+}
+
+.animate__animated {
+  animation-iteration-count: infinite;
 }
