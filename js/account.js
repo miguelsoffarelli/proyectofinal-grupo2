@@ -14,6 +14,12 @@ const LANGUAGE_DIV = document.getElementById('languageDiv');
 const CURRENCY_DIV = document.getElementById('currencyDiv');
 const BODY = document.querySelector("body");
 const BTN_MODE = document.getElementById("modeBtn");
+const UYU = document.getElementById('uy');
+const USD = document.getElementById('us');
+const BRL = document.getElementById('br');
+const EUR = document.getElementById('eu');
+const ARS = document.getElementById('ar');
+const GBP = document.getElementById('gb');
 
 
 // Función para cerrar sesión-----------------------------------------------------------------------------------------------
@@ -89,3 +95,39 @@ CURRENCY_DIV.addEventListener("mouseleave", function(event) {
 BTN_MODE.addEventListener("click", ()=> {
   BODY.classList.toggle("darkMode");
 });
+
+UYU.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'UYU');
+  location.reload();
+})
+
+USD.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'USD');
+  location.reload();
+})
+
+BRL.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'BRL');
+  location.reload();
+})
+
+EUR.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'EUR');
+  location.reload();
+})
+
+ARS.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'ARS');
+  location.reload();
+})
+
+GBP.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'GBP');
+  location.reload();
+})
