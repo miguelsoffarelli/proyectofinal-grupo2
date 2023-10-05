@@ -129,3 +129,26 @@ CART_BUTTON.onclick = () => {
   window.location = "cart.html";
 };
 
+
+//------------------------------------ CONVERSOR DE MONEDA ------------------------------------//
+
+let selectedCur = localStorage.getItem('selectedCur');
+
+function getExchangeRate(prodCur, callback) {
+  try {
+    fetch(`https://v6.exchangerate-api.com/v6/445de39cdf1d2d575d767200/latest/${prodCur}`)
+      .then(response => response.json())
+      .then(result => {
+        const exchangeRate = result.conversion_rates[selectedCur];
+        localStorage.setItem('exchangeRate', exchangeRate);
+        callback(exchangeRate);
+      })
+      .catch(error => {
+        console.error(error);
+        callback(null);
+      });
+  } catch (error) {
+    console.error(error);
+    callback(null);
+  }
+}
