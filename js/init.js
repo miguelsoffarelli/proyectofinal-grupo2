@@ -101,7 +101,7 @@ function setCatID(id) {
 
 const MUSIC_PLAYER = document.getElementById("reproductor");
 let playingBefore = false; // Variable para almacenar el estado de reproducción
-MUSIC_PLAYER.volume = 0.1
+MUSIC_PLAYER.volume = 0.5
 
 // Detectar cuando el usuario está abandonando la página
 window.addEventListener("unload", () => {
