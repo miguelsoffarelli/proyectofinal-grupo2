@@ -12,17 +12,18 @@ function showCart(data) {
       const articleIndex = articles.findIndex(article => article.id === product.id);
       if (articleIndex === -1) {
           htmlContentToAppend += `
-              <div class="container list-group m-4 producto cursor-active">
+              <div class="container list-group m-4 producto">
                   <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                       <div class="col-3">
                           <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
                       </div>
                       <div class="col-7">
                           <h2 class="product-name">${product.name}</h2>
-                          <p class="product-cost" data-name='${product.name}' data-cost='${product.cost}'>${(product.cost)}</p>
+                          <p class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, product.cost)}'>${hasDiscount(product.id, product.cost)}</p>
                       </div>
                       <div class="col-1">
-                          <input type="number" class='contador' id="${product.id}" min="1" value="${product.count}" data-cost='${product.cost}' style="width: 5vh"/>
+                          <input type="number" class='row contador' id="${product.id}" min="1" value="${product.count}" data-cost='${hasDiscount(product.id, product.cost)}' style="width: 5vh"/>
+                          <i class="xmark fa-solid fa-square-xmark"></i>
                       </div>
                   </div>
               </div>
@@ -33,17 +34,18 @@ function showCart(data) {
   });
   articles.forEach(article => {
       htmlContentToAppend += `
-          <div class="container list-group m-4 producto cursor-active">
+          <div class="container list-group m-4 producto">
               <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                   <div class="col-3">
                       <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
                   </div>
                   <div class="col-7">
                       <h2 class="product-name">${article.name}</h2>
-                      <p class="product-cost" data-name='${article.name}' data-cost='${article.cost}'>${article.unitCost}</p>
+                      <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, article.unitCost)}'>${hasDiscount(article.id, article.unitCost)} c/u</p>
                   </div>
                   <div class="col-1">
-                      <input type="number" class='contador' id="${article.id}" min="1" value="${article.count}" data-cost='${article.unitCost}' style="width: 5vh"/>
+                      <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-cost='${hasDiscount(article.id, article.unitCost)}' style="width: 5vh"/>
+                      <i class="row bin fa-solid fa-trash fa-xl"></i>
                   </div>
               </div>
           </div>

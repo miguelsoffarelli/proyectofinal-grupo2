@@ -42,8 +42,8 @@ function validar(){
       DROPBTN.setAttribute('href', 'login.html');
       MENU.remove();
     } else {
-      DROPBTN.innerHTML += cutString(USERNAME, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
-      MENU.style.minWidth = USERNAME.length < 20 ?`${USERNAME.length}em` :`20em`; 
+      DROPBTN.innerHTML += cutString(USERNAME, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
+      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`15em`; 
     };
 };
 

@@ -35,10 +35,14 @@ function currencyConverter(data) {
 
 
 // Función para mostrar el producto
-function showProduct(data) {
+function showProduct(data, exchangeRate) {
   let htmlContentToAppend = "";
-  function handleExchangeRate(exchangeRate){
-    const prodCost = (data.cost * exchangeRate).toFixed(0);
+  const prodCurrency = data.currency; 
+      if(prodCurrency === 'USD'){
+        localStorage.setItem('prodCur', 'usd');
+      } else if (prodCurrency === 'UYU'){
+        localStorage.setItem('prodCur', 'uyu');
+      }  
     htmlContentToAppend = `
       <div class="row p-3">
           <p class="font-monospace text-muted user-select-none">
@@ -98,10 +102,10 @@ function showProduct(data) {
                 data.soldCount
               } vendidos</sub>
               <div class="row card-text">
-                  <p class="h2 fw-light">${localStorage.getItem('selectedCur')} ${hasDiscount(data.id, prodCost)}</p>
+                  <p class="h2 fw-light">${localStorage.getItem('selectedCur')} ${hasDiscount(data.id, (data.cost / exchangeRate).toFixed(0))}</p>
               </div>
               <div class="row mb-0">
-                  <p class="fs-5">En 12x ${localStorage.getItem('selectedCur')} ${(hasDiscount(data.id, prodCost) / 12).toFixed(2)} 
+                  <p class="fs-5">En 12x ${localStorage.getItem('selectedCur')} ${(hasDiscount(data.id, (data.cost / exchangeRate).toFixed(0)) / 12).toFixed(2)} 
                   sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
               </div>
               <div class="row mt-3">
@@ -137,9 +141,6 @@ function showProduct(data) {
       </div>   
       `;
       container.innerHTML = htmlContentToAppend;
-  };
-  const prodCur = data.currency;
-  getExchangeRate(prodCur, handleExchangeRate);
 };
 
 // Función que asigna un número de estrellas de acuerdo al puntaje que se le pasa como parámetro
@@ -266,11 +267,15 @@ SUBMIT_COMMENT.addEventListener("click", () => {
   location.reload();
 });
 
-window.addEventListener("load", () => {
-  fetchData(showProduct, CURRENT_PRODUCT_URL);
-  fetchData(showComments, CURRENT_COMMENTS_URL);
-  fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);
-});
 
+window.addEventListener('load', () => {
+  let prodCur = localStorage.getItem('prodCur');
+  getExchangeRate(prodCur)
+  .then(finalExchangeRate => {
+    fetchData(data => showProduct(data, finalExchangeRate), CURRENT_PRODUCT_URL);
+    fetchData(showComments, CURRENT_COMMENTS_URL);
+    fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);  
+  });
+});
 
 

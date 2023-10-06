@@ -18,12 +18,16 @@ let coincidencias = false;
 
 
 // Función para mostrar los productos------------------------------------------------------------------------------------------------------------------------------------------------
-function showProducts(data) {  
+function showProducts(data, exchangeRate) {  
   let htmlContentToAppend = "";
   let products = data.products;
-  function handleExchangeRate(exchangeRate) {
-    for (let product of products) {     
-      const prodCost = (product.cost * exchangeRate).toFixed(0);
+    for (let product of products) {
+      const prodCurrency = product.currency; 
+      if(prodCurrency === 'USD'){
+        localStorage.setItem('prodCur', 'usd');
+      } else if (prodCurrency === 'UYU'){
+        localStorage.setItem('prodCur', 'uyu');
+      }  
       htmlContentToAppend += `
         <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
           <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
@@ -33,7 +37,7 @@ function showProducts(data) {
             <div class="col-7">
               <h2 class="product-name">${product.name}</h2>
               <p class="product-description">${product.description}</p>
-              <p class="product-cost">${localStorage.getItem('selectedCur')} ${hasDiscount(product.id, prodCost)}</p>
+              <p class="product-cost">${localStorage.getItem('selectedCur')} ${hasDiscount(product.id, (product.cost / exchangeRate).toFixed(0))}</p>
             </div>
             <div class="col-2 text-muted">
               <p class="product-sold">${product.soldCount} vendidos</p>
@@ -45,10 +49,7 @@ function showProducts(data) {
     titulo.innerText = data.catName;
     let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
     htmlContentToAppend += mensaje;
-    container.innerHTML = htmlContentToAppend;
-  };     
-  const prodCur = products.length > 0 ? products[0].currency : '';
-  getExchangeRate(prodCur, handleExchangeRate);
+    container.innerHTML = htmlContentToAppend;    
 };
 
 // Funciones para mostrar u ocultar productos mediante el uso de la clase filtro----------------------------------------------------------------------
@@ -191,7 +192,11 @@ function clean(){
 
 // Event listeners------------------------------------------------------------------------------
 window.addEventListener('load', () => {
-  fetchData(showProducts, DATA_URL);  
+  let prodCur = localStorage.getItem('prodCur');
+  getExchangeRate(prodCur)
+  .then(finalExchangeRate => {
+    fetchData(data => showProducts(data, finalExchangeRate), DATA_URL);  
+  });
 });
 
 ordenar_asc.addEventListener('click', () => {

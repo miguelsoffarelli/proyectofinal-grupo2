@@ -101,7 +101,7 @@ function setCatID(id) {
 
 const MUSIC_PLAYER = document.getElementById("reproductor");
 let playingBefore = false; // Variable para almacenar el estado de reproducción
-MUSIC_PLAYER.volume = 0.1
+MUSIC_PLAYER.volume = 0.5
 
 // Detectar cuando el usuario está abandonando la página
 window.addEventListener("unload", () => {
@@ -134,21 +134,23 @@ CART_BUTTON.onclick = () => {
 
 let selectedCur = localStorage.getItem('selectedCur');
 
-function getExchangeRate(prodCur, callback) {
-  try {
-    fetch(`https://v6.exchangerate-api.com/v6/445de39cdf1d2d575d767200/latest/${prodCur}`)
+function getExchangeRate() {
+  const prodCur = localStorage.getItem('prodCur');
+  return new Promise((resolve, reject) => {
+    fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${selectedCur.toLowerCase()}/${prodCur.toLowerCase()}.json`)
       .then(response => response.json())
-      .then(result => {
-        const exchangeRate = result.conversion_rates[selectedCur];
-        localStorage.setItem('exchangeRate', exchangeRate);
-        callback(exchangeRate);
+      .then(result => { 
+        if(prodCur === 'usd'){
+          const exchangeRate = result.usd;
+          resolve(exchangeRate);
+        } else if(prodCur === 'uyu'){
+          const exchangeRate = result.uyu;
+          resolve(exchangeRate);
+        }
       })
       .catch(error => {
         console.error(error);
-        callback(null);
+        reject(error);
       });
-  } catch (error) {
-    console.error(error);
-    callback(null);
-  }
+  });
 }
