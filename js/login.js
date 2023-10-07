@@ -4,10 +4,6 @@ const boton_login = document.getElementById('boton_login');
 const boton_registro = document.getElementById('boton_register');
 const saltarLogin = document.getElementById('skip');
 const rememberMeCheckbox = document.getElementById('rememberMe');
-<<<<<<< Updated upstream
-
-
-=======
 const savedUsers = JSON.parse(localStorage.getItem("usersList"));
 const inputPass = document.querySelector(".inputPass"); // Esto trae al input de contraseña
 const showPassBtn = document.getElementById("showPassBtn"); // el boton de mostrar contraseña
@@ -16,7 +12,6 @@ const iconPass = document.querySelector(".iconPass"); // Esto trae el icono
 const slideableWall = document.querySelector(".slideableWall"); // La pared deslizante.
 const btnRegisterHere = document.getElementById('btnRegisterHere'); //La constante que trae al botón "¡Registrate aqui!"
 const mensaje = document.getElementById("mensaje");
->>>>>>> Stashed changes
 // Función que muestra error si las credenciales son incorrectas
 function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
@@ -63,16 +58,6 @@ saltarLogin.addEventListener('click', (e)=> {
 
 
 window.addEventListener('load', () => {
-<<<<<<< Updated upstream
-    const savedUser = localStorage.getItem('savedUser');
-    const savedPassword = localStorage.getItem('savedPassword');
-  
-    if (savedUser && savedPassword) {
-      username.value = savedUser;
-      contrasena.value = savedPassword;
-    };
-  });
-=======
   const savedUser = localStorage.getItem('savedUser');
   const savedPassword = localStorage.getItem('savedPassword');
 
@@ -81,7 +66,6 @@ window.addEventListener('load', () => {
     contrasena.value = savedPassword;
   };
 }); 
->>>>>>> Stashed changes
   
   boton_registro.addEventListener('click', (e)=> {
     e.preventDefault();
