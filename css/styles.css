@@ -262,9 +262,9 @@ width: 15px;
 height: 15px;
 }
 
-input[type="checkbox"] + label {
+/* input[type="checkbox"] + label {
   color: white;
-}
+} */
 
 .filtro {
   display:none
@@ -495,7 +495,6 @@ footer {
   padding-bottom: 1rem;
   display: flex;
   align-items: center;
-  /* position: absolute; */
   bottom: 0;
   width: 100%;
 }
