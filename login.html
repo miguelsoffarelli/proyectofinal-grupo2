@@ -17,10 +17,9 @@
     <div class="loginContainer">
       <div class="login">
         <div class="imgContainer"><img src="/img/loginTransparente.png"></div>
-        <div class="titulo"><h1>Iniciar Sesión</h1></div>
         <div class="form">
           <form method="post" action="" id="registroForm">
-                <br>
+            <h2>Iniciar Sesión</h2>
                 <div class="input">
                   <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
                   <!-- <label for="">Nombre de usuario</label> -->
@@ -77,9 +76,10 @@
     
     <div class="registerContainer">
       <div class="register">
-        <div class="tituloRegistro"><h1>Registro</h1></div>
+        
         <div class="form">
           <form action="">
+            <h2>Registro</h2>
             <div class="input">
               <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
               <input type="text" placeholder="Nombre" required="required">
@@ -91,10 +91,20 @@
             <div class="input">
               <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
               <input type="text" placeholder="Contraseña" required="required">
+              <div class="inputIconPassCon" title="Mostrar Contraseña">
+                <span class="showPassword" id="showPassBtn">
+                  <i class="iconPass fa-solid fa-eye"></i>
+                </span>
+              </div>
             </div>
             <div class="input">
               <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
               <input type="text" placeholder="Repetir Contraseña" required="required">
+              <div class="inputIconPassCon" title="Mostrar Contraseña">
+                <span class="showPassword" id="showPassBtn">
+                  <i class="iconPass fa-solid fa-eye"></i>
+                </span>
+              </div>
             </div>
             <div class="registerCheckbox">
               <input type="checkbox" name="" id="">
