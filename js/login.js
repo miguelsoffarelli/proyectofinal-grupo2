@@ -48,13 +48,13 @@ boton_login.addEventListener('click', (e)=> {
 
 
 // Event Listeners
-
+/*
 saltarLogin.addEventListener('click', (e)=> {
     e.preventDefault();
     localStorage.setItem('user', 'Invitado');
     localStorage.setItem('isLoggedIn', 'true');
     location.href = "index.html";
-});
+});  */
 
 
 window.addEventListener('load', () => {
