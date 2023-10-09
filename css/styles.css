@@ -502,3 +502,8 @@ body.darkMode footer{
 .animate__heartBeat, .animate__tada {
   animation-iteration-count: infinite;
 }
+
+.cart-title{
+  text-decoration: underline overline orange;
+  text-underline-offset: 15px;
+}

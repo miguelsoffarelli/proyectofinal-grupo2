@@ -42,8 +42,8 @@ function validar(){
       DROPBTN.setAttribute('href', 'login.html');
       MENU.remove();
     } else {
-      DROPBTN.innerHTML += cutString(USERNAME, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
-      MENU.style.minWidth = USERNAME.length < 20 ?`${USERNAME.length}em` :`20em`; 
+      DROPBTN.innerHTML += cutString(USERNAME, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
+      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`15em`; 
     };
 };
 
@@ -99,7 +99,7 @@ BTN_MODE.addEventListener("click", ()=> {
 UYU.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.setItem('selectedCur', 'UYU');
-  location.reload();
+  window.location.reload();
 })
 
 USD.addEventListener('click', (e) => {
@@ -129,5 +129,6 @@ ARS.addEventListener('click', (e) => {
 GBP.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.setItem('selectedCur', 'GBP');
+  window.location.href = location;
   location.reload();
 })
