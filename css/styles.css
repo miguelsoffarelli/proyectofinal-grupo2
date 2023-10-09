@@ -503,28 +503,7 @@ body.darkMode footer{
   animation-iteration-count: infinite;
 }
 
-.bin {
-  top: 80%;
-  right: 0%;
-  display: flex;
-  position: absolute;
-  margin-right: 0.8rem;
-  margin-top: 1rem;
+.cart-title{
+  text-decoration: underline overline orange;
+  text-underline-offset: 15px;
 }
-
-.xmark {
-  top: 0%;
-  right: 0%;
-  display: flex;
-  position: absolute;
-  margin-right: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-#vaciarCarritoBtn {
-  top: 50%;
-  right: 7.5%;
-  display: flex;
-  position: absolute;
-}
-

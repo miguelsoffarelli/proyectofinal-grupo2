@@ -99,7 +99,7 @@ BTN_MODE.addEventListener("click", ()=> {
 UYU.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.setItem('selectedCur', 'UYU');
-  location.reload();
+  window.location.reload();
 })
 
 USD.addEventListener('click', (e) => {
@@ -129,5 +129,6 @@ ARS.addEventListener('click', (e) => {
 GBP.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.setItem('selectedCur', 'GBP');
+  window.location.href = location;
   location.reload();
 })

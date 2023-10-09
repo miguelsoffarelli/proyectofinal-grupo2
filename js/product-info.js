@@ -21,29 +21,17 @@ if (!Array.isArray(cartProducts)) {
 };
 let unitCount = 0;
 
+const currencyBtns = document.querySelectorAll('.currencyBtn');
 
-
-// Función para convertir precios
-function currencyConverter(data) {
-  let price = data.cost;
-  if (data.currency != "UYU") {
-    price = price * 38;
-    return price;
-  };
-  return price;
-};
 
 
 // Función para mostrar el producto
-function showProduct(data, exchangeRate) {
-  let htmlContentToAppend = "";
-  const prodCurrency = data.currency; 
-      if(prodCurrency === 'USD'){
-        localStorage.setItem('prodCur', 'usd');
-      } else if (prodCurrency === 'UYU'){
-        localStorage.setItem('prodCur', 'uyu');
-      }  
-    htmlContentToAppend = `
+async function showProduct(data) {
+    let htmlContentToAppend = ""; 
+    const exchangeRateUsd = await getExchangeRate('usd');
+    const exchangeRateUyu = await getExchangeRate('uyu');
+
+        htmlContentToAppend = `
       <div class="row p-3">
           <p class="font-monospace text-muted user-select-none">
               <a href="products.html" class="text-decoration-none fw-bold" style="color: black">Volver</a>
@@ -102,10 +90,10 @@ function showProduct(data, exchangeRate) {
                 data.soldCount
               } vendidos</sub>
               <div class="row card-text">
-                  <p class="h2 fw-light">${localStorage.getItem('selectedCur')} ${hasDiscount(data.id, (data.cost / exchangeRate).toFixed(0))}</p>
+                  <p id="prodCost" class="h2 fw-light" data-id="${data.id}" data-cur="${data.currency}" data-cost='${data.cost}'></p>
               </div>
               <div class="row mb-0">
-                  <p class="fs-5">En 12x ${localStorage.getItem('selectedCur')} ${(hasDiscount(data.id, (data.cost / exchangeRate).toFixed(0)) / 12).toFixed(2)} 
+                  <p class="fs-5">En 12x  
                   sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
               </div>
               <div class="row mt-3">
@@ -139,8 +127,25 @@ function showProduct(data, exchangeRate) {
           </div>
         </div>
       </div>   
-      `;
+      `;  
+    
       container.innerHTML = htmlContentToAppend;
+
+      function updatePrice(){
+        const prodCost = document.getElementById('prodCost');
+        if(prodCost.dataset.cur === 'USD'){
+          prodCost.textContent = `${selectedCur} ${hasDiscount(prodCost.dataset.id, (parseInt(prodCost.dataset.cost) / exchangeRateUsd).toFixed(0))}`;
+        } else {
+          prodCost.textContent = `${selectedCur} ${hasDiscount(prodCost.dataset.id, (parseInt(prodCost.dataset.cost) / exchangeRateUyu).toFixed(0))}`;
+        };
+      };
+
+      currencyBtns.forEach(btn => {
+        btn.addEventListener('click', updatePrice);
+      });
+      
+      updatePrice();
+  
 };
 
 // Función que asigna un número de estrellas de acuerdo al puntaje que se le pasa como parámetro
@@ -226,12 +231,13 @@ function showRelatedProducts(data) {
 // Clase producto para guardar en el local storage
 // y poder utilizar en el carrito-------------------------------------------------------------------------------------------
 class Product {
-  constructor(id, img, name, cost, unitCount) {
+  constructor(id, img, name, cost, unitCount, currency) {
     this.id = id;
     this.img = img;
     this.name = name;
     this.cost = cost;
     this.count = unitCount;
+    this.currency = currency;
   }
   
   addToCart() {
@@ -249,13 +255,13 @@ class Product {
 
 // Funciones para comprar y añadir al carrito--------------------------------
 function buyProduct(data) {
-  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount);
+  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount, data.currency);
   currentProduct.addToCart();
   window.location = "cart.html";
 }
 
 function addProduct(data) {
-  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount);
+  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount, data.currency);
   currentProduct.addToCart();
 };
 
@@ -268,14 +274,10 @@ SUBMIT_COMMENT.addEventListener("click", () => {
 });
 
 
-window.addEventListener('load', () => {
-  let prodCur = localStorage.getItem('prodCur');
-  getExchangeRate(prodCur)
-  .then(finalExchangeRate => {
-    fetchData(data => showProduct(data, finalExchangeRate), CURRENT_PRODUCT_URL);
-    fetchData(showComments, CURRENT_COMMENTS_URL);
-    fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);  
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  fetchData(showProduct, CURRENT_PRODUCT_URL);
+  fetchData(showComments, CURRENT_COMMENTS_URL);
+  fetchData(showRelatedProducts, CURRENT_PRODUCT_URL);
 });
 
 

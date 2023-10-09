@@ -134,8 +134,10 @@ CART_BUTTON.onclick = () => {
 
 let selectedCur = localStorage.getItem('selectedCur');
 
-function getExchangeRate() {
-  const prodCur = localStorage.getItem('prodCur');
+
+function getExchangeRate(prodCur) {
+  selectedCur === null ?selectedCur = prodCur.toUpperCase() :selectedCur = selectedCur;
+  console.log(selectedCur);
   return new Promise((resolve, reject) => {
     fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${selectedCur.toLowerCase()}/${prodCur.toLowerCase()}.json`)
       .then(response => response.json())
@@ -153,4 +155,6 @@ function getExchangeRate() {
         reject(error);
       });
   });
-}
+};
+
+

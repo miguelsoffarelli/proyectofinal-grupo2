@@ -13,43 +13,63 @@ let products = "";
 let coincidencias = false;
 
 
+
+
 //* La función fetch que estaba acá se trasladó al init.js para poder re-utilizarla en product-info.js
 
 
 
 // Función para mostrar los productos------------------------------------------------------------------------------------------------------------------------------------------------
-function showProducts(data, exchangeRate) {  
+async function showProducts(data) {  
   let htmlContentToAppend = "";
   let products = data.products;
-    for (let product of products) {
-      const prodCurrency = product.currency; 
-      if(prodCurrency === 'USD'){
-        localStorage.setItem('prodCur', 'usd');
-      } else if (prodCurrency === 'UYU'){
-        localStorage.setItem('prodCur', 'uyu');
-      }  
+  const exchangeRateUsd = await getExchangeRate('usd');
+  const exchangeRateUyu = await getExchangeRate('uyu');
+  for (let product of products) {
+    const prodCurrency = product.currency; 
+    if(prodCurrency === 'USD'){
       htmlContentToAppend += `
-        <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
-          <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-            <div class="col-3">
-              <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
-            </div>
-            <div class="col-7">
-              <h2 class="product-name">${product.name}</h2>
-              <p class="product-description">${product.description}</p>
-              <p class="product-cost">${localStorage.getItem('selectedCur')} ${hasDiscount(product.id, (product.cost / exchangeRate).toFixed(0))}</p>
-            </div>
-            <div class="col-2 text-muted">
-              <p class="product-sold">${product.soldCount} vendidos</p>
-            </div>
+      <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
+        <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
+          <div class="col-3">
+            <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
+          </div>
+          <div class="col-7">
+            <h2 class="product-name">${product.name}</h2>
+            <p class="product-description">${product.description}</p>
+            <p class="product-cost">${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}</p>
+          </div>
+          <div class="col-2 text-muted">
+            <p class="product-sold">${product.soldCount} vendidos</p>
           </div>
         </div>
-      `;   
-    };
-    titulo.innerText = data.catName;
-    let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
-    htmlContentToAppend += mensaje;
-    container.innerHTML = htmlContentToAppend;    
+      </div>
+    `;
+    } else if (prodCurrency === 'UYU'){
+      htmlContentToAppend += `
+      <div onclick="setProdID(${product.id})" class="container list-group m-4 producto cursor-active" id="${product.id}" data-name="${product.name}" data-description="${product.description}" data-cost="${product.cost}"}>
+        <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
+          <div class="col-3">
+            <img src="${product.image}" alt="${product.name}" class="product-image img-thumbnail">
+          </div>
+          <div class="col-7">
+            <h2 class="product-name">${product.name}</h2>
+            <p class="product-description">${product.description}</p>
+            <p class="product-cost">${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}</p>
+          </div>
+          <div class="col-2 text-muted">
+            <p class="product-sold">${product.soldCount} vendidos</p>
+          </div>
+        </div>
+      </div>
+    `;
+    };  
+       
+  };
+  titulo.innerText = data.catName;
+  let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
+  htmlContentToAppend += mensaje;
+  container.innerHTML = htmlContentToAppend;    
 };
 
 // Funciones para mostrar u ocultar productos mediante el uso de la clase filtro----------------------------------------------------------------------
@@ -192,11 +212,7 @@ function clean(){
 
 // Event listeners------------------------------------------------------------------------------
 window.addEventListener('load', () => {
-  let prodCur = localStorage.getItem('prodCur');
-  getExchangeRate(prodCur)
-  .then(finalExchangeRate => {
-    fetchData(data => showProducts(data, finalExchangeRate), DATA_URL);  
-  });
+    fetchData(showProducts, DATA_URL); 
 });
 
 ordenar_asc.addEventListener('click', () => {
