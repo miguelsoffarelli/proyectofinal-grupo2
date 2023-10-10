@@ -507,3 +507,14 @@ body.darkMode footer{
   text-decoration: underline overline orange;
   text-underline-offset: 15px;
 }
+
+.fa-trash:hover{
+  zoom: 120%;
+  color: orange;
+  transition: 0.2s;
+}
+
+.fa-trash:active{
+  color: red;
+}
+
