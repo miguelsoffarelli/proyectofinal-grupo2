@@ -246,9 +246,9 @@ width: 15px;
 height: 15px;
 }
 
-input[type="checkbox"] + label {
+/* input[type="checkbox"] + label {
   color: white;
-}
+} */
 
 .filtro {
   display:none
