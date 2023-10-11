@@ -45,8 +45,8 @@ async function showProduct(data) {
                }</a>
           </p>
       </div>
-      <div class="row">
-          <div class="col-7">
+      <div class="card-group">
+          <div class="card">
             <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
@@ -80,35 +80,30 @@ async function showProduct(data) {
           </div>
       
     
-          <div class="col-4 card border-0">
-              <div class="row card-title">
-                  <h1 class="display-5 fw-normal">${data.name}
-                  </h1>
-                  
-              </div>
-              <sub class="fs-6 fw-lighter" style="color: #514F4F" id="sold">${
-                data.soldCount
-              } vendidos</sub>
-              <div class="row card-text">
+          <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">${data.name}</h1>
+                <sub class="card-text" style="color: #514F4F" id="sold">${data.soldCount} vendidos</sub>
+                <div class="card-text">
                   <p id="prodCost" class="h2 fw-light" data-id="${data.id}" data-cur="${data.currency}" data-cost='${data.cost}'></p>
+                </div>
+                <div class="card-text">
+                  <p class="fs-5">En 12x sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
+                </div>
+                <div class="card-title">
+                  <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
+                </div>
+                <div class="card-text">
+                  <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
+                </div>
               </div>
-              <div class="row mb-0">
-                  <p class="fs-5">En 12x  
-                  sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
-              </div>
-              <div class="row mt-3">
-                <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
-              </div>
-              <div class="row col-11 mx-auto mt-2">
-                <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
-              </div>
-              
-          </div>
-          <div class="col m-3">
+              <div class="col m-3">
               <div class="row">
                   <i class="far fa-heart fa-2x" title="Añadir a favoritos"></i>
               </div>
           </div>
+          </div>
+          
         </div>
         <div class="row ms-5 mt-5">
           <div class="accordion accordion-flush" id="descriptionAccordion">
