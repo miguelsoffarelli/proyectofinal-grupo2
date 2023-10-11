@@ -84,10 +84,10 @@ async function showProduct(data) {
                 <h1 class="card-title">${data.name}</h1>
                 <sub class="card-text" style="color: #514F4F" id="sold">${data.soldCount} vendidos</sub>
                 <div class="card-text">
-                  <p id="prodCost" class="h2 fw-light" data-id="${data.id}" data-cur="${data.currency}" data-cost='${data.cost}'></p>
+                  <p id="prodCost" class="h2 fw-light" data-id="${data.id}" data-cur="${data.currency}" data-cost='${hasDiscount(data.id, data.cost)}'></p>
                 </div>
                 <div class="card-text">
-                  <p class="fs-5">En 12x sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
+                  <p class="fs-5">En 12x sin interés</p>
                 </div>
                 <div class="card-title">
                   <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn" style="min-width: 100%">Comprar!</button>
@@ -128,9 +128,9 @@ async function showProduct(data) {
       function updatePrice(){
         const prodCost = document.getElementById('prodCost');
         if(prodCost.dataset.cur === 'USD'){
-          prodCost.textContent = `${selectedCur} ${hasDiscount(prodCost.dataset.id, (parseInt(prodCost.dataset.cost) / exchangeRateUsd).toFixed(0))}`;
+          prodCost.textContent = `${selectedCur} ${parseInt(prodCost.dataset.cost / exchangeRateUsd).toFixed(0)}`;
         } else {
-          prodCost.textContent = `${selectedCur} ${hasDiscount(prodCost.dataset.id, (parseInt(prodCost.dataset.cost) / exchangeRateUyu).toFixed(0))}`;
+          prodCost.textContent = `${selectedCur} ${parseInt(prodCost.dataset.cost / exchangeRateUyu).toFixed(0)}`;
         };
       };
 
@@ -154,6 +154,32 @@ function stars(userScore){
   return starsToAppend;
 };
 
+let SCORE = 0;
+selectedStars.forEach(star => {
+  star.addEventListener("click", ()=> {
+    SUBMIT_COMMENT.removeAttribute('disabled');
+    document.getElementById('starsWarning').textContent = "";
+    SCORE = parseInt(star.value);
+    console.log(SCORE);
+  }); 
+});
+
+// Función que guarda los comentarios nuevos
+function addedComments(){
+  const NEW_COMMENT = commentTxt.value;
+  const CURRENT_DATE = new Date().toLocaleString();
+  savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+  const nuevoComentarioObj = {
+    user: currentUser,
+    score: SCORE,
+    description: NEW_COMMENT,
+    dateTime: CURRENT_DATE,
+    ID: PRODUCT_ID,
+  };  
+  savedComments.push(nuevoComentarioObj);
+  localStorage.setItem("comentarios", JSON.stringify(savedComments));
+  commentTxt.value = "";
+};
 
 
 // Función que carga los comentarios
@@ -183,33 +209,6 @@ function showComments(data){
         </div>
       `};
   comments.innerHTML = htmlContentToAppend;
-};
-
-let SCORE = 0;
-selectedStars.forEach(star => {
-  star.addEventListener("click", ()=> {
-    SUBMIT_COMMENT.removeAttribute('disabled');
-    document.getElementById('starsWarning').textContent = "";
-    SCORE = parseInt(star.value);
-    console.log(SCORE);
-  }); 
-});
-
-// Función que guarda los comentarios nuevos
-function addedComments(){
-  const NEW_COMMENT = commentTxt.value;
-  const CURRENT_DATE = new Date().toLocaleString();
-  savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
-  const nuevoComentarioObj = {
-    user: currentUser,
-    score: SCORE,
-    description: NEW_COMMENT,
-    dateTime: CURRENT_DATE,
-    ID: PRODUCT_ID,
-  };  
-  savedComments.push(nuevoComentarioObj);
-  localStorage.setItem("comentarios", JSON.stringify(savedComments));
-  commentTxt.value = "";
 };
 
 
