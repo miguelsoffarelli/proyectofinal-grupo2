@@ -137,13 +137,9 @@ async function showCart(data) {
         const itemCur = input.dataset.cur;
         
         total += itemQuantity * itemPrice;
-        if(itemCur === 'USD'){
-          total += itemQuantity * (itemPrice / exchangeRateUsd);
-          totalElement.textContent = `Total: ${selectedCur} ${(total / exchangeRateUsd).toFixed(2)}`;
-        } else if(itemCur === 'UYU'){
-            total += itemQuantity * (itemPrice / exchangeRateUyu);
-            totalElement.textContent = `Total: ${selectedCur} ${(total / exchangeRateUyu).toFixed(2)}`;
-        };
+          
+        totalElement.textContent = `Total: ${selectedCur} ${total.toFixed(2)}`;
+        
     });  
   };
 
