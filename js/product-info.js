@@ -8,7 +8,6 @@ const commentTxt = document.getElementById('comentarioNuevo');
 const SUBMIT_COMMENT = document.getElementById('enviarComentario');
 const fecha = localStorage.getItem('fecha');
 const comentario = localStorage.getItem('comentario');
-const commentStars = document.getElementById('floatingSelect');
 let currentUser = localStorage.getItem('user');
 let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
 const PRODUCT_ID = localStorage.getItem('prodID');
@@ -20,7 +19,7 @@ if (!Array.isArray(cartProducts)) {
   cartProducts = [];
 };
 let unitCount = 0;
-
+const selectedStars = document.querySelectorAll(".star");
 const currencyBtns = document.querySelectorAll('.currencyBtn');
 
 
@@ -46,7 +45,7 @@ async function showProduct(data) {
           </p>
       </div>
       <div class="card-group">
-          <div class="card">
+          <div class="card imagesCarousel bg-transparent" style="min-width: 25rem">
             <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
               <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
@@ -80,7 +79,7 @@ async function showProduct(data) {
           </div>
       
     
-          <div class="card">
+          <div class="card productInfo bg-transparent" style="min-width: 25rem">
               <div class="card-body">
                 <h1 class="card-title">${data.name}</h1>
                 <sub class="card-text" style="color: #514F4F" id="sold">${data.soldCount} vendidos</sub>
@@ -91,10 +90,10 @@ async function showProduct(data) {
                   <p class="fs-5">En 12x sin interés<i class="far fa-question-circle text-muted m-2" title="Lo pagás en pesos uruguayos!"></i></p>
                 </div>
                 <div class="card-title">
-                  <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn">Comprar!</button>
+                  <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn" style="min-width: 100%">Comprar!</button>
                 </div>
-                <div class="card-text">
-                  <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart">Añadir al carrito</button>
+                <div class="card-text d-flex justify-content-center">
+                  <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart" style="min-width: 80%">Añadir al carrito</button>
                 </div>
               </div>
               <div class="col m-3">
@@ -105,7 +104,7 @@ async function showProduct(data) {
           </div>
           
         </div>
-        <div class="row ms-5 mt-5">
+        <div class="row mt-5" style="min-width: 25rem">
           <div class="accordion accordion-flush" id="descriptionAccordion">
             <div class="accordion-item">
               <h2 class="accordion-header mb-4 fs-1" id="headingOne" style="color: #514F4F">
@@ -186,21 +185,28 @@ function showComments(data){
   comments.innerHTML = htmlContentToAppend;
 };
 
+let SCORE = 0;
+selectedStars.forEach(star => {
+  star.addEventListener("click", ()=> {
+    SUBMIT_COMMENT.removeAttribute('disabled');
+    document.getElementById('starsWarning').textContent = "";
+    SCORE = parseInt(star.value);
+    console.log(SCORE);
+  }); 
+});
+
 // Función que guarda los comentarios nuevos
 function addedComments(){
   const NEW_COMMENT = commentTxt.value;
-  const SCORE = commentStars.value;
   const CURRENT_DATE = new Date().toLocaleString();
   savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
-  
   const nuevoComentarioObj = {
     user: currentUser,
     score: SCORE,
     description: NEW_COMMENT,
     dateTime: CURRENT_DATE,
     ID: PRODUCT_ID,
-  };
-   
+  };  
   savedComments.push(nuevoComentarioObj);
   localStorage.setItem("comentarios", JSON.stringify(savedComments));
   commentTxt.value = "";

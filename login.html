@@ -52,6 +52,11 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p>Registro completo. En breve serás redireccionado a la página principal.</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     
       <div class="slideableWall">
         <div class="insideWall">
@@ -73,17 +78,17 @@
             <h2>Registro</h2>
             <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
-              <input type="text" placeholder="" required="required">
+              <input type="text" placeholder="" id="uName">
               <label for="">Nombre de usuario</label>
             </div>
             <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-envelope"></i></div>
-              <input type="text" placeholder="" required="required">
+              <input type="text" placeholder="" id="email">
               <label for="">Correo</label>
             </div>
             <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
-              <input type="password" placeholder="" required="required">
+              <input type="password" placeholder="" id="pass1">
               <label for="">Contraseña</label>
               <div class="inputIconPassCon" title="Mostrar Contraseña">
                 <span class="showPassword" id="showPassBtn">
@@ -93,7 +98,7 @@
             </div>
             <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
-              <input type="password" placeholder="" required="required">
+              <input type="password" placeholder="" id="pass2">
               <label for="">Repetir Contraseña</label>
               <div class="inputIconPassCon" title="Mostrar Contraseña">
                 <span class="showPassword" id="showPassBtn">
@@ -103,12 +108,12 @@
             </div>
             <div class="registerCheckboxContainer">
               
-              <label for=""><input type="checkbox" name="" id="">Quiero recibir notificaciones y ofertas de Su Pu</label>
+              <label for=""><input type="checkbox" name="" id="">Quiero recibir notificaciones y ofertas</label>
               
               <label for=""><input type="checkbox" name="" id="">He leído y acepto los términos y condiciones.</label>
             </div>
             <div class="btnRegister">
-              <button class="btnProyecto" id="boton_register">Registrarse</button>
+              <button class="btnProyecto" id="boton_registrarse">Registrarse</button>
             </div>
           </form>
         </div>
@@ -126,6 +131,7 @@
     </p> 
   </footer>
   <script src="js/login.js"></script>
+  <script src="js/register.js"></script>
 </body>
 
 </html>
