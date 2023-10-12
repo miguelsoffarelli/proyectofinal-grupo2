@@ -26,46 +26,67 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
 } */
 
-* { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; } 
+* { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; 
+	margin: 0;
+	padding: 0;
+}
+
+html { width: 100%; height: 100%; margin: 0; padding: 0;}  
 
 body {
+	width: 100%; height: 100%;
 	margin: 0;
 	padding: 0;
 	color: #212529;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
-	font-family: serif !important;
-	overflow: auto;
-	
+	overflow: hidden;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
 }
 
 main {
-	height: 100vh;
-	min-height: 100vh;
-	width: 100%;
-	min-width: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%; 
+	height: 100%;
 	display: flex;
-	z-index: 0;
-	overflow: auto;
 }
 
 i {
-	color: var(--main-color);
+	color: orange !important;
 }
 
-/* LOGIN */
-
 .loginContainer {
+	background-color: rgb(233, 231, 231);
+	width: 100%; 
 	height: 100%;
-	width: 50%;
+	position: absolute;
+	z-index: 2;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	padding: 0.5em;
 	z-index: 1;
-	background-color: var(--light-color);
+}
+@media (min-width:550px) {
+	.loginContainer{
+		width: 50% !important;
+		position: relative !important;
+	}
+
+	.loginContainer .registerMobileFoot{
+		visibility: hidden;
+	}
+
+	.loginFormContainer{
+		width: 70% !important;
+	}
+
+	.loginFormContainer h2{
+		font-size: 200% !important;
+	}
 }
 
 .loginFormContainer {
@@ -74,10 +95,10 @@ i {
 	justify-content: center;
 	flex-direction: column;
 	display: flex;
-	height: 100vh;
-	width: 70%;
+	height: 100%;
+	width: 100%;
 	padding: 0.5em;
-	margin-bottom: 0.6rem;
+	
 }
 
 .loginFormContainer form{
@@ -86,45 +107,69 @@ i {
 	padding: 0.5em;
 	position: relative;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	justify-content: center !important;
+	position: absolute !important; 
+	flex-direction: column !important;
+	align-items: center !important;
 	gap: 0.7rem;
 }
 
 .loginFormContainer h2{
 	letter-spacing: 1px;
-	font-size: 200%;
+	font-size: 150%;
 	margin-bottom: 0;
+}
+
+@media (min-width:550px) {
+	
 }
 
 .login img {
 	height: 100%;
 	width: 100%;
+	display: flex;
 }
+
+
 .imgContainer {
-	top: 0;
-	width: 60%;
+	width: 40%;
 	height: 20%;
 	display: flex;
+	position: relative;
 	justify-content: center;
+	padding: 0.1em;
 	
 }
 
-@media (min-height: 300px) {
+@media (min-width:550px) {
 	.imgContainer {
-		height: 35%;
+		width: 48%;
+		height: 24%;
+		
 	}
 }
 
 
-/* BUSCAR QUE HACE ESTO */
-/* @media (min-width: 768px) {
-	.form {
-	  width: 80%;
-	}
-  } */
+.registerMobileFoot{
+	position: absolute;
+	padding: 0.5em;
+	bottom: 5%;
+}
 
-/* INPUTS */
+.registerMobileFoot span {
+	height: 3em;
+	padding: 0.5em;
+}
+
+.registerMobileFoot p {
+	margin-bottom: 0.5em;
+}
+
+.registerMobileFoot i {
+	color: #212529 !important;
+	
+}
+
 .inputBox {
 	display: flex;
 	align-items: center;
@@ -240,7 +285,7 @@ input[type="checkbox"] + label {
 	width: 8.5rem;
 	padding: 0.5em;
 	margin: 0.5em;
-	background-color: var(--main-color);
+	background-color: orange !important;
 	border-style: none;
 	border-radius: 10px;
 	text-transform: uppercase;
@@ -253,26 +298,39 @@ input[type="checkbox"] + label {
 
 .btnProyecto:focus {
 	box-shadow: inset 1px 1px 1px;
-	background-color: rgb(255, 136, 0);
+	background-color: orange;
 }
 
-/* .forgotUrPassword {
-	 display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 1rem; 
-	text-align: center;
-} */
+
+ /*  register */
+.registerContainer {
+	background-color: brown;
+	width: 100%; 
+	height: 100%;
+	position: absolute;
+	z-index: 2;
+	transform: translateY(200%);
+	transition: transform 1s ease;;
+}
 
 
-/* REGISTRO */
+
+@media (min-width:550px) {
+	.registerContainer {
+		width: 50% !important;
+		position: relative !important;
+		right: 0;
+		transform: translateY(0%) !important;
+	}
+}
+
 .registerContainer {
 	height: 100%;
-	width: 50%;
+	width: 100%;
 	right: 0;
 	padding: 0.5em;
 	color: var(--light-color);
-	position: relative;
+	position: absolute;
 	display: flex !important; 
 	justify-content: center !important;
 	position: absolute !important; 
@@ -285,19 +343,33 @@ input[type="checkbox"] + label {
 	background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -ms-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -ms-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
 	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
 	z-index: 1;
-	overflow: auto;
+	overflow: hidden;
+}
+
+@media (min-width:550px) {
+	.registerContainer {
+		width: 50% !important;
+	}
 }
 
 .registerFormContainer {
 	position: relative !important;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	display: flex;
-	height: 80vh;
-	width: 70%;
+	display: flex !important; 
+	justify-content: center !important;
+	position: absolute !important; 
+	flex-direction: column !important;
+	align-items: center !important;
+	height: 100%;
+	width: 100%;
 	padding: 0.5em;
 	margin: 1em;
+}
+
+@media (min-width:550px) {
+	.registerFormContainer{
+		height: 80%;
+		width: 70%;
+	}
 }
 
 .registerFormContainer form{
@@ -306,9 +378,11 @@ input[type="checkbox"] + label {
 	padding: 0.5em;
 	position: relative;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0.7rem;
+	justify-content: center !important;
+	position: absolute !important; 
+	flex-direction: column !important;
+	align-items: center !important;
+	gap: 0.6rem;
 }
 
 .registerFormContainer h2 {
@@ -344,23 +418,59 @@ input[type="checkbox"] + label {
 	gap: 0.7em;
 }
 
+.registerContainer .registerLoginFooter {
+	bottom: 5% !important;
+	padding: 1em;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 80%;
+}
+
+.registerLoginFooter span {
+	color: black !important;
+	width: 100%;
+	text-align: center;
+	font-size: small;
+	padding: 0.5em;
+	
+}
+
+.registerLoginFooter span i {
+	color: black !important; 
+}
+
+@media (min-width:550px) {
+	.registerLoginFooter {
+		visibility: hidden !important;
+	}
+}
+
 /* WALL */
 
 
 .slideableWall {
-	position: relative;
-	width: 52%;
-	height: 100vh;
+	position: absolute;
+	width: 50%;
+	height: 100%;
 	background-color: #212529;
 	right: 0;
-	z-index: 3;
+	z-index: 4;
 	display: flex;
 	align-items: center;
 	flex-direction: column !important;
 	transition: transform .6s ease;
+	visibility: hidden;
 }
 
-
+@media (min-width:550px) {
+	.slideableWall {
+		visibility: visible !important;
+	}
+}
 
 
 .insideWall {
@@ -415,13 +525,18 @@ input[type="checkbox"] + label {
 }
 
 .slideLeft {
-	transform: translateX(-98%);
+	transform: translateX(-100%);
+}
+
+.slideUp {
+	transform: translateY(0%) !important;
+	z-index: 3 !important;
 }
 
 /* Footer login */ 
 
 .footerLogin {
-	height: 1.5rem;
+	height: 2rem;
 	width: 100%;
 	bottom: 0%;
 	padding: 0;
@@ -434,7 +549,14 @@ input[type="checkbox"] + label {
 
 .footerLogin p {
 	color: var(--main-color);
+	text-align: center;
+	font-size: small;
 	margin: 0;
 	padding: 0;
 } 
 
+@media (min-width:600px) {
+	.footerLogin p {
+		font-size: larger;
+	}
+}

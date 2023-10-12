@@ -11,7 +11,10 @@ const iconCont = document.querySelector(".inputIconPassCon"); //Esto trae al div
 const iconPass = document.querySelector(".iconPass"); // Esto trae el icono
 const slideableWall = document.querySelector(".slideableWall"); // La pared deslizante.
 const btnRegisterHere = document.getElementById('btnRegisterHere'); //La constante que trae al botón "¡Registrate aqui!"
-const mensaje = document.getElementById("mensaje");
+const mensaje = document.getElementById("mensaje"); //Trae el mensaje de la slideable wall
+const btnMobileDevice = document.getElementById("btnMobileFoot"); //trae el boton de subida en la version movil.
+const registerContainer = document.querySelector(".registerContainer"); //trae al registerContainer
+const registerLoginBack = document.getElementById("registerLoginBack"); //trae al otro boton de subida en el register movil
 // Función que muestra error si las credenciales son incorrectas
 function showAlertError() {
     document.getElementById("alert-danger").classList.add("show");
@@ -103,3 +106,18 @@ btnRegisterHere.addEventListener('click', (e) => {
 });
 
 /* FALTA QUE CAMBIE EL MENSAJE DEL BOTON DE REGISTRO */
+
+
+
+
+
+/* El display de la version movil(menos de 550pixeles) */
+
+btnMobileDevice.addEventListener("click", e => {
+
+    registerContainer.classList.toggle("slideUp");
+})
+
+registerLoginBack.addEventListener("click", e => {
+    registerContainer.classList.toggle("slideUp");
+})
