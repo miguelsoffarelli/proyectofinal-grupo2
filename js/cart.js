@@ -24,7 +24,7 @@ async function showCart(data) {
         if (articleIndex === -1) {
             if(product.currency === 'USD'){
                 htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto">
+                <div class="container-fluid list-group m-4 producto" style="min-width: 25rem">
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
                             <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
