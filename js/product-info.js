@@ -97,10 +97,10 @@ async function showProduct(data) {
                 </div>
               </div>
               <div class="col m-3">
-              <div class="row">
-                  <i class="far fa-heart fa-2x" title="Añadir a favoritos"></i>
+                <div class="row">
+                    <i class="far fa-heart fa-2x" title="Añadir a favoritos"></i>
+                </div>
               </div>
-          </div>
           </div>
           
         </div>

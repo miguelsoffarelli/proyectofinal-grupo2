@@ -105,7 +105,7 @@ btnRegisterHere.addEventListener('click', (e) => {
     }
 });
 
-/* FALTA QUE CAMBIE EL MENSAJE DEL BOTON DE REGISTRO */
+
 
 
 
