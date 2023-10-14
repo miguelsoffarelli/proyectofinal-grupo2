@@ -67,7 +67,7 @@ i {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	padding: 0.5em;
+	padding: 0.2em;
 	z-index: 1;
 }
 @media (min-width:550px) {
@@ -120,8 +120,32 @@ i {
 	margin-bottom: 0;
 }
 
-@media (min-width:550px) {
-	
+@media (max-height:591px) {
+	.loginFormContainer form {
+		gap: 0;
+		height: 100%;
+		width: 100%;
+	}
+	.inputBox {
+		height: 50%;
+		margin: 0;
+	}
+	.loginFormContainer form h2  {
+		font-size: small !important;
+	}
+	.inputBox {
+		height: 2rem !important;
+	}
+	#boton_login {
+		margin: 0;
+		height: 2rem;
+	}
+}
+
+@media (max-height:383px) {
+	.imgContainer {
+		display: none !important;
+	}
 }
 
 .login img {
@@ -151,9 +175,17 @@ i {
 
 
 .registerMobileFoot{
-	position: absolute;
+	position: relative;
+	height: 5rem;
 	padding: 0.5em;
-	bottom: 5%;
+	top: 8%;
+}
+
+@media (max-height:736px) {
+	.registerMobileFoot {
+		position: unset;
+		bottom: 3%;
+	}
 }
 
 .registerMobileFoot span {
@@ -419,15 +451,52 @@ input[type="checkbox"] + label {
 }
 
 .registerContainer .registerLoginFooter {
-	bottom: 5% !important;
-	padding: 1em;
-	position: absolute;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	width: 80%;
+	position: relative;
+	top: 7% !important;
+}
+
+@media (max-height:723px) {
+	.registerFormContainer form{
+		gap: 0;
+	}
+
+	.registerCheckboxContainer{
+		gap: 0;
+	}
+
+	.registerLoginFooter {
+		top: 0%;
+		bottom: 3%;
+	}
+}
+
+@media (max-height:575px) {
+	.registerFormContainer h2 {
+		font-size: large;
+	}
+
+	.registerLoginFooter span {
+		margin: 0;
+		height: 2rem;
+	}
+	
+	.btnProyecto {
+		margin: 0;
+		height: 2rem;
+	}
+	.registerFormContainer form {
+		justify-content: baseline;
+	}
+	
+	.registerFormContainer form {
+		height: auto;
+		margin-bottom: 2em;
+	}
 }
 
 .registerLoginFooter span {
@@ -435,6 +504,8 @@ input[type="checkbox"] + label {
 	width: 100%;
 	text-align: center;
 	font-size: small;
+	justify-content: center;
+	align-items: center;
 	padding: 0.5em;
 	
 }
