@@ -1,3 +1,25 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  min-height: 100%;
+  min-width: 100%;
+}
+
+html{
+  min-height: 100%;
+  min-width: 100%;
+}
+
+main{
+  min-height: 100%;
+  min-width: 100%;
+  
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -28,40 +50,12 @@ nav a {
   }
 }
 
-.jumbotron {
-  
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
-}
-
-/* Jumbotron del modo oscuro*/
-.jumbotronDarkMode {
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back_transparent.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
-}
-
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
-}
+} */
 
 .jumbotron p:last-child {
   margin-bottom: 0;
@@ -246,9 +240,9 @@ width: 15px;
 height: 15px;
 }
 
-input[type="checkbox"] + label {
+/* input[type="checkbox"] + label {
   color: white;
-}
+} */
 
 .filtro {
   display:none
@@ -311,6 +305,7 @@ h3.m-3 {
   --light-color: #f7f7f7;
   --light-icon-color: #ffde59;
   --dark-icon-color: #fff;
+  --grey-color: grey;
 }
 
 body {
@@ -440,7 +435,7 @@ body.darkMode textarea, body.darkMode option, body.darkMode input, body.darkMode
 
 body.darkMode, body.darkMode main, body.darkMode .col-4.card.border-0, body.darkMode .accordion-button, body.darkMode .accordion-body,
 body.darkMode .accordion-item, body.darkMode .list-group-item, body.darkMode textarea, body.darkMode select, body.darkMode textarea:focus,
-body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkMode footer {
+body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkmode .card-body, body.darkMode footer {
   background-color: rgb(33, 37, 41);
 }
 
@@ -453,4 +448,198 @@ body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body
 
 #exampleModalLabel {
   color: black;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+main {
+  min-height: 100vh;
+}
+
+abbr button i {
+  color: orange;
+}
+
+footer {
+  height: 5rem;
+  background-color: var(--dark-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  text-decoration: none;
+  color: var(--light-color);
+  margin-bottom: 0;
+}
+
+footer p a {
+  text-decoration: none;
+}
+
+body.darkMode footer{
+  background-color: var(--grey-color);
+}
+
+.animate__heartBeat, .animate__tada {
+  animation-iteration-count: infinite;
+}
+
+.cart-title{
+  text-decoration: underline overline orange;
+  text-underline-offset: 15px;
+}
+
+.fa-trash:hover{
+  zoom: 120%;
+  color: orange;
+  transition: 0.2s;
+}
+
+.fa-trash:active{
+  color: red;
+}
+
+@media(min-width: 992px){
+  #comentarioNuevo{
+    width: 60%;
+  }
+}
+
+p.rating-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 35px;
+}
+
+p.rating-container input {
+  position: absolute;
+  top: -100px;
+}
+
+p.rating-container label {
+  float: right;
+  color: gray;
+}
+
+p.rating-container label:hover,
+p.rating-container label:hover ~ label,
+p.rating-container input:checked ~ label {
+  color: orange;
+}
+/*LOS CAMBIOS DE HOY */
+
+#discountsCarousel {
+  width: 55% !important;
+}
+
+#carouselExampleIndicators{
+  width: 55% !important;
+}
+
+@media (max-width:760px) {
+  #discountsCarousel {
+    width: 100% !important;
+  }
+  #carouselExampleIndicators{
+    width: 100% !important;
+  }
+
+}
+
+@media (max-width:550px) {
+  footer p {
+    font-size: 75%;
+  }
+}
+
+.jumbotron {
+  padding: 0.3em !important;
+  height: 50vh;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+}
+
+.jumbotron img {
+  height: auto;
+  width: 100%;
+  display: inline;
+}
+/* Jumbotron del modo oscuro*/
+.jumbotronDarkMode {
+  padding: 0.3em !important;
+  height: 50vh;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+}
+
+.jumbotronDarkMode img {
+  height: auto;
+  width: 100%;
+}
+
+
+.discountPer {
+  bottom: 80%;
+}
+
+@media (max-width:850px) {
+  .jumbotron {
+    display: none;
+  }
+  .jumbotronMobile {
+    display: unset !important;
+  }
+  body.darkMode .jumbotronMobileDarkMode {
+    display: unset !important;
+  }
+  .jumbotronDarkMode{
+    display: none;
+  }
+}
+
+.jumbotronMobile {
+  padding: 0.3em;
+  height: 30vh;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.jumbotronMobile img {
+  height: auto;
+  width: 100%;
+}
+
+.jumbotronMobileDarkMode {
+  padding: 0.3em !important;
+  height: 30vh;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.jumbotronMobileDarkMode img {
+  height: auto;
+  width: 100%;
+}
+
+body.darkMode .jumbotronMobile{
+  display: none !important;
 }

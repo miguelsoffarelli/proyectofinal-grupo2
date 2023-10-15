@@ -101,7 +101,7 @@ function setCatID(id) {
 
 const MUSIC_PLAYER = document.getElementById("reproductor");
 let playingBefore = false; // Variable para almacenar el estado de reproducción
-MUSIC_PLAYER.volume = 0.1
+MUSIC_PLAYER.volume = 0.5
 
 // Detectar cuando el usuario está abandonando la página
 window.addEventListener("unload", () => {
@@ -128,4 +128,32 @@ window.addEventListener("DOMContentLoaded", () => {
 CART_BUTTON.onclick = () => {
   window.location = "cart.html";
 };
+
+
+//------------------------------------ CONVERSOR DE MONEDA ------------------------------------//
+
+let selectedCur = localStorage.getItem('selectedCur');
+
+
+function getExchangeRate(prodCur) {
+  selectedCur === null ?selectedCur = prodCur.toUpperCase() :selectedCur = selectedCur;
+  return new Promise((resolve, reject) => {
+    fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${selectedCur.toLowerCase()}/${prodCur.toLowerCase()}.json`)
+      .then(response => response.json())
+      .then(result => { 
+        if(prodCur === 'usd'){
+          const exchangeRate = result.usd;
+          resolve(exchangeRate);
+        } else if(prodCur === 'uyu'){
+          const exchangeRate = result.uyu;
+          resolve(exchangeRate);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        reject(error);
+      });
+  });
+};
+
 
