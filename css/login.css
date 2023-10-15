@@ -148,13 +148,6 @@ i {
 	}
 }
 
-.login img {
-	height: 100%;
-	width: 100%;
-	display: flex;
-}
-
-
 .imgContainer {
 	width: 40%;
 	height: 20%;
@@ -162,7 +155,6 @@ i {
 	position: relative;
 	justify-content: center;
 	padding: 0.1em;
-	
 }
 
 @media (min-width:550px) {
