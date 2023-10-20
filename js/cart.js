@@ -165,7 +165,7 @@ async function showCart(data) {
                 <p id="cost${input.id}">${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</p>
             </div>
         </div>
-        <hr>
+        
     `;
         subTotal.innerHTML = subTotalHtml;
     };
@@ -200,9 +200,7 @@ function trackDiscount(total, number) {
     const conDescuento = total + (total * number); 
     totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed(2)}`;
     const discountText = document.getElementById("descuento")
-    discountText.textContent = `    
-    Envio: ${selectedCur} ${(total * number).toFixed(2)}
-    `
+    discountText.textContent = `${selectedCur} ${(total * number).toFixed(2)}`
 }
 PREMIUM.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.15);
