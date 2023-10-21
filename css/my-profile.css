@@ -39,15 +39,15 @@ main {
       "userData"
       "userPersonalData"
       "selling";
-    grid-template-rows: 17em 3em 7em auto;
+    grid-template-rows: 17em 5em 7em auto;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 990px) {
     .profileContainer {
         width: 50%;
         height: 100%;
         margin: 1em;
-        grid-template-rows: 17em 3em 7em 7em 10em;
+        grid-template-rows: 17em 5em 7em 7em 10em;
     }
 }
 
@@ -100,6 +100,15 @@ main {
     background-color: lightcyan;
 }
 
+.profileUserName h4 {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+}
+
 .userData {
     grid-area: userData;
     background-color: lightseagreen;
@@ -130,7 +139,7 @@ input[type="file"] + label{
     justify-content: center;
     display: flex;
     align-items: center;
-    border: outset 3px  rgb(0, 0, 0) ;
+    border-radius: 20px;
 }
 
 form i {

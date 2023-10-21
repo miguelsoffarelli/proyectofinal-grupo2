@@ -14,6 +14,7 @@ const LANGUAGE_DIV = document.getElementById('languageDiv');
 const CURRENCY_DIV = document.getElementById('currencyDiv');
 const BODY = document.querySelector("body");
 const BTN_MODE = document.getElementById("modeBtn");
+const avatarContainer = document.getElementById("avatarContainer");
 
 
 // Función para cerrar sesión-----------------------------------------------------------------------------------------------
@@ -36,6 +37,7 @@ function validar(){
       DROPBTN.setAttribute('href', 'login.html');
       MENU.remove();
     } else {
+      avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
       DROPBTN.innerHTML += cutString(USERNAME, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
       MENU.style.minWidth = USERNAME.length < 20 ?`${USERNAME.length}em` :`20em`; 
     };
