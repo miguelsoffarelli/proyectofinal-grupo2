@@ -7,8 +7,8 @@ const DIV = document.getElementById('cartContent');
 const ticket = document.getElementById('ticket');
 const subTotal = document.querySelector('.sub-total');
 let totalGlobal = 0;
-
-
+const IMPRIMIBLE = document.getElementById('imprimible')
+const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible')
 
 
 
@@ -143,6 +143,7 @@ async function showCart(data) {
         totalGlobal = total;
           
         totalElement.textContent = `Total: ${selectedCur} ${total.toFixed(2)}`;
+        TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${total.toFixed(2)}`;
         
     });  
   };
@@ -150,17 +151,22 @@ async function showCart(data) {
   function updateTicket(input){
     const text = document.getElementById(`p${input.id}`);
     const cost = document.getElementById(`cost${input.id}`);
+    const valor_imprimible = document.getElementById(`td1${input.id}`)
+    const precio_imprimible = document.getElementById(`td2${input.id}`)
+
     if(text){
         text.textContent = `x${input.value}`
         cost.textContent = `${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}`
+        valor_imprimible.textContent = `${input.value}`
+        precio_imprimible.textContent = `${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}`
     } else {
         subTotalHtml += `
         <div id='${input.id}' class='row'>
-            <div class="col-6">
+            <div class="col-6 producto">
                 <p>${input.dataset.name}</p>
                 <p id='p${input.id}'>x${input.value}</p>
             </div>
-            <div class="col-6">
+            <div class="col-6 costo">
                 <p class="text-muted">${selectedCur} ${input.dataset.cost} c/u</p>
                 <p id="cost${input.id}">${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</p>
             </div>
@@ -168,6 +174,14 @@ async function showCart(data) {
         
     `;
         subTotal.innerHTML = subTotalHtml;
+
+        IMPRIMIBLE.innerHTML += `
+        <tr>
+            <td>${input.dataset.name}</td>
+            <td id='td1${input.id}'>${input.value}</td>
+            <td id='td2${input.id}'>${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</td>
+        </tr>
+        `
     };
            
   };
@@ -199,6 +213,7 @@ function trackDiscount(total, number) {
     const totalElement = document.getElementById('total');
     const conDescuento = total + (total * number); 
     totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed(2)}`;
+    TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${conDescuento.toFixed(2)}`
     const discountText = document.getElementById("descuento")
     discountText.textContent = `${selectedCur} ${(total * number).toFixed(2)}`
 }
@@ -211,3 +226,30 @@ EXPRESS.addEventListener('click', () => {
 STANDARD.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.05);
 });
+
+const E_TICKET = document.getElementById('e-Ticket')
+const BOTON_TICKET = document.getElementById('imprimir_ticket')
+
+function imprimirDiv(divId) {
+    var contenido = document.getElementById(divId).innerHTML;
+    var ventana = window.open('', 'PRINT', 'width=600,height=600');
+    
+    ventana.document.open();
+    ventana.document.write('<html><head><title>Imprimir Ticket</title><style>');
+    ventana.document.write('@media print {');
+    ventana.document.write('  body { font-family: Arial, sans-serif; }');
+    ventana.document.write('  table { width: 100%; border-collapse: collapse; }');
+    ventana.document.write('  td { padding: 8px; border: 1px solid #000; }');
+    ventana.document.write('  .titulo { font-weight: bold; }');
+    ventana.document.write('  #total_imprimible { font-weight: bold; }');
+    ventana.document.write('}');
+    ventana.document.write('</style></head><body>');
+    
+    ventana.document.write(contenido);
+    ventana.document.write('</body></html>');
+    ventana.document.close();
+    ventana.print();
+    ventana.close();
+}
+
+

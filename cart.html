@@ -132,7 +132,7 @@
       <div class="col-md-7 shadow-lg m-5 animate__animated animate__backInLeft" id="cartContent">
 
       </div>
-      <div class="col-3 m-5 shadow-lg animate__animated animate__backInRight" id="ticket" style="min-width: 25rem">
+      <div id="e-Ticket" class="col-3 m-5 shadow-lg animate__animated animate__backInRight" id="ticket" style="min-width: 25rem">
         <div class="row">
           <h4 style="margin: 2%; text-align: center; margin-bottom: -2%;">e-Ticket</h4>
         </div>
@@ -157,6 +157,7 @@
         <div class="row justify-self-end align-self-end justify-content-end align-items-end">
 
           <h5 id="total">Total: $0.00</h5>
+          <div onclick="imprimirDiv('para_imprimir')" style="text-align: right;" id="impresion"><h4>🖨</h4></div>
         </div>
 
       </div>
@@ -215,7 +216,17 @@
         </div>
       </div>
     </div>
-
+    <div id="para_imprimir" hidden>
+      <table id="imprimible" class="table">
+        <tr>
+          <td class="titulo">Producto</td>
+          <td class="titulo">Cantidad</td>
+          <td class="titulo">Importe</td>
+        </tr>
+      </table>
+      <strong>Total: </strong><p id="total_imprimible"></p>
+      <h5>Gracias por su compra!</h5>
+    </div>
   </main>
   <footer class="text-muted cart-footer">
     <div class="container">
@@ -234,6 +245,7 @@
       <div></div>
     </div>
   </div>
+  
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
