@@ -24,7 +24,7 @@ async function showCart(data) {
         if (articleIndex === -1) {
             if(product.currency === 'USD'){
                 htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto" style="min-width: 25rem">
+                <div class="container-fluid list-group m-4 producto">
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
                             <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
@@ -165,7 +165,7 @@ async function showCart(data) {
                 <p id="cost${input.id}">${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</p>
             </div>
         </div>
-        
+        <hr>
     `;
         subTotal.innerHTML = subTotalHtml;
     };
@@ -200,7 +200,9 @@ function trackDiscount(total, number) {
     const conDescuento = total + (total * number); 
     totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed(2)}`;
     const discountText = document.getElementById("descuento")
-    discountText.textContent = `${selectedCur} ${(total * number).toFixed(2)}`
+    discountText.textContent = `    
+    Envio: ${selectedCur} ${(total * number).toFixed(2)}
+    `
 }
 PREMIUM.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.15);
@@ -210,4 +212,19 @@ EXPRESS.addEventListener('click', () => {
 });
 STANDARD.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.05);
+});
+
+
+const radioTransferencia = document.getElementById('radioTransferencia');
+const radioCredito = document.getElementById('radioCredito');
+const creditoOptions = document.getElementById('creditoOptions');
+const creditRadios = document.querySelectorAll('input[name="creditOption"]');
+
+
+radioCredito.addEventListener('change', function() {
+  creditoOptions.style.display = radioCredito.checked ? 'block' : 'none';
+
+  creditRadios.forEach(radio => {
+    radio.disabled = !radioCredito.checked;
+  });
 });
