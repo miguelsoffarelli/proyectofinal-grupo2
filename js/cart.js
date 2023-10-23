@@ -7,10 +7,10 @@ const DIV = document.getElementById('cartContent');
 const ticket = document.getElementById('ticket');
 const subTotal = document.querySelector('.sub-total');
 let totalGlobal = 0;
-
-
-
-
+const CONT_COMPRA = document.getElementById('contCompra')
+const DIV_OCULTO = document.getElementById('divOculto')
+const CONF_COMPRA = document.getElementById('btnSubmit')
+let CONDICION = true
 
 async function showCart(data) {
   const exchangeRateUsd = await getExchangeRate('usd');
@@ -241,3 +241,46 @@ radioCredito.addEventListener('change', function() {
     radio.disabled = !radioCredito.checked;
   });
 });
+
+CONT_COMPRA.addEventListener('click', ()=> {
+    DIV_OCULTO.removeAttribute('hidden');
+})
+
+const INPUTS_ENVIOS = document.querySelectorAll('.envio');
+let lista = [];
+
+INPUTS_ENVIOS.forEach(element => {
+  element.addEventListener('input', () => {
+    if (!element.checkValidity()) {
+      element.classList.add('is-invalid');
+      element.classList.remove('is-valid');
+      lista.pop(element.id)
+      if (lista.length < 4) {
+        CONF_COMPRA.setAttribute('disabled', '');
+      } 
+
+    } else {
+      element.classList.add('is-valid');
+      element.classList.remove('is-invalid');
+      
+      const listaIndex = lista.findIndex(e_element => e_element === element.id);
+      if (listaIndex === -1) {
+        lista.push(element.id);
+      } 
+    }
+
+    if (lista.length >= 4) {
+      CONF_COMPRA.removeAttribute('disabled');
+    } 
+
+    console.log(lista);
+  });
+});
+
+CONF_COMPRA.addEventListener('click', () => {
+  document.getElementById("alert-success").classList.add("show");
+  setTimeout(function() {
+    document.getElementById("alert-success").classList.remove("show");
+  }, 2000);
+});
+

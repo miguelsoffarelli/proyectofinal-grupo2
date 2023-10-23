@@ -112,6 +112,10 @@
     </div>
   </nav>
   <main>
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p>Compra exitosa</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="d-flex justify-content-center align-items-center p-5">
       <h1 class="cart-title animate__animated animate__backInRight">Carrito</h1><i class="fa-solid fa-cart-shopping fa-2xl m-3 animate__animated animate__fadeInLeftBig" style="color: orange;"></i>
     </div>
@@ -135,8 +139,10 @@
           <h5 id="descuento"></h5>
           <h5 id="total">Total: $0.00</h5>
         </div>
+        <button id="contCompra" class="btn btn-primary">Continuar compra</button>
         
       </div>
+      <div id="divOculto" hidden>
       <div class="row justify-content-md-center animate__animated animate__zoomIn">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Tipo de envío</h4>
@@ -164,28 +170,41 @@
           </form>
         </div>
       </div>
+      <div>
       <div class="row justify-content-md-center animate__animated animate__zoomIn mb-4">
         <div class="col-md-8 order-md-1">
-          <form class="needs-validation" id="address-info">
+          <form action="#" method="get" id="address-info" novalidate>
             <h4 class="mb-3">Dirección de envío</h4>
             <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="street">Calle</label>
-                <input type="text" class="form-control" id="street" value="" name="street">
+                <label for="street" class="form-label">Calle</label>
+                <input type="text" class="form-control envio" id="street" value="" name="street" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="number">Número</label>
-                <input type="text" class="form-control" id="number" value="" name="number">
+                <label for="number" class="form-label">Número</label>
+                <input type="text" class="form-control envio" id="number" value="" name="number" required>
+                <div class="invalid-feedback">
+                  Debe ingresar un número de domicilio.
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="corner">Esquina</label>
-                <input type="text" class="form-control" id="corner" value="" name="corner">
+                <label for="corner" class="form-label">Esquina</label>
+                <input type="text" class="form-control envio" id="corner" value="" name="corner" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="corner">Localidad</label>
-                <input type="text" class="form-control" id="city" value="" name="city">
+                <label for="city" class="form-label">Localidad</label>
+                <input type="text" class="form-control envio" id="city" value="" name="city" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una localidad.
+                </div>
               </div>
             </div>
             <h3>Seleccione un metodo de pago</h3>
@@ -212,10 +231,13 @@
                     <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
                 </label>
             </div>
+            <br>
+            <button class="btn btn-primary" type="submit" id="btnSubmit" disabled>Confirmar compra</button>
           </form>
         </div>
       </div>
     </div>
+  </div>
     
   </main>
   <footer class="text-muted cart-footer">
