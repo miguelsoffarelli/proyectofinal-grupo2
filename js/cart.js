@@ -24,7 +24,7 @@ async function showCart(data) {
         if (articleIndex === -1) {
             if(product.currency === 'USD'){
                 htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto" style="min-width: 25rem">
+                <div class="container-fluid list-group m-4 producto" id='${product.id}'>
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
                             <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
@@ -38,7 +38,7 @@ async function showCart(data) {
                         </div>
                         <div class="row">
                             <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i class="row bin fa-solid fa-trash fa-xl"></i>
+                                <i class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ async function showCart(data) {
             `;
             } else if (product.currency === 'UYU') {
                 htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto">
+                <div class="container-fluid list-group m-4 producto" id='${product.id}'>
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
                             <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
@@ -60,7 +60,7 @@ async function showCart(data) {
                         </div>
                         <div class="row">
                             <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i class="row bin fa-solid fa-trash fa-xl"></i>
+                                <i class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ async function showCart(data) {
   articles.forEach(article => {
     if (article.currency === 'USD'){
         htmlContentToAppend += `
-          <div class="container list-group m-4 producto">
+          <div class="container list-group m-4 producto" id='${article.id}'>
               <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                   <div class="col-3">
                       <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
@@ -90,7 +90,7 @@ async function showCart(data) {
                   </div>
                   <div class="row">
                       <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                          <i class="row bin fa-solid fa-trash fa-xl"></i>
+                          <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
                       </div>
                   </div>
               </div>
@@ -98,7 +98,7 @@ async function showCart(data) {
       `;
     } else if (article.currency === 'UYU'){
         htmlContentToAppend += `
-          <div class="container list-group m-4 producto">
+          <div class="container list-group m-4 producto" id='${article.id}'>
               <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                   <div class="col-3">
                       <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
@@ -112,7 +112,7 @@ async function showCart(data) {
                   </div>
                   <div class="row">
                       <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                          <i class="row bin fa-solid fa-trash fa-xl"></i>
+                          <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
                       </div>
                   </div>
               </div>
@@ -165,7 +165,7 @@ async function showCart(data) {
                 <p id="cost${input.id}">${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</p>
             </div>
         </div>
-        
+        <hr>
     `;
         subTotal.innerHTML = subTotalHtml;
     };
@@ -184,11 +184,24 @@ async function showCart(data) {
   
   
   updateCart();
-};
+
+  let deleteIcons = document.querySelectorAll('.fa-trash');
+
+  deleteIcons.forEach(icon => {
+      icon.addEventListener('click', () => {
+        document.getElementById(`${icon.dataset.id}`).classList.add('animate__animated', 'animate__slideOutLeft');
+        setTimeout(() => {
+            document.getElementById(`${icon.dataset.id}`).remove();
+        }, 1000);
+      });
+    });
+  };
 
 window.addEventListener('load', () => {
   fetchData(showCart, url);
 });
+
+
 
 
 const PREMIUM = document.getElementById('premiumShipping');
@@ -200,7 +213,9 @@ function trackDiscount(total, number) {
     const conDescuento = total + (total * number); 
     totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed(2)}`;
     const discountText = document.getElementById("descuento")
-    discountText.textContent = `${selectedCur} ${(total * number).toFixed(2)}`
+    discountText.textContent = `    
+    Envio: ${selectedCur} ${(total * number).toFixed(2)}
+    `
 }
 PREMIUM.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.15);
@@ -210,4 +225,19 @@ EXPRESS.addEventListener('click', () => {
 });
 STANDARD.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.05);
+});
+
+
+const radioTransferencia = document.getElementById('radioTransferencia');
+const radioCredito = document.getElementById('radioCredito');
+const creditoOptions = document.getElementById('creditoOptions');
+const creditRadios = document.querySelectorAll('input[name="creditOption"]');
+
+
+radioCredito.addEventListener('change', function() {
+  creditoOptions.style.display = radioCredito.checked ? 'block' : 'none';
+
+  creditRadios.forEach(radio => {
+    radio.disabled = !radioCredito.checked;
+  });
 });
