@@ -643,3 +643,8 @@ p.rating-container input:checked ~ label {
 body.darkMode .jumbotronMobile{
   display: none !important;
 }
+
+#impresion:hover {
+  cursor: pointer;
+  width: 15%;
+}

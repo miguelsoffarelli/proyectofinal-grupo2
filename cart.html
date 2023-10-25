@@ -138,6 +138,7 @@
         <div class="row justify-self-end align-self-end justify-content-end align-items-end">
           <h5 id="descuento"></h5>
           <h5 id="total">Total: $0.00</h5>
+          <div onclick="imprimirDiv('para_imprimir')" style="text-align: right;" id="impresion"><h4>🖨</h4></div>
         </div>
         <button id="contCompra" class="btn btn-primary">Continuar compra</button>
         
@@ -238,7 +239,17 @@
       </div>
     </div>
   </div>
-    
+    <div id="para_imprimir" hidden>
+      <table id="imprimible" class="table">
+        <tr>
+          <td class="titulo">Producto</td>
+          <td class="titulo">Cantidad</td>
+          <td class="titulo">Importe</td>
+        </tr>
+      </table>
+      <strong>Total: </strong><p id="total_imprimible"></p>
+      <h5>Gracias por su compra!</h5>
+    </div>
   </main>
   <footer class="text-muted cart-footer">
     <div class="container">
