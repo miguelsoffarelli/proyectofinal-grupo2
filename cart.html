@@ -150,19 +150,19 @@
             <div class="row">
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="premiumShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="premiumShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="premiumShipping">Premium 2 a 5 días (15%)</label>
                 </div>
               </div>
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="expressShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="expressShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="expressShipping">Express 5 a 8 días (7%)</label>
                 </div>
               </div>
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="standardShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="standardShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="standardShipping">Standard 12 a 15 días (5%)</label>
                 </div>
               </div>
@@ -209,25 +209,25 @@
             </div>
             <h3>Seleccione un metodo de pago</h3>
             <label>
-                <input type="radio" name="paymentMethod" value="transferencia" id="radioTransferencia" class="mb-3"> Transferencia/Depósito
+                <input type="radio" name="paymentMethod" value="transferencia" id="radioTransferencia" class="mb-3 envio" required> Transferencia/Depósito
             </label>
             <br>
             <label>
-                <input type="radio" name="paymentMethod" value="credito" id="radioCredito" class="mb-3"> Crédito/Débito
+                <input type="radio" name="paymentMethod" value="credito" id="radioCredito" class="mb-3 envio" required> Crédito/Débito
             </label>
             <div id="creditoOptions" style="display: none;">
                 <label for="tarjeta3" class="radio-label">
-                    <input type="radio" name="creditOption" value="master" class="m-3">
+                    <input id="master" type="radio" name="creditOption" value="master" class="m-3 envio" required>
                     <img src="img/iconomaster.ico" alt="Master card" style="width: 30%;">
                 </label>
                 <br>
                 <label for="tarjeta3" class="radio-label">
-                    <input type="radio" name="creditOption" value="mastercard" class="m-3">
+                    <input id="maestro" type="radio" name="creditOption" value="mastercard" class="m-3 envio" required>
                     <img src="img/mestrotarjeta.ico" alt="Maestro" style="width: 30%;">
                 </label>
                 <br>
                 <label for="tarjeta3" class="radio-label">
-                    <input type="radio" name="creditOption" value="visa" class="m-3">
+                    <input id="visa" type="radio" name="creditOption" value="visa" class="m-3 envio" required>
                     <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
                 </label>
             </div>

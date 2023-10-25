@@ -12,6 +12,7 @@ const DIV_OCULTO = document.getElementById('divOculto')
 const CONF_COMPRA = document.getElementById('btnSubmit')
 let CONDICION = true
 
+
 async function showCart(data) {
   const exchangeRateUsd = await getExchangeRate('usd');
   const exchangeRateUyu = await getExchangeRate('uyu');
@@ -248,13 +249,16 @@ CONT_COMPRA.addEventListener('click', ()=> {
 
 const INPUTS_ENVIOS = document.querySelectorAll('.envio');
 let lista = [];
+let numeroInputs = 0
 
 INPUTS_ENVIOS.forEach(element => {
   element.addEventListener('input', () => {
+    let index = lista.indexOf(element.id)
+
     if (!element.checkValidity()) {
       element.classList.add('is-invalid');
       element.classList.remove('is-valid');
-      lista.pop(element.id)
+      lista.splice(index, 1)
       if (lista.length < 4) {
         CONF_COMPRA.setAttribute('disabled', '');
       } 
@@ -269,12 +273,72 @@ INPUTS_ENVIOS.forEach(element => {
       } 
     }
 
-    if (lista.length >= 4) {
-      CONF_COMPRA.removeAttribute('disabled');
-    } 
+
+     
+    function indexReplace(list, elemento){
+        let i = list.indexOf(elemento)
+        if (i != -1){
+            list.splice(i, 1)
+        }
+    }
+    switch(element.id){
+        case 'radioTransferencia':
+            indexReplace(lista, 'radioCredito')
+            document.getElementById('creditoOptions').style.display='none'
+            indexReplace(lista, 'master')
+            indexReplace(lista, 'maestro')
+            indexReplace(lista, 'visa')
+            numeroInputs = 6
+            break;     
+
+        case 'radioCredito':
+            indexReplace(lista, 'radioTransferencia')
+            numeroInputs = 7
+            break;
+            
+
+        case 'premiumShipping':
+            indexReplace(lista, 'expressShipping')
+            indexReplace(lista, 'standardShipping')
+            break;
+        
+        case 'expressShipping':
+            indexReplace(lista, 'premiumShipping')
+            indexReplace(lista, 'standardShipping')
+            break;
+
+        case 'standardShipping':
+            indexReplace(lista, 'premiumShipping')
+            indexReplace(lista, 'expressShipping')
+            break;
+        
+        case 'master':
+            indexReplace(lista, 'maestro')
+            indexReplace(lista, 'visa')
+            break;
+        
+        case 'maestro':
+            indexReplace(lista, 'master')
+            indexReplace(lista, 'visa')
+            break;
+        
+        case 'visa':
+            indexReplace(lista, 'maestro')
+            indexReplace(lista, 'master')
+            break;
+    }
+
+    
+    if (lista.length === numeroInputs) {
+        CONF_COMPRA.removeAttribute('disabled');
+    } else {
+        CONF_COMPRA.setAttribute('disabled', '')
+    }
 
     console.log(lista);
   });
+
+  
 });
 
 CONF_COMPRA.addEventListener('click', () => {
