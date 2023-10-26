@@ -140,6 +140,11 @@
           <h5 id="total">Total: $0.00</h5>
           <div onclick="imprimirDiv('para_imprimir')" style="text-align: right;" id="impresion"><h4>🖨</h4></div>
         </div>
+        <div class="coupon-section my-3">
+          <label for="coupon-code">Cupón de descuento:</label>
+          <input type="text" id="coupon-code" placeholder="Introduce el código de descuento">
+          <button type="button" id= "apply-coupon" class="btn btn-outline-warning mt-3">Aplicar descuento!</button>
+        </div>
         <button id="contCompra" class="btn btn-primary">Continuar compra</button>
         
       </div>
@@ -208,7 +213,7 @@
                 </div>
               </div>
             </div>
-            <h3>Seleccione un metodo de pago</h3>
+            <!-- <h3>Seleccione un metodo de pago</h3>
             <label>
                 <input type="radio" name="paymentMethod" value="transferencia" id="radioTransferencia" class="mb-3 envio" required> Transferencia/Depósito
             </label>
@@ -231,7 +236,77 @@
                     <input id="visa" type="radio" name="creditOption" value="visa" class="m-3 envio" required>
                     <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
                 </label>
+            </div> -->
+            <h3>Seleccione un método de pago</h3>
+    <label>
+        <input type="radio" name="paymentMethod" value="transferencia" id="radioTransferencia" class="mb-3 envio" required> Transferencia/Depósito
+    </label>
+    <div class="ml-3" id="transferenciaOptions" style="display: none">
+        <label for="brou" class="radio-label">
+            <input type="radio" id="brou" name="transferencias" value="BROU" class="envio" required>
+            <a href="https://www.brou.com.uy/" target="_blank"> <img src="img/broulogo.png" alt="BROU" style="width: 30%;"> </a>
+        </label>
+        <br>
+        <label for="bbva" class="radio-label">
+            <input type="radio" id="bbva" name="transferencias" value="bbva" class="envio" required>
+            <a href="https://www.bbva.com.uy/" target="_blank"> <img src="img/bbvalogo.png" alt="BBVA" style="width: 30%;"></a>
+        </label>
+        <br>
+        <label for="santander" class="radio-label">
+            <input type="radio" id="santander" name="transferencias" value="santander" class="envio" required>
+            <a href="https://www.santander.com.uy/" target="_blank"><img src="img/santanderlogo.png" alt="santander" style="width: 30%;"></a>
+        </label> 
+    </div>
+    <br>
+    <label>
+        <input type="radio" name="paymentMethod" value="credito" id="radioCredito" class="mb-3 envio" required> Crédito/Débito
+    </label>
+    <div id="creditoOptions" style="display: none">
+        <label for="tarjeta1" class="radio-label">
+            <input type="radio" id="master" name="creditOption" value="master" class="envio" required>
+            <img src="img/iconomaster.ico" alt="Master card" style="width: 30%;">
+            <div id="tarjetaMaster" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroMaster" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreMaster" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaMaster" name="tarjetaFecha" class="envio" required>
             </div>
+        </label>
+        <br>
+        <label for="tarjeta2" class="radio-label">
+            <input type="radio" id="maestro" name="creditOption" value="maestro" class="envio" required>
+            <img src="img/mestrotarjeta.ico" alt="Maestro" style="width: 30%;">
+            <div id="tarjetaMaestro" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroMaestro" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreMaestro" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaMaestro" name="tarjetaFecha" class="envio" required>
+            </div>
+        </label>
+        <br>
+        <label for="tarjeta3" class="radio-label">
+            <input type="radio" id="visa" name="creditOption" value="visa" class="envio" required>
+            <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
+            <div id="tarjetaVisa" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroVisa" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreVisa" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaVisa" name="tarjetaFecha" class="envio" required>
+            </div>
+        </label>
+      </div>
             <br>
             <button class="btn btn-primary" type="submit" id="btnSubmit" disabled>Confirmar compra</button>
           </form>
