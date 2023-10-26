@@ -13,6 +13,7 @@ const CONF_COMPRA = document.getElementById('btnSubmit');
 let CONDICION = true;
 const IMPRIMIBLE = document.getElementById('imprimible');
 const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
+const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
 
 
 async function showCart(data) {
@@ -147,6 +148,7 @@ async function showCart(data) {
           
         totalElement.textContent = `Total: ${selectedCur} ${total.toFixed(2)}`;
         TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${total.toFixed(2)}`;
+        SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${total.toFixed(2)}`;
     });  
   };
   
