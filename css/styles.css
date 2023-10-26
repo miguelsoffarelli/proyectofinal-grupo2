@@ -281,12 +281,12 @@ height: 15px;
 
 }
 #avatarContainer{
-  width: 30px;
-  height: 30px;
+  width: 33px;
+  height: 33px;
   margin-right: 5px;
   overflow: hidden;
-  border-radius: 50%;
-  padding: 1px;
+  border-radius: 100%;
+  border: solid black 1px;
 }
 
 #nav-dropbtn {

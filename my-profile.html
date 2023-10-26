@@ -126,23 +126,29 @@
           <div class="profilePicContainer">
             <img src="img/img_perfil.png" id="img">
           </div>
-          
           <input type="file" name="profilePic" id="profilePicFile" accept="image/*">
           <label for="profilePicFile">Cambiar foto de Perfil   <i class="fa-solid fa-image"></i></label>
-        </form>
-        <!-- <button>Cerrar Sesion</button> -->
+          <label class="resetBtn" id="resetProfilePic">Restablecer foto de Perfil<i class="fa-solid fa-image"></i></label>
+   
       </div>
-      <div id="profileUserName" class="profileUserName"></div>
+      <div id="profileUserName" class="profileUserName">
+        <form action="">
+          <i class="fa-solid fa-pen-clip" style="color: orange;" id="changeNameBtn"></i>
+        <div class="inputBox" hidden>
+          <input type="text" id="changeName">
+          <label for="changeName">Nuevo nombre de Usuario</label>
+          <button class="profileBtn" id="saveNewName">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+        </div>
+        
+      </div>
       <div class="userData">Datos suaves, como ubicacion etc.</div>
       <div class="userPersonalData">Datos verdaderamente personales</div>
       <div class="selling">Vendiendo</div>
-      
+      <div class="logOutContainer">
+        <button id="logOut">Cerrar Sesion <i class="fa-solid fa-power-off"></i></button>
+      </div>
       
     </div>
-
-
-
-
 
 
 
@@ -158,8 +164,8 @@
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
-  <script src="js/my-profile.js"></script>
   <script src="js/account.js"></script>
+  <script src="js/my-profile.js"></script>
   <script src="js/mode.js"></script>
 </body>
 
