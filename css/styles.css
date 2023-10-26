@@ -259,11 +259,7 @@ height: 15px;
 
 }
 
-#avatar{
-  width: 30px;
-  margin-right: 10px;
-  top: 50%;
-}
+
 
 #clearRangeFilter{
   height: 36px;
@@ -651,4 +647,24 @@ body.darkMode .jumbotronMobile{
 
 #creditoOptions, #transferenciaOptions{
   margin-left: 1.5rem;
+}
+
+#avatarContainer{
+  width: 33px;
+  height: 33px;
+  margin-right: 5px;
+  overflow: hidden;
+  border-radius: 100%;
+  border: solid black 1px;
+}
+
+#nav-dropbtn {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+#avatar{
+  width: 100% !important;
+  height: 100% !important;
 }

@@ -69,6 +69,7 @@ const BRL = document.getElementById('br');
 const EUR = document.getElementById('eu');
 const ARS = document.getElementById('ar');
 const GBP = document.getElementById('gb');
+const avatarContainer = document.getElementById("avatarContainer");
 
 
 
@@ -164,8 +165,9 @@ function validar(){
       welcome(); 
     } else { 
       welcome(); 
-      dropbtn.innerHTML += cutString(nombreUsuario, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
-      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; 
+      avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
+      dropbtn.innerHTML += cutString(nombreUsuario, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
+      menu.style.minWidth = nombreUsuario.length < 12 ?`${nombreUsuario.length}em` :`20em`; 
     };
 };
 
