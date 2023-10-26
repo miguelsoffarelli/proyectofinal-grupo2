@@ -648,3 +648,7 @@ body.darkMode .jumbotronMobile{
   cursor: pointer;
   width: 15%;
 }
+
+#creditoOptions, #transferenciaOptions{
+  margin-left: 1.5rem;
+}

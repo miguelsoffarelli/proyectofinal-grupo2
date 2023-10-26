@@ -254,18 +254,18 @@ const creditoOptions = document.getElementById('creditoOptions');
 const creditRadios = document.querySelectorAll('input[name="creditOption"]');
 
 
-radioCredito.addEventListener('change', function() {
-  creditoOptions.style.display = radioCredito.checked ? 'block' : 'none';
-
-  creditRadios.forEach(radio => {
-    radio.disabled = !radioCredito.checked;
-  });
-});
-
 CONT_COMPRA.addEventListener('click', ()=> {
     DIV_OCULTO.removeAttribute('hidden');
 })
 
+
+const tarjetaMaster = document.getElementById('tarjetaMaster');
+const tarjetaMaestro = document.getElementById('tarjetaMaestro');
+const tarjetaVisa = document.getElementById('tarjetaVisa');
+const master = document.getElementById('master');
+const maestro = document.getElementById('maestro');
+const visa = document.getElementById('visa');
+const transferenciaOptions= document.getElementById('transferenciaOptions');
 const INPUTS_ENVIOS = document.querySelectorAll('.envio');
 let lista = [];
 let numeroInputs = 0
@@ -278,9 +278,6 @@ INPUTS_ENVIOS.forEach(element => {
       element.classList.add('is-invalid');
       element.classList.remove('is-valid');
       lista.splice(index, 1)
-      if (lista.length < 4) {
-        CONF_COMPRA.setAttribute('disabled', '');
-      } 
 
     } else {
       element.classList.add('is-valid');
@@ -307,12 +304,40 @@ INPUTS_ENVIOS.forEach(element => {
             indexReplace(lista, 'master')
             indexReplace(lista, 'maestro')
             indexReplace(lista, 'visa')
-            numeroInputs = 6
-            break;     
+            indexReplace(lista, 'tarjetaNumeroMaster')
+            indexReplace(lista, 'tarjetaNumeroMaestro')
+            indexReplace(lista, 'tarjetaNumeroVisa')
+            indexReplace(lista, 'tarjetaNombreMaster')
+            indexReplace(lista, 'tarjetaNombreMaestro')
+            indexReplace(lista, 'tarjetaNombreVisa')
+            indexReplace(lista, 'tarjetaFechaMaster')
+            indexReplace(lista, 'tarjetaFechaMaestro')
+            indexReplace(lista, 'tarjetaFechaVisa')
+            numeroInputs = 7
+            break;
 
         case 'radioCredito':
             indexReplace(lista, 'radioTransferencia')
-            numeroInputs = 7
+            indexReplace(lista, 'brou')
+            indexReplace(lista, 'bbva')
+            indexReplace(lista, 'santander')
+            creditoOptions.style.display = 'block'
+            numeroInputs = 10
+            break;
+        
+        case 'brou':
+            indexReplace(lista, 'bbva')
+            indexReplace(lista, 'santander')
+            break;
+
+        case 'bbva':
+            indexReplace(lista, 'brou')
+            indexReplace(lista, 'santander')
+            break;
+
+        case 'santander':
+            indexReplace(lista, 'bbva')
+            indexReplace(lista, 'brou')
             break;
             
 
@@ -334,16 +359,34 @@ INPUTS_ENVIOS.forEach(element => {
         case 'master':
             indexReplace(lista, 'maestro')
             indexReplace(lista, 'visa')
+            indexReplace(lista, 'tarjetaNumeroMaestro')
+            indexReplace(lista, 'tarjetaNumeroVisa')
+            indexReplace(lista, 'tarjetaNombreMaestro')
+            indexReplace(lista, 'tarjetaNombreVisa')
+            indexReplace(lista, 'tarjetaFechaMaestro')
+            indexReplace(lista, 'tarjetaFechaVisa')
             break;
         
         case 'maestro':
             indexReplace(lista, 'master')
             indexReplace(lista, 'visa')
+            indexReplace(lista, 'tarjetaNumeroMaster')
+            indexReplace(lista, 'tarjetaNumeroVisa')
+            indexReplace(lista, 'tarjetaNombreMaster')
+            indexReplace(lista, 'tarjetaNombreVisa')
+            indexReplace(lista, 'tarjetaFechaMaster')
+            indexReplace(lista, 'tarjetaFechaVisa')
             break;
         
         case 'visa':
             indexReplace(lista, 'maestro')
             indexReplace(lista, 'master')
+            indexReplace(lista, 'tarjetaNumeroMaster')
+            indexReplace(lista, 'tarjetaNumeroMaestro')
+            indexReplace(lista, 'tarjetaNombreMaster')
+            indexReplace(lista, 'tarjetaNombreMaestro')
+            indexReplace(lista, 'tarjetaFechaMaster')
+            indexReplace(lista, 'tarjetaFechaMaestro')
             break;
     }
 
@@ -359,6 +402,75 @@ INPUTS_ENVIOS.forEach(element => {
 
   
 });
+
+
+const couponCodeInput = document.getElementById('coupon-code');
+const applyCouponBtn = document.getElementById('apply-coupon');
+
+applyCouponBtn.addEventListener('click', () => {
+    const couponCode = couponCodeInput.value;
+    if (couponCode === 'DESCUENTO10') {
+        totalGlobal = totalGlobal * 0.9;
+        const totalElement = document.getElementById('total');
+        totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed(2)}`;
+        couponCodeInput.value = '';
+        alert('Cupón aplicado con éxito.');
+    } else {
+        alert('Cupón no válido. Por favor, verifica el código.');
+    }
+});
+
+
+radioTransferencia.addEventListener('change', function() {
+  if (radioTransferencia.checked) {
+    transferenciaOptions.style.display = 'block';
+    creditoOptions.style.display = 'none'; 
+  } else {
+    transferenciaOptions.style.display = 'none';
+  }
+});
+
+radioCredito.addEventListener('change', function() {
+  if (radioCredito.checked) {
+    creditoOptions.style.display = 'block';
+    transferenciaOptions.style.display = 'none';
+  } else {
+    creditoOptions.style.display = 'none'; 
+  }
+  master.addEventListener('change', function(){
+    if (master.checked) {
+      tarjetaMaster.style.display = 'block';
+      tarjetaMaestro.style.display = 'none';
+      tarjetaVisa.style.display = 'none';
+    }else {
+      tarjetaMaster.style.display = 'none';
+
+    }
+  })
+  maestro.addEventListener('change', function(){
+    if (maestro.checked) {
+      tarjetaMaestro.style.display = 'block';
+      tarjetaMaster.style.display = 'none';
+      tarjetaVisa.style.display = 'none';
+    }else {
+      tarjetaMaestro.style.display = 'none';
+
+    }
+  }) 
+visa.addEventListener('change', function(){
+    if (visa.checked) {
+      tarjetaVisa.style.display = 'block';
+      tarjetaMaestro.style.display = 'none';
+      tarjetaMaster.style.display = 'none';
+    }else {
+      tarjetaVisa.style.display = 'none'
+    }
+  })
+  creditRadios.forEach(radio => {
+    radio.disabled = !radioCredito.checked;
+  });
+});
+
 
 CONF_COMPRA.addEventListener('click', () => {
   document.getElementById("alert-success").classList.add("show");
