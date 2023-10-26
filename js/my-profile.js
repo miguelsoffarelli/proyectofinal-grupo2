@@ -10,7 +10,7 @@ const nameChangeBtn = document.getElementById("changeNameBtn");
 const inputBox = document.querySelector(".inputBox");
 
 profilePicFile.addEventListener("change", e => {
-    
+
     if(e.target.files[0]) {
         
         const reader = new FileReader();
@@ -18,12 +18,13 @@ profilePicFile.addEventListener("change", e => {
             img.src = e.target.result;
             localStorage.setItem("userPic", img.getAttribute("src"));
             localStorage.setItem("userPicVerified", true);
+            location.reload();
         }
         reader.readAsDataURL(e.target.files[0])
     }else{
         img.src = img;
     }
-    
+
 });
 
 resetProfilePic.addEventListener("click", e => {
@@ -41,7 +42,6 @@ function putUserName() {
     profileUserNameCont.append(h4);
 }
 putUserName();
-
 window.addEventListener("load", () => {
     img.setAttribute("src", localStorage.getItem("userPic"));
 
@@ -53,4 +53,3 @@ nameChangeBtn.addEventListener("click", () => {
     document.querySelector("h4").toggleAttribute("hidden");
     inputBox.toggleAttribute("hidden");
 });
-

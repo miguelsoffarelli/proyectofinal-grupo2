@@ -5,11 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-
+  <link rel="icon" href="img/R.png">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -50,8 +51,12 @@
               <div id="currencyDiv">
                 <a class="dropbtn" href="#" id="currency">Moneda<i class="fas fa-play m-2"></i></a>
                 <div class="dropdown-content" id="currencyMenu">
-                  <a href="#">UYU</a>
-                  <a href="#">USD</a>
+                  <a href="#" id="uy">UYU</a>
+                  <a href="#" id="us">USD</a>
+                  <a href="#" id="ar">ARS</a>
+                  <a href="#" id="br">BRL</a>
+                  <a href="#" id="eu">EUR</a>
+                  <a href="#" id="gb">GBP</a>
                 </div>
               </div>
               <div id="modeBtn" class="modeBtn">
@@ -111,19 +116,29 @@
       <p id="welcome"></p>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="jumbotron text-center"></div>
+    <div class="jumbotron text-center animate__animated animate__fadeInLeft">
+      <img src="img/cover_back.png">
+    </div>
+    <div class="jumbotronMobile text-center animate__animated animate__fadeInLeft">
+      <img src="img/cover_back_cellphone.png">
+    </div>
+
     <!-- JUmbotron del modo oscuro -->
-    <div class="jumbotronDarkMode text-center" hidden></div>
-    
+    <div class="jumbotronDarkMode text-center animate__animated animate__fadeInLeft" hidden>
+      <img src="img/cover_back_transparent.png">
+    </div>
+    <div class="jumbotronMobileDarkMode text-center animate__animated animate__fadeInLeft" hidden>
+      <img src="img/cover_back_transparent_cellphone.png">
+    </div>
     <!-- Carrusel de ofertas -->
-    <div id="discountsCarousel" class="carousel slide" data-ride="carousel">
+    <div id="discountsCarousel" class="carousel slide animate__animated animate__fadeInLeft" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#discountsCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#discountsCarousel" data-slide-to="1"></li>
         <li data-target="#discountsCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner shadow-lg p-3 mb-5 rounded" id="discounts">
-        <h1 class="text-center">OFERTAS!</h1>
+        <h1 class="text-center animate__animated animate__heartBeat">OFERTAS!</h1>
       </div>
       <a class="carousel-control-prev" href="#discountsCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -136,7 +151,7 @@
     </div>
     
     <!-- Carrusel de categorías -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide animate__animated animate__fadeInLeft" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>

@@ -63,6 +63,13 @@ if (!sessionProducts) {
   sessionProducts = {}; // Inicializa sessionProducts como un objeto vacío si es nulo
 };
 let urlList = [];
+const UYU = document.getElementById('uy');
+const USD = document.getElementById('us');
+const BRL = document.getElementById('br');
+const EUR = document.getElementById('eu');
+const ARS = document.getElementById('ar');
+const GBP = document.getElementById('gb');
+const avatarContainer = document.getElementById("avatarContainer");
 
 
 
@@ -107,7 +114,7 @@ function discount(){
           htmlContentToAppend = `
             <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item active cursor-active" id="${product.name}" >
               <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
-              <img class="discountPer" src="img/10.png" alt="">
+              <img class="discountPer animate__animated animate__tada" src="img/10.png" alt="">
               <br>
               <h3 class="m-3">${product.name}</h3>
               <h5>${product.currency} ${percentage(product.cost, 10)}</h5>
@@ -120,7 +127,7 @@ function discount(){
           htmlContentToAppend += `
             <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item cursor-active" id="${product.name}" >
               <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
-              <img class="discountPer" src="img/10.png" alt="">
+              <img class="discountPer animate__animated animate__tada" src="img/10.png" alt="">
               <br>
               <h3 class="m-3">${product.name}</h3>
               <h5>${product.currency} ${percentage(product.cost, 10)}</h5>
@@ -158,8 +165,9 @@ function validar(){
       welcome(); 
     } else { 
       welcome(); 
-      dropbtn.innerHTML += cutString(nombreUsuario, 20) + `<i class="fas fa-caret-down m-2"></i>`; 
-      menu.style.minWidth = nombreUsuario.length < 20 ?`${nombreUsuario.length}em` :`20em`; 
+      avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
+      dropbtn.innerHTML += cutString(nombreUsuario, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
+      menu.style.minWidth = nombreUsuario.length < 12 ?`${nombreUsuario.length}em` :`20em`; 
     };
 };
 
@@ -239,4 +247,38 @@ BTN_MODE.addEventListener("click", ()=> {
   BODY.classList.toggle("darkMode");
 });
 
+UYU.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'UYU');
+  location.reload();
+})
 
+USD.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'USD');
+  location.reload();
+})
+
+BRL.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'BRL');
+  location.reload();
+})
+
+EUR.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'EUR');
+  location.reload();
+})
+
+ARS.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'ARS');
+  location.reload();
+})
+
+GBP.addEventListener('click', (e) => {
+  e.preventDefault();
+  localStorage.setItem('selectedCur', 'GBP');
+  location.reload();
+})

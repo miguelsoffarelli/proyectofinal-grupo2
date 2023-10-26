@@ -1,3 +1,25 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  min-height: 100%;
+  min-width: 100%;
+}
+
+html{
+  min-height: 100%;
+  min-width: 100%;
+}
+
+main{
+  min-height: 100%;
+  min-width: 100%;
+  
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -27,35 +49,6 @@ nav a {
     font-size: 3.5rem;
   }
 } */
-
-/* JUMBOTRON */
-.jumbotron {
-  
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
-}
-
-/* Jumbotron del modo oscuro*/
-.jumbotronDarkMode {
-  height: 50vh;
-  padding: 5em inherit;
-  margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back_transparent.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: black;
-  font-weight: bold;
-}
 
 /* @media (min-width: 768px) {
   .jumbotron {
@@ -295,10 +288,7 @@ height: 15px;
   align-items: center;
 }
 
-#avatar{
-  width: 100% !important;
-  height: 100% !important;
-}
+
 
 #clearRangeFilter{
   height: 36px;
@@ -340,6 +330,7 @@ h3.m-3 {
   --light-color: #f7f7f7;
   --light-icon-color: #ffde59;
   --dark-icon-color: #fff;
+  --grey-color: grey;
 }
 
 body {
@@ -526,6 +517,183 @@ body.darkMode footer{
   background-color: var(--grey-color);
 }
 
-.animate__animated {
+.animate__heartBeat, .animate__tada {
   animation-iteration-count: infinite;
+}
+
+.cart-title{
+  text-decoration: underline overline orange;
+  text-underline-offset: 15px;
+}
+
+.fa-trash:hover{
+  zoom: 120%;
+  color: orange;
+  transition: 0.2s;
+}
+
+.fa-trash:active{
+  color: red;
+}
+
+@media(min-width: 992px){
+  #comentarioNuevo{
+    width: 60%;
+  }
+}
+
+p.rating-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  font-size: 35px;
+}
+
+p.rating-container input {
+  position: absolute;
+  top: -100px;
+}
+
+p.rating-container label {
+  float: right;
+  color: gray;
+}
+
+p.rating-container label:hover,
+p.rating-container label:hover ~ label,
+p.rating-container input:checked ~ label {
+  color: orange;
+}
+/*LOS CAMBIOS DE HOY */
+
+#discountsCarousel {
+  width: 55% !important;
+}
+
+#carouselExampleIndicators{
+  width: 55% !important;
+}
+
+@media (max-width:760px) {
+  #discountsCarousel {
+    width: 100% !important;
+  }
+  #carouselExampleIndicators{
+    width: 100% !important;
+  }
+
+}
+
+@media (max-width:550px) {
+  footer p {
+    font-size: 75%;
+  }
+}
+
+.jumbotron {
+  padding: 0.3em !important;
+  height: 50vh;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+}
+
+.jumbotron img {
+  height: auto;
+  width: 100%;
+  display: inline;
+}
+/* Jumbotron del modo oscuro*/
+.jumbotronDarkMode {
+  padding: 0.3em !important;
+  height: 50vh;
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+}
+
+.jumbotronDarkMode img {
+  height: auto;
+  width: 100%;
+}
+
+
+.discountPer {
+  bottom: 80%;
+}
+
+@media (max-width:850px) {
+  .jumbotron {
+    display: none;
+  }
+  .jumbotronMobile {
+    display: unset !important;
+  }
+  body.darkMode .jumbotronMobileDarkMode {
+    display: unset !important;
+  }
+  .jumbotronDarkMode{
+    display: none;
+  }
+}
+
+.jumbotronMobile {
+  padding: 0.3em;
+  height: 30vh;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.jumbotronMobile img {
+  height: auto;
+  width: 100%;
+}
+
+.jumbotronMobileDarkMode {
+  padding: 0.3em !important;
+  height: 30vh;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: none;
+}
+
+.jumbotronMobileDarkMode img {
+  height: auto;
+  width: 100%;
+}
+
+body.darkMode .jumbotronMobile{
+  display: none !important;
+}
+
+#impresion:hover {
+  cursor: pointer;
+  width: 15%;
+}
+
+#creditoOptions, #transferenciaOptions{
+  margin-left: 1.5rem;
+}
+
+#avatarContainer{
+  width: 33px;
+  height: 33px;
+  margin-right: 5px;
+  overflow: hidden;
+  border-radius: 100%;
+  border: solid black 1px;
+}
+
+#nav-dropbtn {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+#avatar{
+  width: 100% !important;
+  height: 100% !important;
 }

@@ -5,84 +5,30 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link rel="icon" href="img/R.png">
   <link href="css/login.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  
 </head>
 <body>
-  <main>
-    <div class="loginContainer">
-        <div class="imgContainer"><img src="/img/loginTransparente.png"></div>
-        <div class="loginFormContainer">
-          <form method="post" action="" id="registroForm">
-            <h2>Iniciar Sesión</h2>
-                <div class="inputBox">
-                  <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
-                  <input type="text" name="u"  placeholder="" required="required" id="username"/>
-                  <label for="">Nombre de usuario</label>
-                </div>
-                <div class="inputBox">
-                  <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
-                  <input type="password" name="p" class="inputPass" placeholder="" required="required" id="contrasena"/>
-                  <label for="">Contraseña</label>
-                  <div class="inputIconPassCon" title="Mostrar Contraseña">
-                    <span class="showPassword" id="showPassBtn">
-                      <i class="iconPass fa-solid fa-eye"></i>
-                    </span>
-                  </div>
-                </div>
-                <div class="checkboxContainer">
-                  <input type="checkbox" name="" id="rememberMe"> 
-                  <label for="rememberMe">Recordarme</label>
-                </div>
-                  <button type="submit" class="btnProyecto" id="boton_login">Ingresar</button>  
-                <!-- <div class="forgotUrPassword">
-                  <p><a href="">¿Olvidaste tu contraseña?</a></p>
-                  <p><a href="#" id="skip">Continuar sin iniciar sesión</a></p>
-                </div>  -->
-          </form>
-        </div>
-    </div>
-    
-    
-    <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
-      <p id="alertMessage">Por favor complete los datos solicitados para continuar.</p>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    
-      <div class="slideableWall">
-        <div class="insideWall">
-          <div class="wallImgContainer">
-            <!-- Inserte un carrusel de imagenes aqui  -->
-            <img src="/img/loginTransparente.png" alt="">
-          </div>
-          <div class="mensaje">
-            <p id="mensaje">¿No tienes una cuenta?</p>
-          </div>
-          <button class="btnProyecto" id="btnRegisterHere">¡Registrate aqui!</button>
-        </div>
-      </div>
-    
-    
-    <div class="registerContainer">
-        <div class="registerFormContainer">
-          <form action="">
-            <h2>Registro</h2>
+ <main>
+  <div class="loginContainer">
+    <div class="loginFormContainer">
+      <form method="post" action="" id="registroForm">
+        <div class="imgContainer"><img src="img/loginRecortadoTransparente.png"></div>
+        <h2>Iniciar Sesión</h2>
             <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
-              <input type="text" placeholder="" required="required">
+              <input type="text" name="u"  placeholder="" required="required" id="username"/>
               <label for="">Nombre de usuario</label>
             </div>
             <div class="inputBox">
-              <div class="inputIconCon"><i class="fa-solid fa-envelope"></i></div>
-              <input type="text" placeholder="" required="required">
-              <label for="">Correo</label>
-            </div>
-            <div class="inputBox">
               <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
-              <input type="password" placeholder="" required="required">
+              <input type="password" name="p" class="inputPass" placeholder="" required="required" id="contrasena"/>
               <label for="">Contraseña</label>
               <div class="inputIconPassCon" title="Mostrar Contraseña">
                 <span class="showPassword" id="showPassBtn">
@@ -90,41 +36,110 @@
                 </span>
               </div>
             </div>
-            <div class="inputBox">
-              <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
-              <input type="password" placeholder="" required="required">
-              <label for="">Repetir Contraseña</label>
-              <div class="inputIconPassCon" title="Mostrar Contraseña">
-                <span class="showPassword" id="showPassBtn">
-                  <i class="iconPass fa-solid fa-eye"></i>
-                </span>
+            <div class="checkboxContainer">
+              <input type="checkbox" name="" id="rememberMe"> 
+              <label for="rememberMe">Recordarme</label>
+            </div>
+              <button type="submit" class="btnProyecto" id="boton_login">Ingresar</button>  
+              <div id="mensaje2" class="registerMobileFoot">
+                <p>¿No tienes una cuenta?</p> 
+                <span id="btnMobileFoot" class="btnProyecto"><i class="fa-solid fa-arrow-up"></i> REGISTRARSE <i class="fa-solid fa-arrow-up"></i></span>
               </div>
-            </div>
-            <div class="registerCheckboxContainer">
-              
-              <label for=""><input type="checkbox" name="" id="">Quiero recibir notificaciones y ofertas de Su Pu</label>
-              
-              <label for=""><input type="checkbox" name="" id="">He leído y acepto los términos y condiciones.</label>
-            </div>
-            <div class="btnRegister">
-              <button class="btnProyecto" id="boton_register">Registrarse</button>
-            </div>
-          </form>
+      </form>
+    </div>
+  
+  </div>
+
+<div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+  <p id="alertMessage">Por favor complete los datos solicitados para continuar.</p>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+  <p>Registro completo. En breve serás redireccionado a la página principal.</p>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+  
+  <div class="slideableWall">
+    <div class="insideWall">
+      <div class="wallImgContainer">
+        <p>¡El mundo al alcance de tu mano!</p>
+        <img src="/img/wallGenerica.png">
+      </div>
+      <div class="mensaje">
+        <p id="mensaje">¿No tienes una cuenta?</p>
+      </div>
+      <button class="btnProyecto" id="btnRegisterHere"><p id="register-login">¡Registrate aqui!</p></button>
+    </div>
+  </div> 
+
+
+  <div class="registerContainer">
+    <div class="registerFormContainer">
+      <form action="">
+        <h2>Registro</h2>
+        <div class="inputBox">
+          <div class="inputIconCon"><i class="fa-solid fa-user"></i></div>
+          <input type="text" placeholder="" id="uName">
+          <label for="">Nombre de usuario</label>
         </div>
-        <div>
-        </div> 
+        <div class="inputBox">
+          <div class="inputIconCon"><i class="fa-solid fa-envelope"></i></div>
+          <input type="text" placeholder="" id="email">
+          <label for="">Correo</label>
+        </div>
+        <div class="inputBox">
+          <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
+          <input type="password" placeholder="" id="pass1">
+          <label for="">Contraseña</label>
+          <div class="inputIconPassCon" title="Mostrar Contraseña">
+            <span class="showPassword" id="showPassBtn">
+              <i class="iconPass fa-solid fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        <div class="inputBox">
+          <div class="inputIconCon"><i class="fa-solid fa-lock"></i></div>
+          <input type="password" placeholder="" id="pass2">
+          <label for="">Repetir Contraseña</label>
+          <div class="inputIconPassCon" title="Mostrar Contraseña">
+            <span class="showPassword" id="showPassBtn">
+              <i class="iconPass fa-solid fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        <div class="registerCheckboxContainer">
+          
+          <label for=""><input type="checkbox" name="" id="">Quiero recibir notificaciones y ofertas</label>
+          
+          <label for=""><input type="checkbox" name="" id="">He leído y acepto los términos y condiciones.</label>
+        </div>
+        <div class="btnRegister">
+          <button class="btnProyecto" id="boton_registrarse">Registrarse</button>
+        </div>
+        <div class="registerLoginFooter">
+          <p>¿Ya tenes una cuenta?</p>
+          <span id="registerLoginBack" class="btnProyecto"><i class="fa-solid fa-arrow-up fa-rotate-180"></i> Iniciar Sesión <i class="fa-solid fa-arrow-up fa-rotate-180"></i></span>
+        </div>
+      </form>
+      
     </div>
     
-  </main>
+    <div>
+    </div> 
+</div>
+ </main>
   <footer class="footerLogin">
-    <p> 
-      2023 
-      <i class="fa-regular fa-copyright"></i>
-      Powered by Team 2. Todos los derechos reservados.
-      <i class="fa-regular fa-copyright"></i>
-    </p> 
-  </footer>
-  <script src="js/login.js"></script>
+  <p> 
+    2023 
+    <i class="fa-regular fa-copyright"></i>
+    Powered by Team 2. Todos los derechos reservados.
+    <i class="fa-regular fa-copyright"></i>
+  </p> 
+</footer> 
+  
 </body>
-
+<script src="js/login.js"></script>
+<script src="js/register.js"></script>
 </html>
