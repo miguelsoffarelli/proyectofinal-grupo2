@@ -1,5 +1,3 @@
-console.log(sessionStorage.getItem('buyProduct'));
-
 const userId = 25801;
 const url = `https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
 let CART_CONTENT = JSON.parse(sessionStorage.getItem('buyProduct'));
@@ -79,6 +77,7 @@ async function showCart(data) {
         }
     });
   };
+  let countUpdate = sessionStorage.getItem('countUpd') != null ?sessionStorage.getItem('countUpd') :0;
   articles.forEach(article => {
     if (!apiProductRemoved.includes(article.id)){
       if (article.currency === 'USD'){
@@ -93,7 +92,7 @@ async function showCart(data) {
                         <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
                     </div>
                     <div class="col-1">
-                        <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
+                        <input type="number" class='contador row' id="${article.id}" min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
                     </div>
                     <div class="row">
                         <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
@@ -115,7 +114,7 @@ async function showCart(data) {
                         <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
                     </div>
                     <div class="col-1">
-                        <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
+                        <input type="number" class='contador row' id="${article.id}" min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
                     </div>
                     <div class="row">
                         <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
@@ -198,6 +197,14 @@ async function showCart(data) {
         updateCart();
         updateTicket(input);
         input.setAttribute('value', input.value);
+        const isFromApi = articles.find(art => art.id === parseInt(input.id)) ?true :false;
+        if (isFromApi){
+          countUpdate = input.value - 1;
+          sessionStorage.setItem('countUpd', countUpdate);
+        } else {
+          CART_CONTENT[CART_CONTENT.indexOf(CART_CONTENT.find(prod => prod.id === parseInt(input.id)))].count = input.value;
+          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
+        };
     }); 
   });
 
@@ -231,7 +238,8 @@ async function showCart(data) {
     });
   };
 
-window.addEventListener('load', () => {
+
+  window.addEventListener('load', () => {
   fetchData(showCart, url);
 });
 
