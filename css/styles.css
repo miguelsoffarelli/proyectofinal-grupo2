@@ -20,6 +20,10 @@ main{
   
 }
 
+nav {
+  z-index: 20;
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -110,6 +114,7 @@ footer p {
   width: 50%;
   left: 50%;
   transform: translate(-50%, 0);
+  z-index: 2;
 }
 
 .lds-ring {
@@ -433,6 +438,10 @@ body.darkMode, body.darkMode main, body.darkMode .col-4.card.border-0, body.dark
 body.darkMode .accordion-item, body.darkMode .list-group-item, body.darkMode textarea, body.darkMode select, body.darkMode textarea:focus,
 body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkmode .card-body, body.darkMode footer {
   background-color: rgb(33, 37, 41);
+}
+
+body.darkmode .alert.alert-success {
+  color: #0f5132 !important;
 }
 
 .discountPer{
