@@ -2,7 +2,7 @@ console.log(sessionStorage.getItem('buyProduct'));
 
 const userId = 25801;
 const url = `https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
-const CART_CONTENT = JSON.parse(sessionStorage.getItem('buyProduct'));
+let CART_CONTENT = JSON.parse(sessionStorage.getItem('buyProduct'));
 const DIV = document.getElementById('cartContent');
 const ticket = document.getElementById('ticket');
 const subTotal = document.querySelector('.sub-total');
@@ -14,14 +14,16 @@ let CONDICION = true;
 const IMPRIMIBLE = document.getElementById('imprimible');
 const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
 const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
+let articles = [];
 
 
 async function showCart(data) {
+  let apiProductRemoved = JSON.parse(sessionStorage.getItem('apiProdRemoved')) != null ?JSON.parse(sessionStorage.getItem('apiProdRemoved')) :[];
   const exchangeRateUsd = await getExchangeRate('usd');
   const exchangeRateUyu = await getExchangeRate('uyu');
   let htmlContentToAppend = "";
   let subTotalHtml = "";
-  const articles = data.articles;
+  articles = data.articles;
   if(CART_CONTENT != null){
     CART_CONTENT.forEach(product => {
         const articleIndex = articles.findIndex(article => article.id === product.id);
@@ -78,52 +80,53 @@ async function showCart(data) {
     });
   };
   articles.forEach(article => {
-    if (article.currency === 'USD'){
-        htmlContentToAppend += `
-          <div class="container list-group m-4 producto" id='${article.id}'>
-              <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                  <div class="col-3">
-                      <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
-                  </div>
-                  <div class="col-7">
-                      <h2 class="product-name">${article.name}</h2>
-                      <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
-                  </div>
-                  <div class="col-1">
-                      <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
-                  </div>
-                  <div class="row">
-                      <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                          <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      `;
-    } else if (article.currency === 'UYU'){
-        htmlContentToAppend += `
-          <div class="container list-group m-4 producto" id='${article.id}'>
-              <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                  <div class="col-3">
-                      <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
-                  </div>
-                  <div class="col-7">
-                      <h2 class="product-name">${article.name}</h2>
-                      <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
-                  </div>
-                  <div class="col-1">
-                      <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
-                  </div>
-                  <div class="row">
-                      <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                          <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      `;
+    if (!apiProductRemoved.includes(article.id)){
+      if (article.currency === 'USD'){
+          htmlContentToAppend += `
+            <div class="container list-group m-4 producto" id='${article.id}'>
+                <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
+                    <div class="col-3">
+                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
+                    </div>
+                    <div class="col-7">
+                        <h2 class="product-name">${article.name}</h2>
+                        <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
+                    </div>
+                    <div class="col-1">
+                        <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
+                            <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+      } else if (article.currency === 'UYU'){
+          htmlContentToAppend += `
+            <div class="container list-group m-4 producto" id='${article.id}'>
+                <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
+                    <div class="col-3">
+                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
+                    </div>
+                    <div class="col-7">
+                        <h2 class="product-name">${article.name}</h2>
+                        <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
+                    </div>
+                    <div class="col-1">
+                        <input type="number" class='contador row' id="${article.id}" min="1" value="${article.count}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
+                            <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+      };
     };
-      
   });
   htmlContentToAppend += `
     <div class="empty-cart-btn d-flex justify-content-end align-items-center p-5">
@@ -137,7 +140,6 @@ async function showCart(data) {
   const totalElement = document.getElementById('total');
 
   function updateCart() {
-    console.log('funcionando')
     let total = 0;
     cartItems.forEach(input => {
         const itemQuantity = parseInt(input.value);
@@ -203,11 +205,25 @@ async function showCart(data) {
   
   updateCart();
 
+
+  // Para eliminar productos del carrito
   let deleteIcons = document.querySelectorAll('.fa-trash');
 
   deleteIcons.forEach(icon => {
       icon.addEventListener('click', () => {
-        document.getElementById(`${icon.dataset.id}`).classList.add('animate__animated', 'animate__slideOutLeft');
+        const iconId = parseInt(icon.dataset.id);
+        document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft');
+        const prodToRemove = CART_CONTENT.find(prod => prod.id === iconId);
+        const prodToRemoveIndex = CART_CONTENT.indexOf(prodToRemove);
+        const isFromApi = articles.find(art => art.id === iconId) ?true :false;
+        if (isFromApi){
+          apiProductRemoved.push(iconId);
+          sessionStorage.setItem('apiProdRemoved', JSON.stringify(apiProductRemoved));
+        };
+        if (prodToRemoveIndex != -1 && !isFromApi){
+          CART_CONTENT.splice(prodToRemoveIndex, 1);
+          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
+        };
         setTimeout(() => {
             document.getElementById(`${icon.dataset.id}`).remove();
         }, 1000);
