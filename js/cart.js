@@ -483,7 +483,7 @@ radioCredito.addEventListener('change', function() {
 
     }
   }) 
-visa.addEventListener('change', function(){
+  visa.addEventListener('change', function(){
     if (visa.checked) {
       tarjetaVisa.style.display = 'block';
       tarjetaMaestro.style.display = 'none';
@@ -498,7 +498,8 @@ visa.addEventListener('change', function(){
 });
 
 
-CONF_COMPRA.addEventListener('click', () => {
+CONF_COMPRA.addEventListener('click', (e) => {
+  e.preventDefault();
   document.getElementById("alert-success").classList.add("show");
   setTimeout(function() {
     document.getElementById("alert-success").classList.remove("show");

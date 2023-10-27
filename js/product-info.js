@@ -263,6 +263,10 @@ function buyProduct(data) {
 function addProduct(data) {
   const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount, data.currency);
   currentProduct.addToCart();
+  document.getElementById("alert-success").classList.add("show");
+  setTimeout(function() {
+    document.getElementById("alert-success").classList.remove("show");
+  }, 2000);
 };
 
 
