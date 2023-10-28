@@ -240,29 +240,30 @@ async function showCart(data) {
         if (prodToRemoveIndex != -1 && !isFromApi){
           CART_CONTENT.splice(prodToRemoveIndex, 1);
           sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
-          if(prodToRemove.currency === 'USD'){
-          totalGlobal -= ((prodToRemove.cost / exchangeRateUsd)  * prodToRemove.count)
-          } else if (prodToRemove.currency === 'UYU'){
-            totalGlobal -= ((prodToRemove.cost / exchangeRateUyu)  * prodToRemove.count)
-          }
-          SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${totalGlobal.toFixed(2)}`;
-          if(PREMIUM.checked){
-            trackDiscount(totalGlobal, 0.15);
-          } else if (EXPRESS.checked){
-            trackDiscount(totalGlobal, 0.07);
-          } else if (STANDARD.checked){
-            trackDiscount(totalGlobal, 0.05);
-          }
+          // if(prodToRemove.currency === 'USD'){
+          // totalGlobal -= ((prodToRemove.cost / exchangeRateUsd)  * prodToRemove.count)
+          // } else if (prodToRemove.currency === 'UYU'){
+          //   totalGlobal -= ((prodToRemove.cost / exchangeRateUyu)  * prodToRemove.count)
+          // }
+          // SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${totalGlobal.toFixed(2)}`;
+          // if(PREMIUM.checked){
+          //   trackDiscount(totalGlobal, 0.15);
+          // } else if (EXPRESS.checked){
+          //   trackDiscount(totalGlobal, 0.07);
+          // } else if (STANDARD.checked){
+          //   trackDiscount(totalGlobal, 0.05);
+          // }
           
-          TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
+          // TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
           
-          const DIV_PARA_ELIMINAR = document.getElementById(prodToRemove.id);
-          let parent = DIV_PARA_ELIMINAR.parentElement;
-          parent.removeChild(DIV_PARA_ELIMINAR);
+          // const DIV_PARA_ELIMINAR = document.getElementById(prodToRemove.id);
+          // let parent = DIV_PARA_ELIMINAR.parentElement;
+          // parent.removeChild(DIV_PARA_ELIMINAR);
           
         };
         setTimeout(() => {
             document.getElementById(`${icon.dataset.id}`).remove();
+            location.reload();
         }, 1000);
       });
     });

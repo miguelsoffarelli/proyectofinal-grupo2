@@ -167,7 +167,7 @@ function validar(){
       welcome(); 
       avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
       dropbtn.innerHTML += cutString(nombreUsuario, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
-      menu.style.minWidth = nombreUsuario.length < 12 ?`${nombreUsuario.length}em` :`20em`; 
+      menu.style.minWidth = nombreUsuario.length < 12 ?`${nombreUsuario.length}em` :`12em`; 
     };
 };
 
