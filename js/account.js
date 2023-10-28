@@ -45,7 +45,7 @@ function validar(){
     } else {
       avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
       DROPBTN.innerHTML += cutString(USERNAME, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
-      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`15em`; 
+      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`12em`; 
     };
 };
 
