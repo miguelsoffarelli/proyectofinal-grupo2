@@ -20,6 +20,10 @@ main{
   
 }
 
+nav {
+  z-index: 20;
+}
+
 .jumbotron,
 .card-body,
 .container,
@@ -110,6 +114,7 @@ footer p {
   width: 50%;
   left: 50%;
   transform: translate(-50%, 0);
+  z-index: 2;
 }
 
 .lds-ring {
@@ -259,11 +264,7 @@ height: 15px;
 
 }
 
-#avatar{
-  width: 30px;
-  margin-right: 10px;
-  top: 50%;
-}
+
 
 #clearRangeFilter{
   height: 36px;
@@ -437,6 +438,10 @@ body.darkMode, body.darkMode main, body.darkMode .col-4.card.border-0, body.dark
 body.darkMode .accordion-item, body.darkMode .list-group-item, body.darkMode textarea, body.darkMode select, body.darkMode textarea:focus,
 body.darkMode input, body.darkMode input:focus, body.darkMode select:focus, body.darkmode .card-body, body.darkMode footer {
   background-color: rgb(33, 37, 41);
+}
+
+body.darkmode .alert.alert-success {
+  color: #0f5132 !important;
 }
 
 .discountPer{
@@ -642,4 +647,37 @@ p.rating-container input:checked ~ label {
 
 body.darkMode .jumbotronMobile{
   display: none !important;
+}
+
+#impresion:hover {
+  cursor: pointer;
+  width: 15%;
+}
+
+#creditoOptions, #transferenciaOptions{
+  margin-left: 1.5rem;
+}
+
+#avatarContainer{
+  width: 33px;
+  height: 33px;
+  margin-right: 5px;
+  overflow: hidden;
+  border-radius: 100%;
+  border: solid black 1px;
+}
+
+#nav-dropbtn {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+#avatar{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.hidden {
+  display: none;
 }

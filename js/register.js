@@ -14,7 +14,8 @@ regbtn.addEventListener('click', (e)=> {
     if (usuario.value !== "" && pass1.value !== "" && pass2.value && pass1.value.length >= 6 && email.value !== ""){ 
         saveUser();
         localStorage.setItem('user', usuario.value);                                                                             
-        localStorage.setItem('isLoggedIn', 'true');                                                                        
+        localStorage.setItem('isLoggedIn', 'true');   
+        localStorage.setItem("userPic", "img/img_perfil.png");                                                                     
         showAlertSuccess();                                                                                                
         setTimeout(function() {
             location.href = "index.html"                                                                                   

@@ -20,6 +20,7 @@ const BRL = document.getElementById('br');
 const EUR = document.getElementById('eu');
 const ARS = document.getElementById('ar');
 const GBP = document.getElementById('gb');
+const avatarContainer = document.getElementById("avatarContainer");
 
 
 // Función para cerrar sesión-----------------------------------------------------------------------------------------------
@@ -42,8 +43,9 @@ function validar(){
       DROPBTN.setAttribute('href', 'login.html');
       MENU.remove();
     } else {
+      avatarContainer.innerHTML = `<div id="avatarContainer"><img id="avatar" src="${localStorage.getItem("userPic")}"></div>`
       DROPBTN.innerHTML += cutString(USERNAME, 12) + `<i class="fas fa-caret-down m-2"></i>`; 
-      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`15em`; 
+      MENU.style.minWidth = USERNAME.length < 12 ?`${USERNAME.length}em` :`12em`; 
     };
 };
 

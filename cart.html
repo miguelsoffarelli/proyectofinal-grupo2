@@ -69,7 +69,7 @@
             </div>   
           </li>
           <li class="nav-item" id="accountDropdown">           
-            <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><img src="img/user.png" id="avatar" alt=""></a>
+            <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><div id="avatarContainer"></div></a>
             <div class="dropdown-content" id="menu">
               <a href="my-profile.html">Mi Perfil</a>
               <a href="#" id="exit">Salir</a>
@@ -112,6 +112,10 @@
     </div>
   </nav>
   <main>
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p style="color: #0f5132 !important;">Compra completada!</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="d-flex justify-content-center align-items-center p-5">
       <h1 class="cart-title animate__animated animate__backInRight">Carrito</h1><i class="fa-solid fa-cart-shopping fa-2xl m-3 animate__animated animate__fadeInLeftBig" style="color: orange;"></i>
     </div>
@@ -132,11 +136,20 @@
         </div>
         
         <div class="row justify-self-end align-self-end justify-content-end align-items-end">
+          <h5 id="subTotal_ticket">Subtotal: $0.00</h5>
           <h5 id="descuento"></h5>
           <h5 id="total">Total: $0.00</h5>
+          <div onclick="imprimirDiv('para_imprimir')" style="text-align: right;" id="impresion"><h4>🖨</h4></div>
         </div>
+        <div class="coupon-section my-3">
+          <label for="coupon-code">Cupón de descuento:</label>
+          <input type="text" id="coupon-code" placeholder="Introduce el código de descuento">
+          <button type="button" id= "apply-coupon" class="btn btn-outline-warning mt-3">Aplicar descuento!</button>
+        </div>
+        <button id="contCompra" class="btn btn-primary">Continuar compra</button>
         
       </div>
+      <div id="divOculto" hidden>
       <div class="row justify-content-md-center animate__animated animate__zoomIn">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Tipo de envío</h4>
@@ -144,19 +157,19 @@
             <div class="row">
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="premiumShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="premiumShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="premiumShipping">Premium 2 a 5 días (15%)</label>
                 </div>
               </div>
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="expressShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="expressShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="expressShipping">Express 5 a 8 días (7%)</label>
                 </div>
               </div>
               <div class="col-md-12 mb-2">
                 <div class="form-check">
-                  <input type="radio" class="form-check-input" id="standardShipping" value="" name="shippingType">
+                  <input type="radio" class="form-check-input envio" id="standardShipping" value="" name="shippingType" required>
                   <label class="form-check-label" for="standardShipping">Standard 12 a 15 días (5%)</label>
                 </div>
               </div>
@@ -164,35 +177,131 @@
           </form>
         </div>
       </div>
-      <div class="row justify-content-md-center animate__animated animate__zoomIn">
+      <div>
+      <div class="row justify-content-md-center animate__animated animate__zoomIn mb-4">
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3">Dirección de envío</h4>
-          <form class="needs-validation" id="address-info">
+          <form action="#" method="get" id="address-info" novalidate>
+            <h4 class="mb-3">Dirección de envío</h4>
             <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="street">Calle</label>
-                <input type="text" class="form-control" id="street" value="" name="street">
+                <label for="street" class="form-label">Calle</label>
+                <input type="text" class="form-control envio" id="street" value="" name="street" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="number">Número</label>
-                <input type="text" class="form-control" id="number" value="" name="number">
+                <label for="number" class="form-label">Número</label>
+                <input type="text" class="form-control envio" id="number" value="" name="number" required>
+                <div class="invalid-feedback">
+                  Debe ingresar un número de domicilio.
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4 mb-3">
-                <label for="corner">Esquina</label>
-                <input type="text" class="form-control" id="corner" value="" name="corner">
+                <label for="corner" class="form-label">Esquina</label>
+                <input type="text" class="form-control envio" id="corner" value="" name="corner" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una calle.
+                </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="corner">Localidad</label>
-                <input type="text" class="form-control" id="city" value="" name="city">
+                <label for="city" class="form-label">Localidad</label>
+                <input type="text" class="form-control envio" id="city" value="" name="city" required>
+                <div class="invalid-feedback">
+                  Debe ingresar una localidad.
+                </div>
               </div>
             </div>
+            <h3>Seleccione un método de pago</h3>
+    <label>
+        <input type="radio" name="paymentMethod" value="transferencia" id="radioTransferencia" class="mb-3 envio" required> Transferencia/Depósito
+    </label>
+    <div class="ml-3" id="transferenciaOptions" style="display: none">
+        <label for="brou" class="radio-label">
+            <input type="radio" id="brou" name="transferencias" value="BROU" class="envio" required>
+            <a href="https://www.brou.com.uy/" target="_blank"> <img src="img/broulogo.png" alt="BROU" style="width: 30%;"> </a>
+        </label>
+        <br>
+        <label for="bbva" class="radio-label">
+            <input type="radio" id="bbva" name="transferencias" value="bbva" class="envio" required>
+            <a href="https://www.bbva.com.uy/" target="_blank"> <img src="img/bbvalogo.png" alt="BBVA" style="width: 30%;"></a>
+        </label>
+        <br>
+        <label for="santander" class="radio-label">
+            <input type="radio" id="santander" name="transferencias" value="santander" class="envio" required>
+            <a href="https://www.santander.com.uy/" target="_blank"><img src="img/santanderlogo.png" alt="santander" style="width: 30%;"></a>
+        </label> 
+    </div>
+    <br>
+    <label>
+        <input type="radio" name="paymentMethod" value="credito" id="radioCredito" class="mb-3 envio" required> Crédito/Débito
+    </label>
+    <div id="creditoOptions" style="display: none">
+        <label for="tarjeta1" class="radio-label">
+            <input type="radio" id="master" name="creditOption" value="master" class="envio" required>
+            <img src="img/iconomaster.ico" alt="Master card" style="width: 30%;">
+            <div id="tarjetaMaster" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroMaster" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreMaster" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaMaster" name="tarjetaFecha" class="envio" required>
+            </div>
+        </label>
+        <br>
+        <label for="tarjeta2" class="radio-label">
+            <input type="radio" id="maestro" name="creditOption" value="maestro" class="envio" required>
+            <img src="img/mestrotarjeta.ico" alt="Maestro" style="width: 30%;">
+            <div id="tarjetaMaestro" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroMaestro" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreMaestro" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaMaestro" name="tarjetaFecha" class="envio" required>
+            </div>
+        </label>
+        <br>
+        <label for="tarjeta3" class="radio-label">
+            <input type="radio" id="visa" name="creditOption" value="visa" class="envio" required>
+            <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
+            <div id="tarjetaVisa" style="display: none">
+                <label for="tarjetaNumero">Número de tarjeta:</label>
+                <input type="text" id="tarjetaNumeroVisa" name="tarjetaNumero" class="envio" required>
+                <br>
+                <label for="tarjetaNombre">Nombre en la tarjeta:</label>
+                <input type="text" id="tarjetaNombreVisa" name="tarjetaNombre" class="envio" required>
+                <br>
+                <label for="tarjetaFecha">Fecha de vencimiento:</label>
+                <input type="text" id="tarjetaFechaVisa" name="tarjetaFecha" class="envio" required>
+            </div>
+        </label>
+      </div>
+            <br>
+            <button class="btn btn-primary" type="submit" id="btnSubmit" disabled>Confirmar compra</button>
           </form>
         </div>
       </div>
     </div>
-    
+  </div>
+    <div id="para_imprimir" hidden>
+      <table id="imprimible" class="table">
+        <tr>
+          <td class="titulo">Producto</td>
+          <td class="titulo">Cantidad</td>
+          <td class="titulo">Importe</td>
+        </tr>
+      </table>
+      <strong>Total: </strong><p id="total_imprimible"></p>
+      <h5>Gracias por su compra!</h5>
+    </div>
   </main>
   <footer class="text-muted cart-footer">
     <div class="container">

@@ -1,4 +1,270 @@
-#userPic {
-    height: 8rem;
-    width: 8rem;
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+html {min-height: 100%; width: 100%;}
+body {
+    min-height: 100%;
+    width: 100%;
+    color: #212529;
+    overflow: auto;
+}
+main {
+    height: 100%;
+	min-height: 100%;
+	width: 100%;
+	min-width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    
+}
+.profileContainer {
+    width: 100%;
+    height: 100vh;
+    /* background-color: #155ea7; */
+    display: grid;
+    box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+    margin: 0;
+    grid-template-areas: 
+      "profilePicArea"  
+      "userName"
+      "userData"
+      "userPersonalData"
+      "selling"
+      "logOut";
+    grid-template-rows:  20em 5em 7em auto auto 4em;
+}
+
+@media (min-width: 990px) {
+    .profileContainer {
+        width: 50%;
+        height: 100%;
+        margin: 1em;
+        grid-template-rows: 20em 5em 7em 7em auto 4em;
+    }
+}
+
+.profileContainer > * {
+    text-align: center;
+    padding: 0.5em;
+    /* box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75); */
+}
+
+
+
+
+.profilePicArea {
+    grid-area: profilePicArea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: solid gray 1px;
+}
+
+.profilePicArea form{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.profilePicContainer{
+    background-color: azure;
+    border-radius: 100%;
+    width: 10rem;
+    height: 10rem;
+    margin: 0.2em;
+    box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+}
+
+
+.profilePicContainer img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: solid 6px #e0e0e0;
+    box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.75);
+}
+.profileUserName {
+    grid-area: userName;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileUserName i {
+    margin-top: 3px;
+    margin-right: 1px;
+}
+
+.profileUserName h4 {
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    margin-right: 6px;
+}
+
+.userData {
+    grid-area: userData;
+    /* background-color: lightseagreen; */
+}
+.userPersonalData {
+    grid-area: userPersonalData;
+    /* background-color: lightskyblue; */
+}
+.selling {
+    grid-area: selling;
+    /* background-color: lightgrey; */
+}
+input[type="file"] {
+    display: none;
+}
+input[type="file"] + label{
+    cursor: pointer;
+    padding: 0.1em;
+    height: 3rem;
+    width: 15rem;
+    background-color: orange;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.35);
+}
+
+form i {
+    margin-left: 1em;
+}
+
+.resetBtn {
+    cursor: pointer;
+    padding: 0.1em;
+    height: 3rem;
+    width: 15rem;
+    background-color: orange;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: -1px 1px 7px 0px rgba(0, 0, 0, 0.35);
+}
+
+.resetBtn:hover {
+    box-shadow: -1px 1px 7px 5px rgb(255, 94, 0);
+}
+
+.resetBtn:active {
+    background-color: rgb(252, 93, 1);
+
+}
+
+input[type="file"] + label:hover {
+    box-shadow: -1px 1px 7px 5px rgb(255, 94, 0);
+}
+
+input[type="file"] + label:active {
+    background-color: rgb(252, 93, 1);
+}
+
+.logOutContainer {
+    grid-area: logOut ;
+    padding: 0.5em;
+    width: 100%;
+    border-top: solid gray 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logOutContainer button {
+    background: none;
+    border: none;
+    height: 2rem;
+    width: 10rem;
+    text-align: center;
+    padding: 0.2em;
+    background-color: orange;
+    border-radius: 20px;
+}
+
+.logOutContainer button:hover {
+    color: red !important;
+    box-shadow: -1px 1px 7px 5px rgb(255, 0, 0);
+}
+
+.inputBox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	width: 100%;
+	height: 2.5rem;
+	background: none;
+	margin: 0.5rem;
+	border-radius: 2%;
+	font-size: 1rem;
+} 
+.inputBox input {
+	width: 100%;
+	background: none;
+	height: 100%;
+	bottom: 0%;
+	background: none;
+	background-color: transparent;
+    border: none;
+    border-bottom: #212529 solid 0.1rem;
+	outline: none;
+	font-size: 1rem;
+}
+.inputBox label {
+	position: absolute;
+	left: 26.5%;
+	padding: 10px;
+	font-size: 1rem;
+	color: #515355;
+	pointer-events: none;
+	transition: 0.3s;
+}
+.inputBox input:active ~ label , .inputBox input:focus ~ label{
+	color: #212529 !important;
+	transform: translateY(-17px);
+    margin-left: 1%;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+}
+
+.profileBtn{
+    background: none;
+    border: none;
+    height: 3rem;
+    width: 12rem;
+    text-align: center;
+    padding: 0.2em;
+    background-color: orange;
+    border-radius: 20px;
+}
+
+.profileBtn:hover {box-shadow: -1px 1px 7px 5px rgb(255, 94, 0);} 
+.profileBtn:active {background-color: rgb(252, 93, 1);}
+
+#changeNameBtn {
+    cursor: pointer;
+}
+
+body.darkMode .inputBox input {
+    border-bottom: solid white 1px;
+}
+
+body.darkMode .inputBox label{
+    color: white !important;
 }
