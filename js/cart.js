@@ -256,9 +256,6 @@ async function showCart(data) {
       icon.addEventListener('click', () => {
         const iconId = parseInt(icon.dataset.id);
         document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft',);
-        document.getElementById(`${iconId}`).classList.add('hidden');
-      
-        
         const prodToRemove = CART_CONTENT.find(prod => prod.id === iconId);
         console.log(prodToRemove)
         const prodToRemoveIndex = CART_CONTENT.indexOf(prodToRemove);
@@ -296,10 +293,9 @@ async function showCart(data) {
           parent.removeChild(DIV_PARA_ELIMINAR);
           
         };
-        /*setTimeout(() => {
-            document.getElementById(`icon${prodToRemove.id}`).remove();
-            //location.reload();
-        }, 1000);*/
+        setTimeout(() => {
+          document.getElementById(`${iconId}`).classList.add('hidden');
+        }, 1000);
       });
     });
   };
