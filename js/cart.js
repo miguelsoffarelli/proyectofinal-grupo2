@@ -14,6 +14,17 @@ const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
 const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
 let articles = [];
 
+function trackDiscount(total, number) {
+    const totalElement = document.getElementById('total');
+    const conDescuento = total + (total * number); 
+    totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed()}`;
+    //TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${conDescuento.toFixed(2)}`;
+    const discountText = document.getElementById("descuento")
+    discountText.textContent = `    
+    Envio: ${selectedCur} ${(total * number).toFixed()}
+    `;
+
+};
 
 async function showCart(data) {
   let apiProductRemoved = JSON.parse(sessionStorage.getItem('apiProdRemoved')) != null ?JSON.parse(sessionStorage.getItem('apiProdRemoved')) :[];
@@ -35,14 +46,14 @@ async function showCart(data) {
                         </div>
                         <div class="col-7">
                             <h2 class="product-name">${product.name}</h2>
-                            <p class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))} c/u</p>
+                            <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))} c/u</p>
                         </div>
                         <div class="col-1">
-                            <input type="number" class='row contador' id="${product.id}" min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
+                            <input id="input${product.id}" type="number" class='row contador' min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
                         </div>
                         <div class="row">
                             <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
+                                <i id="icon${product.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
                             </div>
                         </div>
                     </div>
@@ -57,14 +68,14 @@ async function showCart(data) {
                         </div>
                         <div class="col-7">
                             <h2 class="product-name">${product.name}</h2>
-                            <p class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))} c/u</p>
+                            <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))} c/u</p>
                         </div>
                         <div class="col-1">
-                            <input type="number" class='row contador' id="${product.id}" min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}' style="width: 2.5rem"/>
+                            <input id="input${product.id}" type="number" class='row contador'  min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}' style="width: 2.5rem"/>
                         </div>
                         <div class="row">
                             <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
+                                <i id="icon${product.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
                             </div>
                         </div>
                     </div>
@@ -89,14 +100,14 @@ async function showCart(data) {
                     </div>
                     <div class="col-7">
                         <h2 class="product-name">${article.name}</h2>
-                        <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
+                        <p id="product-cost${article.id}" class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
                     </div>
                     <div class="col-1">
-                        <input type="number" class='contador row' id="${article.id}" min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
+                        <input id="input${article.id}" type="number" class='contador row'  min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
                     </div>
                     <div class="row">
                         <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                            <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
+                            <i id="icon${article.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
                         </div>
                     </div>
                 </div>
@@ -111,14 +122,14 @@ async function showCart(data) {
                     </div>
                     <div class="col-7">
                         <h2 class="product-name">${article.name}</h2>
-                        <p class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
+                        <p id="product-cost${article.id}" class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
                     </div>
                     <div class="col-1">
-                        <input type="number" class='contador row' id="${article.id}" min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
+                        <input id="input${article.id}" type="number" class='contador row' min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
                     </div>
                     <div class="row">
                         <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                            <i class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
+                            <i id="icon${article.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
                         </div>
                     </div>
                 </div>
@@ -139,27 +150,42 @@ async function showCart(data) {
   const totalElement = document.getElementById('total');
 
   function updateCart() {
-    let total = 0;
-    cartItems.forEach(input => {
+
+      let total = 0;
+      let lista = [];
+  
+      cartItems.forEach(input => {
+        const divID = input.id.substring(5)
+        const divDelInput = document.getElementById(divID)
+  
+        if (!(input in lista) && !(divDelInput.classList.contains('hidden'))){
+          lista.push(input)
+        }
+      })
+  
+      lista.forEach(input => {
         const itemQuantity = parseInt(input.value);
-        const itemPrice = parseFloat(input.dataset.cost);
-        
-        total += itemQuantity * itemPrice;
-        totalGlobal = total;
-        if(PREMIUM.checked){
-          trackDiscount(totalGlobal, 0.15);
-        } else if (EXPRESS.checked){
-          trackDiscount(totalGlobal, 0.07);
-        } else if (STANDARD.checked){
-          trackDiscount(totalGlobal, 0.05);
-        } else{
-          totalElement.textContent = `Total: ${selectedCur} ${total.toFixed(2)}`;
-        }          
+              const itemPrice = parseFloat(input.dataset.cost);
+  
+              total += itemQuantity * itemPrice;
+              totalGlobal = total;
+              if(PREMIUM.checked){
+                trackDiscount(totalGlobal, 0.15);
+              } else if (EXPRESS.checked){
+                trackDiscount(totalGlobal, 0.07);
+              } else if (STANDARD.checked){
+                trackDiscount(totalGlobal, 0.05);
+              } else{
+                totalElement.textContent = `Total: ${selectedCur} ${total.toFixed()}`;
+              }
+      });
+
+    
+          
         
         TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
-        SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${total.toFixed(2)}`;
-        
-    });  
+        SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${total.toFixed()}`;
+         
   };
   
   function updateTicket(input){
@@ -175,7 +201,7 @@ async function showCart(data) {
         precio_imprimible.textContent = `${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}`;
     } else {
         subTotalHtml += `
-        <div id='${input.id}' class='row'>
+        <div id='ticket${input.id}' class='row'>
             <div class="col-6">
                 <p>${input.dataset.name}</p>
                 <p id='p${input.id}'>x${input.value}</p>
@@ -184,8 +210,9 @@ async function showCart(data) {
                 <p class="text-muted">${selectedCur} ${input.dataset.cost} c/u</p>
                 <p id="cost${input.id}">${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}</p>
             </div>
+            <hr>
         </div>
-        <hr>
+        
     `;
         subTotal.innerHTML = subTotalHtml;
 
@@ -206,12 +233,12 @@ async function showCart(data) {
         updateCart();
         updateTicket(input);
         input.setAttribute('value', input.value);
-        const isFromApi = articles.find(art => art.id === parseInt(input.id)) ?true :false;
+        const isFromApi = articles.find(art => `input${art.id}` === input.id) ?true :false;
         if (isFromApi){
           countUpdate = input.value - 1;
           sessionStorage.setItem('countUpd', countUpdate);
         } else {
-          CART_CONTENT[CART_CONTENT.indexOf(CART_CONTENT.find(prod => prod.id === parseInt(input.id)))].count = input.value;
+          CART_CONTENT[CART_CONTENT.indexOf(CART_CONTENT.find(prod => `input${prod.id}` === input.id))].count = input.value;
           sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
         };
     }); 
@@ -228,7 +255,10 @@ async function showCart(data) {
   deleteIcons.forEach(icon => {
       icon.addEventListener('click', () => {
         const iconId = parseInt(icon.dataset.id);
-        document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft');
+        document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft',);
+        document.getElementById(`${iconId}`).classList.add('hidden');
+      
+        
         const prodToRemove = CART_CONTENT.find(prod => prod.id === iconId);
         console.log(prodToRemove)
         const prodToRemoveIndex = CART_CONTENT.indexOf(prodToRemove);
@@ -240,31 +270,36 @@ async function showCart(data) {
         if (prodToRemoveIndex != -1 && !isFromApi){
           CART_CONTENT.splice(prodToRemoveIndex, 1);
           sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
-          // if(prodToRemove.currency === 'USD'){
-          // totalGlobal -= ((prodToRemove.cost / exchangeRateUsd)  * prodToRemove.count)
-          // } else if (prodToRemove.currency === 'UYU'){
-          //   totalGlobal -= ((prodToRemove.cost / exchangeRateUyu)  * prodToRemove.count)
-          // }
-          // SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${totalGlobal.toFixed(2)}`;
-          // if(PREMIUM.checked){
-          //   trackDiscount(totalGlobal, 0.15);
-          // } else if (EXPRESS.checked){
-          //   trackDiscount(totalGlobal, 0.07);
-          // } else if (STANDARD.checked){
-          //   trackDiscount(totalGlobal, 0.05);
-          // }
+
+          const PRODUCTO_PARA_ELIMINAR = document.getElementById(`product-cost${prodToRemove.id}`);
+          const CONTADOR_PRODUCTO_A_ELIMINAR = document.getElementById(`input${prodToRemove.id}`)
           
-          // TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
-          
-          // const DIV_PARA_ELIMINAR = document.getElementById(prodToRemove.id);
-          // let parent = DIV_PARA_ELIMINAR.parentElement;
-          // parent.removeChild(DIV_PARA_ELIMINAR);
+          //if(prodToRemove.currency === 'USD'){
+          totalGlobal = totalGlobal - (PRODUCTO_PARA_ELIMINAR.dataset.cost * CONTADOR_PRODUCTO_A_ELIMINAR.value);
+          //} else if (prodToRemove.currency === 'UYU'){
+            //totalGlobal -= ((prodToRemove.cost / exchangeRateUyu)  * prodToRemove.count)
+          //}
+          SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${totalGlobal.toFixed()}`;
+
+          if(PREMIUM.checked){
+            trackDiscount(totalGlobal, 0.15);
+          } else if (EXPRESS.checked){
+            trackDiscount(totalGlobal, 0.07);
+          } else if (STANDARD.checked){
+            trackDiscount(totalGlobal, 0.05);
+          } else {
+            totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed()}`;
+          }
+          TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
+          const DIV_PARA_ELIMINAR = document.getElementById(`ticketinput${prodToRemove.id}`);
+          let parent = DIV_PARA_ELIMINAR.parentElement;
+          parent.removeChild(DIV_PARA_ELIMINAR);
           
         };
-        setTimeout(() => {
-            document.getElementById(`${icon.dataset.id}`).remove();
-            location.reload();
-        }, 1000);
+        /*setTimeout(() => {
+            document.getElementById(`icon${prodToRemove.id}`).remove();
+            //location.reload();
+        }, 1000);*/
       });
     });
   };
@@ -281,18 +316,6 @@ const PREMIUM = document.getElementById('premiumShipping');
 const EXPRESS = document.getElementById('expressShipping');
 const STANDARD = document.getElementById('standardShipping');
  
-function trackDiscount(total, number) {
-    const totalElement = document.getElementById('total');
-    const conDescuento = total + (total * number); 
-    totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed(2)}`;
-    TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${conDescuento.toFixed(2)}`;
-    const discountText = document.getElementById("descuento")
-    discountText.textContent = `    
-    Envio: ${selectedCur} ${(total * number).toFixed(2)}
-    `;
-
-};
-
 
 PREMIUM.addEventListener('click', () => {
     trackDiscount(totalGlobal, 0.15);
