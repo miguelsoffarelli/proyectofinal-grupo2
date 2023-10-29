@@ -8,6 +8,7 @@ const logOut = document.getElementById("logOut");
 const newNameInput = document.getElementById("changeName");
 const nameChangeBtn = document.getElementById("changeNameBtn");
 const inputBox = document.querySelector(".inputBox");
+const saveNewName = document.getElementById("saveNewName");
 
 profilePicFile.addEventListener("change", e => {
 
@@ -17,7 +18,6 @@ profilePicFile.addEventListener("change", e => {
         reader.onload = function(e){
             img.src = e.target.result;
             localStorage.setItem("userPic", img.getAttribute("src"));
-            localStorage.setItem("userPicVerified", true);
             location.reload();
         }
         reader.readAsDataURL(e.target.files[0])
@@ -53,3 +53,10 @@ nameChangeBtn.addEventListener("click", () => {
     document.querySelector("h4").toggleAttribute("hidden");
     inputBox.toggleAttribute("hidden");
 });
+
+saveNewName.addEventListener("click", changeName);
+
+function changeName() {
+    var newName = newNameInput.value
+    localStorage.setItem("user", newName);
+}
