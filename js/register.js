@@ -45,10 +45,15 @@ function showAlertSuccess() {
 
 // Clase para guardar los datos de usuario-----------------------------------------------------------------------------------------------------------
 class User {
-  constructor(uName, email, password) {
+  constructor(uName, email, password, fname, secondName, lname, secondLname, phone) {
     this.uName = uName;
     this.email = email;
     this.password = password;
+    this.fname = fname;
+    this.secondName = secondName;
+    this.lname = lname;
+    this.secondLname = secondLname;
+    this.phone = phone;
   }
   
   saveUserData() {
