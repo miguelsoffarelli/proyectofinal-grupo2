@@ -448,7 +448,7 @@ body.darkmode .alert.alert-success {
   position: absolute;
   bottom: 490px;
   left: -15px;
-  width: 200px;
+  width: 30%;
 }
 
 #exampleModalLabel {

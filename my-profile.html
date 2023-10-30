@@ -135,28 +135,46 @@
           <label class="resetBtn" id="resetProfilePic">Restablecer foto de Perfil<i class="fa-solid fa-image"></i></label>
    
       </div>
+      <form action="">
       <div id="profileUserName" class="profileUserName">
-        <form action="">
           <i class="fa-solid fa-pen-clip" style="color: orange;" id="changeNameBtn"></i>
         <div class="inputBox" hidden>
           <input type="text" id="changeName">
           <label for="changeName">Nuevo nombre de Usuario</label>
           <button class="profileBtn" id="saveNewName">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
         </div>
-        
       </div>
       <div class="userData">
-        <h5>Datos del Usuario:</h5>
-        <!-- <div>
-          Nombre: <input type="text">
-          Apellido: <input type="text">
-          Correo: <input type="text">
-          <div>
-            Direccion: <input type="text">
+        <h5>Tus Datos:</h5>
+        <div>
+          <div class="inputBox">
+            <input type="text" id="changeFname">
+            <label for="changefname">Primer Nombre: <span style="color: red;">*</span></label>
           </div>
-          
-        </div> -->
+          <div class="inputBox">
+            <input type="text" id="changeSecondFname">
+            <label for="changeSecondFname">Segundo Nombre:</label>
+          </div>
+          <div class="inputBox">
+            <input type="text" id="changeLname">
+            <label for="changeLname">Primer Apellido: <span style="color: red;">*</span></label>
+          </div>
+          <div class="inputBox">
+            <input type="text" id="changeSecondLname">
+            <label for="changeSecondLname">Segundo Apellido:</label>
+          </div>
+          <div class="inputBox">
+            <input type="email" id="changeEmail">
+            <label for="changeEmail">Email: <span style="color: red;">*</span></label>
+          </div>
+          <div class="inputBox">
+            <input type="number" id="changePhone">
+            <label for="changePhone">Teléfono de Contacto: <span style="color: red;">*</span></label>
+          </div>
+          <button class="profileBtn" id="saveNewData">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+        </div>
       </div>
+    </form>
       <div class="userPersonalData"></div>
       <div class="selling"></div>
       <div class="logOutContainer">

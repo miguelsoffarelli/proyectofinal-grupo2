@@ -43,7 +43,7 @@ main {
         width: 50%;
         height: 100%;
         margin: 1em;
-        grid-template-rows: 20em 5em 7em 7em auto 4em;
+        grid-template-rows: auto;
     }
 }
 
