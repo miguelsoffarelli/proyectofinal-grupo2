@@ -42,7 +42,7 @@ async function showCart(data) {
                 <div class="container-fluid list-group m-4 producto" id='${product.id}'>
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
-                            <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
+                            <img onclick="setProdID(${product.id})" src="${product.img}" alt="${product.name}" class="product-image img-thumbnail" style="cursor: pointer">
                         </div>
                         <div class="col-7">
                             <h2 class="product-name">${product.name}</h2>
@@ -64,7 +64,7 @@ async function showCart(data) {
                 <div class="container-fluid list-group m-4 producto" id='${product.id}'>
                     <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="col-3">
-                            <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
+                            <img onclick="setProdID(${product.id})" src="${product.img}" alt="${product.name}" class="product-image img-thumbnail" style="cursor: pointer">
                         </div>
                         <div class="col-7">
                             <h2 class="product-name">${product.name}</h2>
@@ -96,7 +96,7 @@ async function showCart(data) {
             <div class="container list-group m-4 producto" id='${article.id}'>
                 <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                     <div class="col-3">
-                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
+                        <img onclick="setProdID(${article.id})" src="${article.image}" alt="${article.name}" class="product-image img-thumbnail" style="cursor: pointer">
                     </div>
                     <div class="col-7">
                         <h2 class="product-name">${article.name}</h2>
@@ -118,7 +118,7 @@ async function showCart(data) {
             <div class="container list-group m-4 producto" id='${article.id}'>
                 <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
                     <div class="col-3">
-                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
+                        <img onclick="setProdID(${article.id})"  src="${article.image}" alt="${article.name}" class="product-image img-thumbnail" style="cursor: pointer">
                     </div>
                     <div class="col-7">
                         <h2 class="product-name">${article.name}</h2>
