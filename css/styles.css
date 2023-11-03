@@ -681,3 +681,7 @@ body.darkMode .jumbotronMobile{
 .hidden {
   display: none;
 }
+
+.modal-backdrop {
+  display: none;
+}
