@@ -6,6 +6,8 @@ const email = document.getElementById("email");
 let usersList = [];
 if (!Array.isArray(usersList)) {
   usersList = [];
+} else{
+  usersList = JSON.parse(localStorage.getItem('usersList'));
 };
 
 // Event Listener que valida los datos ingresados y, en caso positivo los guarda e inicia sesión, o de lo contrario muestra alerta de error
@@ -63,7 +65,7 @@ class User {
 }
 
 function saveUser(){
-  const currentUser = new User(usuario.value, email.value, pass1.value);
+  let currentUser = new User(usuario.value, email.value, pass1.value);
   currentUser.saveUserData();
 }
 
