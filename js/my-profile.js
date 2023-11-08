@@ -9,6 +9,12 @@ const newNameInput = document.getElementById("changeName");
 const nameChangeBtn = document.getElementById("changeNameBtn");
 const inputBox = document.querySelector(".inputBox");
 const saveNewName = document.getElementById("saveNewName");
+const currentUser = localStorage.getItem('user');
+const dataInputs = document.querySelectorAll('.userDataForm');
+const saveDataBtn = document.getElementById('saveNewData');
+let usersList = JSON.parse(localStorage.getItem('usersList'));
+let validationList = [];
+
 
 profilePicFile.addEventListener("change", e => {
 
@@ -41,22 +47,79 @@ function putUserName() {
     `;
     profileUserNameCont.append(h4);
 }
-putUserName();
-window.addEventListener("load", () => {
-    img.setAttribute("src", localStorage.getItem("userPic"));
 
-})
+
+
 logOut.addEventListener("click", cerrarSesion);
 
 nameChangeBtn.addEventListener("click", () => {
-
     document.querySelector("h4").toggleAttribute("hidden");
     inputBox.toggleAttribute("hidden");
+    newNameInput.value = currentUser;
 });
 
 saveNewName.addEventListener("click", changeName);
 
 function changeName() {
     var newName = newNameInput.value
+    usersList.forEach(user => {
+        if (user.uName === currentUser) {
+            user.uName = newName;
+            localStorage.setItem('usersList', JSON.stringify(usersList));
+        };
+    });
     localStorage.setItem("user", newName);
 }
+
+function changeUserData() {
+    usersList.forEach(user => {
+        if (user.uName === currentUser){
+            user.fname = document.getElementById('changeFname').value;
+            user.secondName = document.getElementById('changeSecondFname').value ?document.getElementById('changeSecondFname').value :"";
+            user.lname = document.getElementById('changeLname').value;
+            user.secondLname = document.getElementById('changeSecondLname').value;
+            user.email = document.getElementById('changeEmail').value;
+            user.phone = document.getElementById('changePhone').value;
+            localStorage.setItem('usersList', JSON.stringify(usersList));
+        };
+    });
+};
+
+saveDataBtn.addEventListener('click', changeUserData);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    putUserName();
+    img.setAttribute("src", localStorage.getItem("userPic"));
+    usersList.forEach(user => {
+        document.getElementById('changeEmail').value = user.email;
+        document.getElementById('changeFname').value = user.fname;
+        document.getElementById('changeSecondFname').value = user.secondName;
+        document.getElementById('changeLname').value = user.lname;
+        document.getElementById('changeSecondLname').value = user.secondLname;
+        document.getElementById('changePhone').value = user.phone;
+    });
+    
+    
+    dataInputs.forEach(element => {
+          
+          let validInputs = document.getElementById('changeFname').checkValidity() && document.getElementById('changeLname').checkValidity() && document.getElementById('changeEmail').checkValidity() ?true :false;
+          
+          validInputs ?saveDataBtn.removeAttribute('disabled') :saveDataBtn.setAttribute('disabled', "");
+
+        element.addEventListener('input', () => {
+            if (!element.checkValidity()) {
+                element.classList.add('is-invalid');
+                element.classList.remove('is-valid');
+              } else {
+                element.classList.add('is-valid');
+                element.classList.remove('is-invalid');
+              };
+              validInputs = document.getElementById('changeFname').checkValidity() && document.getElementById('changeLname').checkValidity() && document.getElementById('changeEmail').checkValidity() && document.getElementById('changePhone').checkValidity() ?true :false;
+              validInputs ?saveDataBtn.removeAttribute('disabled') :saveDataBtn.setAttribute('disabled', "");
+        });
+        
+        
+    });
+
+});
