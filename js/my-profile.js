@@ -65,12 +65,6 @@ function changeName() {
     usersList.forEach(user => {
         if (user.uName === currentUser) {
             user.uName = newName;
-            user.fname = user.fname;
-            user.secondName = user.secondName;
-            user.lname = user.lname;
-            user.secondLname = user.secondLname;
-            user.email = user.email;
-            user.phone = user.phone;
             localStorage.setItem('usersList', JSON.stringify(usersList));
         };
     });
@@ -80,7 +74,6 @@ function changeName() {
 function changeUserData() {
     usersList.forEach(user => {
         if (user.uName === currentUser){
-            console.log('funciona')
             user.fname = document.getElementById('changeFname').value;
             user.secondName = document.getElementById('changeSecondFname').value ?document.getElementById('changeSecondFname').value :"";
             user.lname = document.getElementById('changeLname').value;

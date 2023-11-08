@@ -20,7 +20,7 @@ regbtn.addEventListener('click', (e)=> {
         localStorage.setItem("userPic", "img/img_perfil.png");                                                                     
         showAlertSuccess();                                                                                                
         setTimeout(function() {
-            location.href = "index.html"                                                                                   
+            location.href = "my-profile.html"                                                                                   
         }, 2000);                                                                                                                                                                                                       
     } else {                                                                                                               
         showAlertError()                                                                                                         
