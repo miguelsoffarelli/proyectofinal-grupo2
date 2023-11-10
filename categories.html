@@ -26,18 +26,34 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav w-100 justify-content-between">
-          <li class="nav-item">
+          <li class="nav-item"> 
             <a class="nav-link" href="index.html"><img src="img/intento de logo.png" alt="" style="height: 30px;"></a>
           </li>
+          
           <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
+            <a class="nav-link btn-1" href="categories.html">
+              <svg>
+                <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+              </svg>
+              Categorías
+            </a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
+            <div style="display: flex; align-items: center; justify-content: center; margin: 0; padding: 0;">
+            <a class="nav-link btn-1" href="sell.html">
+              <svg>
+                <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+              </svg>
+              Vender</a>
+            </div>
           </li>
 
           <li class="nav-item" id="settingsDropdown">
-            <a href="#" class="nav-link dropbtn" id="settings">
+            <a href="#" class="nav-link dropbtn btn-1" id="settings">
+              <svg>
+                <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+              </svg>
               <i class="fas fa-cog m-2"></i>Opciones<i class="fas fa-caret-down m-2"></i>
             </a>
             <div class="dropdown-content" id="settingsMenu" style="width: 150px;">                          
@@ -70,7 +86,11 @@
           </li>
 
           <li class="nav-item" id="accountDropdown">           
-            <a class="dropbtn nav-link" id="nav-dropbtn" href="#"><div id="avatarContainer"></div></a>
+            <a class="dropbtn nav-link btn-1" id="nav-dropbtn" href="#">
+              <svg>
+                <rect x="0" y="0" fill="none" width="100%" height="100%"/>
+              </svg>
+              <div id="avatarContainer"></div></a>
             <div class="dropdown-content" id="menu">
               <a href="my-profile.html">Mi Perfil</a>
               <a href="#" id="exit">Salir</a>
