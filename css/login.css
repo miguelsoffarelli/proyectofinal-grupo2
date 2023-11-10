@@ -629,3 +629,8 @@ input[type="checkbox"] + label {
 		font-size: larger;
 	}
 }
+
+.alert {
+	z-index: 1022 !important;
+	height: 10%;
+}
