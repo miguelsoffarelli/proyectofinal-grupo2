@@ -14,6 +14,7 @@ const dataInputs = document.querySelectorAll('.userDataForm');
 const saveDataBtn = document.getElementById('saveNewData');
 let usersList = JSON.parse(localStorage.getItem('usersList'));
 let validationList = [];
+const ALERT = document.getElementById('alert-success');
 
 
 profilePicFile.addEventListener("change", e => {
@@ -58,7 +59,15 @@ nameChangeBtn.addEventListener("click", () => {
     newNameInput.value = currentUser;
 });
 
-saveNewName.addEventListener("click", changeName);
+saveNewName.addEventListener("click", e => {
+    e.preventDefault();
+    changeName();
+    ALERT.classList.add("show");
+    setTimeout(() => {
+        ALERT.classList.remove("show");
+        location.reload();
+    }, 2000);
+});
 
 function changeName() {
     var newName = newNameInput.value
@@ -69,7 +78,8 @@ function changeName() {
         };
     });
     localStorage.setItem("user", newName);
-}
+    
+};
 
 function changeUserData() {
     usersList.forEach(user => {
@@ -81,11 +91,19 @@ function changeUserData() {
             user.email = document.getElementById('changeEmail').value;
             user.phone = document.getElementById('changePhone').value;
             localStorage.setItem('usersList', JSON.stringify(usersList));
+            
         };
     });
 };
 
-saveDataBtn.addEventListener('click', changeUserData);
+saveDataBtn.addEventListener('click', e => {
+    e.preventDefault();
+    changeUserData();
+    ALERT.classList.add("show");
+    setTimeout(() => {
+        ALERT.classList.remove("show");
+    }, 2000);
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {

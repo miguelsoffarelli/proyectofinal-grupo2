@@ -1,18 +1,20 @@
-const userId = 25801;
-const url = `https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
-let CART_CONTENT = JSON.parse(sessionStorage.getItem('buyProduct'));
+const USER_ID = 25801;
+const URL = `https://japceibal.github.io/emercado-api/user_cart/${USER_ID}.json`;
+let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
 const DIV = document.getElementById('cartContent');
-const ticket = document.getElementById('ticket');
-const subTotal = document.querySelector('.sub-total');
+const TICKET = document.getElementById('ticket');
+const SUB_TOTAL = document.querySelector('.sub-total');
 let totalGlobal = 0;
 const CONT_COMPRA = document.getElementById('contCompra');
 const DIV_OCULTO = document.getElementById('divOculto');
 const CONF_COMPRA = document.getElementById('btnSubmit');
-let CONDICION = true;
+let condicion = true;
 const IMPRIMIBLE = document.getElementById('imprimible');
 const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
 const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
 let articles = [];
+
+
 
 function trackDiscount(total, number) {
     const totalElement = document.getElementById('total');
@@ -33,8 +35,8 @@ async function showCart(data) {
   let htmlContentToAppend = "";
   let subTotalHtml = "";
   articles = data.articles;
-  if(CART_CONTENT != null){
-    CART_CONTENT.forEach(product => {
+  if(cartContent != null){
+    cartContent.forEach(product => {
         const articleIndex = articles.findIndex(article => article.id === product.id);
         if (articleIndex === -1) {
             if(product.currency === 'USD'){
@@ -201,7 +203,7 @@ async function showCart(data) {
         precio_imprimible.textContent = `${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}`;
     } else {
         subTotalHtml += `
-        <div id='ticket${input.id}' class='row'>
+        <div id='TICKET${input.id}' class='row'>
             <div class="col-6">
                 <p>${input.dataset.name}</p>
                 <p id='p${input.id}'>x${input.value}</p>
@@ -214,7 +216,7 @@ async function showCart(data) {
         </div>
         
     `;
-        subTotal.innerHTML = subTotalHtml;
+        SUB_TOTAL.innerHTML = subTotalHtml;
 
         IMPRIMIBLE.innerHTML += `
         <tr>
@@ -238,8 +240,8 @@ async function showCart(data) {
           countUpdate = input.value - 1;
           sessionStorage.setItem('countUpd', countUpdate);
         } else {
-          CART_CONTENT[CART_CONTENT.indexOf(CART_CONTENT.find(prod => `input${prod.id}` === input.id))].count = input.value;
-          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
+          cartContent[cartContent.indexOf(cartContent.find(prod => `input${prod.id}` === input.id))].count = input.value;
+          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
         };
     }); 
   });
@@ -256,17 +258,17 @@ async function showCart(data) {
       icon.addEventListener('click', () => {
         const iconId = parseInt(icon.dataset.id);
         document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft',);
-        const prodToRemove = CART_CONTENT.find(prod => prod.id === iconId);
+        const prodToRemove = cartContent.find(prod => prod.id === iconId);
         console.log(prodToRemove)
-        const prodToRemoveIndex = CART_CONTENT.indexOf(prodToRemove);
+        const prodToRemoveIndex = cartContent.indexOf(prodToRemove);
         const isFromApi = articles.find(art => art.id === iconId) ?true :false;
         if (isFromApi){
           apiProductRemoved.push(iconId);
           sessionStorage.setItem('apiProdRemoved', JSON.stringify(apiProductRemoved));
         };
         if (prodToRemoveIndex != -1 && !isFromApi){
-          CART_CONTENT.splice(prodToRemoveIndex, 1);
-          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
+          cartContent.splice(prodToRemoveIndex, 1);
+          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
 
           const PRODUCTO_PARA_ELIMINAR = document.getElementById(`product-cost${prodToRemove.id}`);
           const CONTADOR_PRODUCTO_A_ELIMINAR = document.getElementById(`input${prodToRemove.id}`)
@@ -302,7 +304,7 @@ async function showCart(data) {
 
 
   window.addEventListener('load', () => {
-  fetchData(showCart, url);
+  fetchData(showCart, URL);
 });
 
 
@@ -332,7 +334,7 @@ const creditRadios = document.querySelectorAll('input[name="creditOption"]');
 
 CONT_COMPRA.addEventListener('click', ()=> {
     DIV_OCULTO.removeAttribute('hidden');
-})
+});
 
 
 const tarjetaMaster = document.getElementById('tarjetaMaster');

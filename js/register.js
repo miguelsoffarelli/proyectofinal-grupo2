@@ -65,7 +65,7 @@ class User {
 }
 
 function saveUser(){
-  let currentUser = new User(usuario.value, email.value, pass1.value);
+  let currentUser = new User(usuario.value, email.value, pass1.value, "", "", "", "", "");
   currentUser.saveUserData();
 }
 
