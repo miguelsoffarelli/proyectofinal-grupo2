@@ -203,7 +203,7 @@ input[type="file"] + label:active {
 }
 
 .inputBox {
-    position: relative; /* Agregado para que el label se posicione correctamente */
+    position: relative; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,7 +231,7 @@ input[type="file"] + label:active {
 
 .inputBox label {
     position: absolute;
-    left: 1%; /* Ajustado el valor para posicionar correctamente el label */
+    left: 1%; 
     padding: 10px;
     font-size: 1rem;
     color: #515355;

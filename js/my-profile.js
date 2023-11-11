@@ -130,13 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let label = document.querySelector(`label[for="${element.id}"]`);
 
-            // Verifica si el input está vacío
+            
             if (element.value !== "") {
-                // Si no está vacío, quita la clase "vacio"
+                
                 label.classList.remove("vacio");
                 label.classList.add("lleno");
             } else {
-                // Si está vacío, agrega la clase "vacio"
+                
                 label.classList.add("vacio");
                 label.classList.remove("lleno");
             }
