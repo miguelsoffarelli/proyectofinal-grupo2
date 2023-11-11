@@ -143,7 +143,7 @@
         </div>
         <div class="coupon-section my-3">
           <label for="coupon-code">Cupón de descuento:</label>
-          <input type="text" id="coupon-code" placeholder="Introduce el código de descuento">
+          <input type="text" id="coupon-code" placeholder="Introduce el código de descuento" autocomplete="on">
           <button type="button" id= "apply-coupon" class="btn btn-outline-warning mt-3">Aplicar descuento!</button>
         </div>
         <button id="contCompra" class="btn btn-primary">Continuar compra</button>
@@ -239,47 +239,47 @@
         <input type="radio" name="paymentMethod" value="credito" id="radioCredito" class="mb-3 envio" required> Crédito/Débito
     </label>
     <div id="creditoOptions" style="display: none">
-        <label for="tarjeta1" class="radio-label">
+        <label for="master" class="radio-label">
             <input type="radio" id="master" name="creditOption" value="master" class="envio" required>
             <img src="img/iconomaster.ico" alt="Master card" style="width: 30%;">
             <div id="tarjetaMaster" style="display: none">
-                <label for="tarjetaNumero">Número de tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNumeroMaster">Número de tarjeta: <span style="color: red;">*</span></label>
                 <input type="number" id="tarjetaNumeroMaster" name="tarjetaNumero" class="envio" required>
                 <br>
-                <label for="tarjetaNombre">Nombre en la tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNombreMaster">Nombre en la tarjeta: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaNombreMaster" name="tarjetaNombre" class="envio" required>
                 <br>
-                <label for="tarjetaFecha">Fecha de vencimiento: <span style="color: red;">*</span></label>
+                <label for="tarjetaFechaMaster">Fecha de vencimiento: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaFechaMaster" name="tarjetaFecha" class="envio" required>
             </div>
         </label>
         <br>
-        <label for="tarjeta2" class="radio-label">
+        <label for="maestro" class="radio-label">
             <input type="radio" id="maestro" name="creditOption" value="maestro" class="envio" required>
             <img src="img/mestrotarjeta.ico" alt="Maestro" style="width: 30%;">
             <div id="tarjetaMaestro" style="display: none">
-                <label for="tarjetaNumero">Número de tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNumeroMaestro">Número de tarjeta: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaNumeroMaestro" name="tarjetaNumero" class="envio" required>
                 <br>
-                <label for="tarjetaNombre">Nombre en la tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNombreMaestro">Nombre en la tarjeta: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaNombreMaestro" name="tarjetaNombre" class="envio" required>
                 <br>
-                <label for="tarjetaFecha">Fecha de vencimiento: <span style="color: red;">*</span></label>
+                <label for="tarjetaFechaMaestro">Fecha de vencimiento: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaFechaMaestro" name="tarjetaFecha" class="envio" required>
             </div>
         </label>
         <br>
-        <label for="tarjeta3" class="radio-label">
+        <label for="visa" class="radio-label">
             <input type="radio" id="visa" name="creditOption" value="visa" class="envio" required>
             <img src="img/visatarjeta.ico" alt="Visa" style="width: 30%;">
             <div id="tarjetaVisa" style="display: none">
-                <label for="tarjetaNumero">Número de tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNumeroVisa">Número de tarjeta: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaNumeroVisa" name="tarjetaNumero" class="envio" required>
                 <br>
-                <label for="tarjetaNombre">Nombre en la tarjeta: <span style="color: red;">*</span></label>
+                <label for="tarjetaNombreVisa">Nombre en la tarjeta: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaNombreVisa" name="tarjetaNombre" class="envio" required>
                 <br>
-                <label for="tarjetaFecha">Fecha de vencimiento: <span style="color: red;">*</span></label>
+                <label for="tarjetaFechaVisa">Fecha de vencimiento: <span style="color: red;">*</span></label>
                 <input type="text" id="tarjetaFechaVisa" name="tarjetaFecha" class="envio" required>
             </div>
         </label>
