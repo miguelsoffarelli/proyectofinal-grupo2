@@ -1,28 +1,28 @@
 const USER_ID = 25801;
 const URL = `https://japceibal.github.io/emercado-api/user_cart/${USER_ID}.json`;
-let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
 const DIV = document.getElementById('cartContent');
 const TICKET = document.getElementById('ticket');
 const SUB_TOTAL = document.querySelector('.sub-total');
-let totalGlobal = 0;
-const CONT_COMPRA = document.getElementById('contCompra');
-const DIV_OCULTO = document.getElementById('divOculto');
-const CONF_COMPRA = document.getElementById('btnSubmit');
-let condicion = true;
-const IMPRIMIBLE = document.getElementById('imprimible');
-const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
+const CONTINUE = document.getElementById('contCompra');
+const HIDDEN_DIV = document.getElementById('divOculto');
+const CONFIRM_PURCHASE = document.getElementById('btnSubmit');
+const TO_PRINT = document.getElementById('imprimible');
+const TOTAL_TO_PRINT = document.getElementById('total_imprimible');
 const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
 let articles = [];
+let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
+let totalGlobal = 0;
+let condition = true;
 
 
 
 function trackDiscount(total, number) {
-    const totalElement = document.getElementById('total');
-    const conDescuento = total + (total * number); 
-    totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed()}`;
-    //TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${conDescuento.toFixed(2)}`;
-    const discountText = document.getElementById("descuento")
-    discountText.textContent = `    
+    const TOTAL_ELEMENT = document.getElementById('total');
+    const DISCOUNT_ON = total + (total * number); 
+    TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${DISCOUNT_ON.toFixed()}`;
+    //TOTAL_TO_PRINT.textContent = `${selectedCur} ${DISCOUNT_ON.toFixed(2)}`;
+    const DISCOUNT_TEXT = document.getElementById("descuento")
+    DISCOUNT_TEXT.textContent = `    
     Envio: ${selectedCur} ${(total * number).toFixed()}
     `;
 
@@ -30,14 +30,14 @@ function trackDiscount(total, number) {
 
 async function showCart(data) {
   let apiProductRemoved = JSON.parse(sessionStorage.getItem('apiProdRemoved')) != null ?JSON.parse(sessionStorage.getItem('apiProdRemoved')) :[];
-  const exchangeRateUsd = await getExchangeRate('usd');
-  const exchangeRateUyu = await getExchangeRate('uyu');
+  let exchangeRateUsd = await getExchangeRate('usd');
+  let exchangeRateUyu = await getExchangeRate('uyu');
   let htmlContentToAppend = "";
   let subTotalHtml = "";
   articles = data.articles;
   if(cartContent != null){
     cartContent.forEach(product => {
-        const articleIndex = articles.findIndex(article => article.id === product.id);
+        let articleIndex = articles.findIndex(article => article.id === product.id);
         if (articleIndex === -1) {
             if(product.currency === 'USD'){
                 htmlContentToAppend += `
@@ -148,15 +148,15 @@ async function showCart(data) {
   DIV.innerHTML = htmlContentToAppend;
 
   
-  const cartItems = document.querySelectorAll('.contador');
-  const totalElement = document.getElementById('total');
+  const CART_ITEMS = document.querySelectorAll('.contador');
+  const TOTAL_ELEMENT = document.getElementById('total');
 
   function updateCart() {
 
       let total = 0;
       let lista = [];
   
-      cartItems.forEach(input => {
+      CART_ITEMS.forEach(input => {
         const divID = input.id.substring(5)
         const divDelInput = document.getElementById(divID)
   
@@ -178,14 +178,14 @@ async function showCart(data) {
               } else if (STANDARD.checked){
                 trackDiscount(totalGlobal, 0.05);
               } else{
-                totalElement.textContent = `Total: ${selectedCur} ${total.toFixed()}`;
+                TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${total.toFixed()}`;
               }
       });
 
     
           
         
-        TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
+        TOTAL_TO_PRINT.textContent = TOTAL_ELEMENT.textContent;
         SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${total.toFixed()}`;
          
   };
@@ -218,7 +218,7 @@ async function showCart(data) {
     `;
         SUB_TOTAL.innerHTML = subTotalHtml;
 
-        IMPRIMIBLE.innerHTML += `
+        TO_PRINT.innerHTML += `
         <tr>
             <td>${input.dataset.name}</td>
             <td id='td1${input.id}'>${input.value}</td>
@@ -229,13 +229,13 @@ async function showCart(data) {
            
   };
 
-  cartItems.forEach(input => {
+  CART_ITEMS.forEach(input => {
     updateTicket(input);
       input.addEventListener('input', () => {
         updateCart();
         updateTicket(input);
         input.setAttribute('value', input.value);
-        const isFromApi = articles.find(art => `input${art.id}` === input.id) ?true :false;
+        let isFromApi = articles.find(art => `input${art.id}` === input.id) ?true :false;
         if (isFromApi){
           countUpdate = input.value - 1;
           sessionStorage.setItem('countUpd', countUpdate);
@@ -287,9 +287,9 @@ async function showCart(data) {
           } else if (STANDARD.checked){
             trackDiscount(totalGlobal, 0.05);
           } else {
-            totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed()}`;
+            TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed()}`;
           }
-          TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
+          TOTAL_TO_PRINT.textContent = TOTAL_ELEMENT.textContent;
           const DIV_PARA_ELIMINAR = document.getElementById(`ticketinput${prodToRemove.id}`);
           let parent = DIV_PARA_ELIMINAR.parentElement;
           parent.removeChild(DIV_PARA_ELIMINAR);
@@ -300,7 +300,10 @@ async function showCart(data) {
         }, 1000);
       });
     });
+  
   };
+
+
 
 
   window.addEventListener('load', () => {
@@ -332,8 +335,8 @@ const creditoOptions = document.getElementById('creditoOptions');
 const creditRadios = document.querySelectorAll('input[name="creditOption"]');
 
 
-CONT_COMPRA.addEventListener('click', ()=> {
-    DIV_OCULTO.removeAttribute('hidden');
+CONTINUE.addEventListener('click', ()=> {
+    HIDDEN_DIV.removeAttribute('hidden');
 });
 
 
@@ -470,9 +473,9 @@ INPUTS_ENVIOS.forEach(element => {
 
     
     if (lista.length === numeroInputs) {
-        CONF_COMPRA.removeAttribute('disabled');
+        CONFIRM_PURCHASE.removeAttribute('disabled');
     } else {
-        CONF_COMPRA.setAttribute('disabled', '')
+        CONFIRM_PURCHASE.setAttribute('disabled', '')
     }
 
     console.log(lista);
@@ -489,8 +492,8 @@ applyCouponBtn.addEventListener('click', () => {
     const couponCode = couponCodeInput.value;
     if (couponCode === 'DESCUENTO10') {
         totalGlobal = totalGlobal * 0.9;
-        const totalElement = document.getElementById('total');
-        totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed(2)}`;
+        const TOTAL_ELEMENT = document.getElementById('total');
+        TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed(2)}`;
         couponCodeInput.value = '';
         alert('Cupón aplicado con éxito.');
     } else {
@@ -550,7 +553,7 @@ radioCredito.addEventListener('change', function() {
 });
 
 
-CONF_COMPRA.addEventListener('click', (e) => {
+CONFIRM_PURCHASE.addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById("alert-success").classList.add("show");
   setTimeout(function() {
@@ -559,11 +562,10 @@ CONF_COMPRA.addEventListener('click', (e) => {
 });
 
 const E_TICKET = document.getElementById('e-Ticket');
-const BOTON_TICKET = document.getElementById;
 
 function imprimirDiv(divId) {
-    var contenido = document.getElementById(divId).innerHTML;
-    var ventana = window.open('', 'PRINT', 'width=600,height=600');
+    var content = document.getElementById(divId).innerHTML;
+    var ventana = window.open('', 'PRINT', 'width=600,height=600'); // Esta variable la dejamos en español ya que "window" es una palabra reservada.
     
     ventana.document.open();
     ventana.document.write('<html><head><title>Imprimir Ticket</title><style>');
@@ -576,7 +578,7 @@ function imprimirDiv(divId) {
     ventana.document.write('}');
     ventana.document.write('</style></head><body>');
     
-    ventana.document.write(contenido);
+    ventana.document.write(content);
     ventana.document.write('</body></html>');
     ventana.document.close();
     ventana.print();
