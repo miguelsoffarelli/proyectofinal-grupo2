@@ -152,36 +152,36 @@
         <div>
           <div class="inputBox form-check">
             <input type="text" id="changeFname" class="userDataForm form-control" required>
-            <label for="changeFname" class="form-label">Primer Nombre: <span style="color: red;">*</span></label>
+            <label for="changeFname" class="form-label vacio">Primer Nombre: <span style="color: red;">*</span></label>
             <div class="invalid-feedback">
-              Debe ingresar un nombre.
+                Debe ingresar un nombre.
             </div>
-          </div>
+        </div>
           <div class="inputBox form-check">
             <input type="text" id="changeSecondFname" class="userDataForm form-control">
-            <label for="changeSecondFname" class="form-label">Segundo Nombre:</label>
+            <label for="changeSecondFname" class="form-label vacio">Segundo Nombre:</label>
           </div>
           <div class="inputBox form-check">
             <input type="text" id="changeLname" class="userDataForm form-control" required>
-            <label for="changeLname" class="form-label">Primer Apellido: <span style="color: red;">*</span></label>
+            <label for="changeLname" class="form-label vacio">Primer Apellido: <span style="color: red;">*</span></label>
             <div class="invalid-feedback">
               Debe ingresar un apellido.
             </div>
           </div>
           <div class="inputBox form-check">
             <input type="text" id="changeSecondLname" class="userDataForm form-control">
-            <label for="changeSecondLname" class="form-label">Segundo Apellido:</label>
+            <label for="changeSecondLname" class="form-label vacio">Segundo Apellido:</label>
           </div>
           <div class="inputBox form-check">
             <input type="email" id="changeEmail" class="userDataForm form-control" required>
-            <label for="changeEmail" class="form-label">Email: <span style="color: red;">*</span></label>
+            <label for="changeEmail" class="form-label vacio">Email: <span style="color: red;">*</span></label>
             <div class="invalid-feedback">
               Debe ingresar un email válido.
             </div>
           </div>
           <div class="inputBox form-check">
             <input type="tel" id="changePhone" class="userDataForm form-control" pattern="[0-9]{9}" placeholder="Ejemplo: 123456789">
-            <label for="changePhone" class="form-label">Teléfono de Contacto (Debe contener 9 dígitos): </label>
+            <label for="changePhone" class="form-label" id="label_celular">Teléfono de Contacto (Debe contener 9 dígitos): </label>
             <div class="invalid-feedback">
               El número de teléfono debe tener 9 dígitos.
             </div>
@@ -191,10 +191,7 @@
       </div>
     </form>
     
-    <div class="userPersonalData"></div>
-      <div class="selling">
-
-      </div>
+    
       <div class="logOutContainer">
         <button id="logOut">Cerrar Sesion <i class="fa-solid fa-power-off"></i></button>
       </div>

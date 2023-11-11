@@ -124,6 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
           let validInputs = document.getElementById('changeFname').checkValidity() && document.getElementById('changeLname').checkValidity() && document.getElementById('changeEmail').checkValidity() ?true :false;
           
           validInputs ?saveDataBtn.removeAttribute('disabled') :saveDataBtn.setAttribute('disabled', "");
+        
+            console.log(element.value)
+          
+
+            let label = document.querySelector(`label[for="${element.id}"]`);
+
+            // Verifica si el input está vacío
+            if (element.value !== "") {
+                // Si no está vacío, quita la clase "vacio"
+                label.classList.remove("vacio");
+                label.classList.add("lleno");
+            } else {
+                // Si está vacío, agrega la clase "vacio"
+                label.classList.add("vacio");
+                label.classList.remove("lleno");
+            }
 
         element.addEventListener('input', () => {
             if (!element.checkValidity()) {
@@ -132,6 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
               } else {
                 element.classList.add('is-valid');
                 element.classList.remove('is-invalid');
+                label.classList.remove("vacio");
+                label.classList.add("lleno");
               };
               validInputs = document.getElementById('changeFname').checkValidity() && document.getElementById('changeLname').checkValidity() && document.getElementById('changeEmail').checkValidity() && document.getElementById('changePhone').checkValidity() ?true :false;
               validInputs ?saveDataBtn.removeAttribute('disabled') :saveDataBtn.setAttribute('disabled', "");
