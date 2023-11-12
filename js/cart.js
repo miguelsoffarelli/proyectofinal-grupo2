@@ -28,12 +28,15 @@ function trackDiscount(total, number) {
 
 };
 
+
+// Función para mostrar los productos en el carrito
 async function showCart(data) {
   let exchangeRateUsd = await getExchangeRate('usd');
   let exchangeRateUyu = await getExchangeRate('uyu');
   let htmlContentToAppend = "";
   let subTotalHtml = "";
   articles = data.articles;
+  // Añadimos los artículos de la api a cartContent
   articles.forEach(article => {
     if (cartContent != null){
       if (cartContent.indexOf(cartContent.find(prod => prod.id === article.id)) === -1){
@@ -82,7 +85,7 @@ async function showCart(data) {
     `;
   DIV.innerHTML = htmlContentToAppend;
 
-
+// Función para actualizar el precio en función de la moneda seleccionada
   function updatePrice(){
     const prodCost = document.querySelectorAll('.prodCost');
     prodCost.forEach(cost => {
@@ -108,6 +111,8 @@ async function showCart(data) {
   const CART_ITEMS = document.querySelectorAll('.contador');
   const TOTAL_ELEMENT = document.getElementById('total');
 
+
+  // Función para actualizar el carrito
   function updateCart() {
 
       let total = 0;
@@ -143,6 +148,8 @@ async function showCart(data) {
          
   };
   
+
+  // Función para actualizar el ticket
   function updateTicket(input){
     const text = document.getElementById(`p${input.id}`);
     const cost = document.getElementById(`cost${input.id}`);
@@ -238,14 +245,14 @@ async function showCart(data) {
 
 
 
-
-  window.addEventListener('load', () => {
+// Mostrar los productos del carrito al cargar la página
+window.addEventListener('load', () => {
   fetchData(showCart, URL);
 });
 
 
 
-
+// Seleccionar tipo de envío
 const PREMIUM = document.getElementById('premiumShipping');
 const EXPRESS = document.getElementById('expressShipping');
 const STANDARD = document.getElementById('standardShipping');
@@ -273,6 +280,8 @@ CONTINUE.addEventListener('click', ()=> {
 });
 
 
+
+// Métodos de pago
 const tarjetaMaster = document.getElementById('tarjetaMaster');
 const tarjetaMaestro = document.getElementById('tarjetaMaestro');
 const tarjetaVisa = document.getElementById('tarjetaVisa');
@@ -418,6 +427,8 @@ INPUTS_ENVIOS.forEach(element => {
 });
 
 
+
+// Cupón de descuento
 const couponCodeInput = document.getElementById('coupon-code');
 const applyCouponBtn = document.getElementById('apply-coupon');
 
@@ -485,7 +496,7 @@ radioCredito.addEventListener('change', function() {
   });
 });
 
-
+ // Confirmar compra
 CONFIRM_PURCHASE.addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById("alert-success").classList.add("show");
@@ -496,6 +507,8 @@ CONFIRM_PURCHASE.addEventListener('click', (e) => {
 
 const E_TICKET = document.getElementById('e-Ticket');
 
+
+// Función para imprimir ticket
 function imprimirDiv(divId) {
     var content = document.getElementById(divId).innerHTML;
     var ventana = window.open('', 'PRINT', 'width=600,height=600'); // Esta variable la dejamos en español ya que "window" es una palabra reservada.
