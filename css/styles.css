@@ -448,7 +448,7 @@ body.darkmode .alert.alert-success {
   position: absolute;
   bottom: 490px;
   left: -15px;
-  width: 200px;
+  width: 30%;
 }
 
 #exampleModalLabel {
@@ -679,5 +679,9 @@ body.darkMode .jumbotronMobile{
 }
 
 .hidden {
+  display: none;
+}
+
+.modal-backdrop {
   display: none;
 }

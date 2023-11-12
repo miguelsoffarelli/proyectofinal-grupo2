@@ -1,17 +1,16 @@
-const categoria = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
-const DATA_URL = PRODUCTS_URL + categoria + EXT_TYPE; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
-const container = document.getElementById("product-list");
-const ordenar_desc = document.getElementById('priceDesc');
-const ordenar_asc = document.getElementById('priceAsc');
-const ordenar_rel = document.getElementById('rel');
-const minimo = document.getElementById('rangeFilterCountMin');
-const maximo = document.getElementById('rangeFilterCountMax');
-const limpiar = document.getElementById('clearRangeFilter');
-const titulo = document.getElementById('categoryName');
-const searchBar = document.getElementById('buscador');
+const CATEGORY = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
+const DATA_URL = PRODUCTS_URL + CATEGORY + EXT_TYPE; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
+const CONTAINER = document.getElementById("product-list");
+const ORDER_DESC = document.getElementById('priceDesc');
+const ORDER_ASC = document.getElementById('priceAsc');
+const ORDER_REL = document.getElementById('rel');
+const MINIMUM = document.getElementById('rangeFilterCountMin');
+const MAXIMUM = document.getElementById('rangeFilterCountMax');
+const CLEAN = document.getElementById('clearRangeFilter');
+const TITLE = document.getElementById('categoryName');
+const SEARCH_BAR = document.getElementById('buscador');
 let products = "";
 let coincidencias = false;
-
 
 
 
@@ -66,10 +65,10 @@ async function showProducts(data) {
     };  
        
   };
-  titulo.innerText = data.catName;
+  TITLE.innerText = data.catName;
   let mensaje = `<h3 class="filtro" id="mensaje">No hay elementos que coincidan con su búsqueda.</h3>`
   htmlContentToAppend += mensaje;
-  container.innerHTML = htmlContentToAppend;    
+  CONTAINER.innerHTML = htmlContentToAppend;    
 };
 
 // Funciones para mostrar u ocultar productos mediante el uso de la clase filtro----------------------------------------------------------------------
@@ -90,7 +89,7 @@ function sort(data, criteria, by){
   } else if (criteria === "desc"){
     order = -1;
   }
-  limpiar.removeAttribute("disabled");
+  CLEAN.removeAttribute("disabled");
   let sortedList = [];
   let numbers = [];
   for (product of data.products){
@@ -148,16 +147,16 @@ function costRange(data, e) {
   const productos = document.querySelectorAll(".producto");
 
   if (e.target.matches('#rangeFilterCountMin')) {
-    if (minimo.value && maximo.value) {
+    if (MINIMUM.value && MAXIMUM.value) {
       bothInputs(productos);
-    } else if (minimo.value){
+    } else if (MINIMUM.value){
       oneInput("minimo", productos);
     };
   } ;
   if (e.target.matches('#rangeFilterCountMax')) {
-    if (maximo.value && minimo.value) {
+    if (MAXIMUM.value && MINIMUM.value) {
       bothInputs(productos);
-    } else if (maximo.value) {
+    } else if (MAXIMUM.value) {
       oneInput("maximo", productos);
     };
   };
@@ -168,7 +167,7 @@ function costRange(data, e) {
 function bothInputs(productos){
   productos.forEach(product =>{ 
     const price = product.dataset.cost;
-    parseInt(price) >= parseInt(minimo.value) && parseInt(price) <= parseInt(maximo.value)
+    parseInt(price) >= parseInt(MINIMUM.value) && parseInt(price) <= parseInt(MAXIMUM.value)
       ? (filterOff(product), coincidencias = true) 
       : filterOn(product); 
     });
@@ -178,11 +177,11 @@ function oneInput(input, productos){
   productos.forEach(product =>{
     const price = product.dataset.cost;
     if (input === "maximo"){
-      parseInt(price) <= parseInt(maximo.value)
+      parseInt(price) <= parseInt(MAXIMUM.value)
       ? (filterOff(product), coincidencias = true) 
       : filterOn(product); 
     } else if (input === "minimo"){
-      parseInt(price) >= parseInt(minimo.value)
+      parseInt(price) >= parseInt(MINIMUM.value)
       ? (filterOff(product), coincidencias = true)
       : filterOn(product); 
     };    
@@ -191,22 +190,22 @@ function oneInput(input, productos){
 
 
 function minOfMax(){
-  if (minimo.value > maximo.value) {
-    maximo.value = minimo.value;
-    maximo.setAttribute("min", minimo.value);
+  if (MINIMUM.value > MAXIMUM.value) {
+    MAXIMUM.value = MINIMUM.value;
+    MAXIMUM.setAttribute("min", MINIMUM.value);
     };
-    maximo.focus();
-    maximo.select();
+    MAXIMUM.focus();
+    MAXIMUM.select();
 };
 
 
 // Función del botón limpiar--------------------------------------------------------------------
 function clean(){
-  minimo.value = "";
-  maximo.value = "";
-  searchBar.value = "";
+  MINIMUM.value = "";
+  MAXIMUM.value = "";
+  SEARCH_BAR.value = "";
   fetchData(showProducts, DATA_URL);
-  limpiar.setAttribute("disabled", "");
+  CLEAN.setAttribute("disabled", "");
 };
 
 
@@ -215,62 +214,62 @@ window.addEventListener('load', () => {
     fetchData(showProducts, DATA_URL); 
 });
 
-ordenar_asc.addEventListener('click', () => {
+ORDER_ASC.addEventListener('click', () => {
   fetchData(data => sort(data, "asc", "cost"), DATA_URL);  
 });
 
-ordenar_desc.addEventListener('click', () => {
+ORDER_DESC.addEventListener('click', () => {
   fetchData(data => sort(data, "desc", "cost"), DATA_URL);  
 });
 
-ordenar_rel.addEventListener('click', () => {
+ORDER_REL.addEventListener('click', () => {
   fetchData(data => sort(data, "desc", "soldCount"), DATA_URL);  
 });
 
-maximo.addEventListener('focus', () => {
+MAXIMUM.addEventListener('focus', () => {
   minOfMax();
 });
 
-searchBar.addEventListener('keyup', e =>{ // * Cambié window por searchBar para que sólo escuche los keyups en caso de que el foco esté en la barra de búsqueda.
+SEARCH_BAR.addEventListener('keyup', e =>{ // * Cambié window por searchBar para que sólo escuche los keyups en caso de que el foco esté en la barra de búsqueda.
   fetchData(buscador(e), DATA_URL)
 });
 
-searchBar.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
-  if (searchBar.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+SEARCH_BAR.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (SEARCH_BAR.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
     clean();                                
   } else{                                   
-    limpiar.removeAttribute("disabled");
+    CLEAN.removeAttribute("disabled");
   }
 });
 
-minimo.addEventListener('keyup', e =>{
+MINIMUM.addEventListener('keyup', e =>{
   fetchData(data => costRange(data, e), DATA_URL);
 });
 
-maximo.addEventListener('keyup', e =>{
+MAXIMUM.addEventListener('keyup', e =>{
   fetchData(data => costRange(data, e), DATA_URL);
 });
 
-minimo.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
-  if (minimo.value.trim() === '' && maximo.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+MINIMUM.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (MINIMUM.value.trim() === '' && MAXIMUM.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
     clean();                             
   } else{                                   
-    limpiar.removeAttribute("disabled");
+    CLEAN.removeAttribute("disabled");
   };
 });
 
-maximo.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
-  if (maximo.value.trim() === '' && minimo.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
+MAXIMUM.addEventListener('input', () => { //*Esta escucha la agregué porque al borrar un input manualmente (es decir sin usar el botón limpiar), el botón limpiar no se
+  if (MAXIMUM.value.trim() === '' && MINIMUM.value.trim() === '') {      //* deshabilitaba, dejándolo utilizable en situaciones innecesarias. 
     clean();                               
   } else{                                   
-    limpiar.removeAttribute("disabled");
+    CLEAN.removeAttribute("disabled");
   };
 });
 
-limpiar.addEventListener('click', () => {
+CLEAN.addEventListener('click', () => {
   clean()
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  container.classList.add('animate__animated', 'animate__fadeInLeft');
+  CONTAINER.classList.add('animate__animated', 'animate__fadeInLeft');
 })

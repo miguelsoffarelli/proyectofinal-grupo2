@@ -1,143 +1,83 @@
-const userId = 25801;
-const url = `https://japceibal.github.io/emercado-api/user_cart/${userId}.json`;
-let CART_CONTENT = JSON.parse(sessionStorage.getItem('buyProduct'));
+const USER_ID = 25801;
+const URL = `https://japceibal.github.io/emercado-api/user_cart/${USER_ID}.json`;
 const DIV = document.getElementById('cartContent');
-const ticket = document.getElementById('ticket');
-const subTotal = document.querySelector('.sub-total');
-let totalGlobal = 0;
-const CONT_COMPRA = document.getElementById('contCompra');
-const DIV_OCULTO = document.getElementById('divOculto');
-const CONF_COMPRA = document.getElementById('btnSubmit');
-let CONDICION = true;
-const IMPRIMIBLE = document.getElementById('imprimible');
-const TOTAL_IMPRIMIBLE = document.getElementById('total_imprimible');
+const TICKET = document.getElementById('ticket');
+const SUB_TOTAL = document.querySelector('.sub-total');
+const CONTINUE = document.getElementById('contCompra');
+const HIDDEN_DIV = document.getElementById('divOculto');
+const CONFIRM_PURCHASE = document.getElementById('btnSubmit');
+const TO_PRINT = document.getElementById('imprimible');
+const TOTAL_TO_PRINT = document.getElementById('total_imprimible');
 const SUB_TOTAL_TICKET = document.getElementById('subTotal_ticket');
+const currencyBtns = document.querySelectorAll('.currencyBtn');
 let articles = [];
+let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
+let totalGlobal = 0;
+
+
 
 function trackDiscount(total, number) {
-    const totalElement = document.getElementById('total');
-    const conDescuento = total + (total * number); 
-    totalElement.textContent = `Total: ${selectedCur} ${conDescuento.toFixed()}`;
-    //TOTAL_IMPRIMIBLE.textContent = `${selectedCur} ${conDescuento.toFixed(2)}`;
-    const discountText = document.getElementById("descuento")
-    discountText.textContent = `    
+    const TOTAL_ELEMENT = document.getElementById('total');
+    const DISCOUNT_ON = total + (total * number); 
+    TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${DISCOUNT_ON.toFixed()}`;
+    //TOTAL_TO_PRINT.textContent = `${selectedCur} ${DISCOUNT_ON.toFixed(2)}`;
+    const DISCOUNT_TEXT = document.getElementById("descuento")
+    DISCOUNT_TEXT.textContent = `    
     Envio: ${selectedCur} ${(total * number).toFixed()}
     `;
 
 };
 
+
+// Función para mostrar los productos en el carrito
 async function showCart(data) {
-  let apiProductRemoved = JSON.parse(sessionStorage.getItem('apiProdRemoved')) != null ?JSON.parse(sessionStorage.getItem('apiProdRemoved')) :[];
-  const exchangeRateUsd = await getExchangeRate('usd');
-  const exchangeRateUyu = await getExchangeRate('uyu');
+  let exchangeRateUsd = await getExchangeRate('usd');
+  let exchangeRateUyu = await getExchangeRate('uyu');
   let htmlContentToAppend = "";
   let subTotalHtml = "";
   articles = data.articles;
-  if(CART_CONTENT != null){
-    CART_CONTENT.forEach(product => {
-        const articleIndex = articles.findIndex(article => article.id === product.id);
-        if (articleIndex === -1) {
-            if(product.currency === 'USD'){
-                htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto" id='${product.id}'>
-                    <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                        <div class="col-3">
-                            <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
-                        </div>
-                        <div class="col-7">
-                            <h2 class="product-name">${product.name}</h2>
-                            <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))} c/u</p>
-                        </div>
-                        <div class="col-1">
-                            <input id="input${product.id}" type="number" class='row contador' min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
-                        </div>
-                        <div class="row">
-                            <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i id="icon${product.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            } else if (product.currency === 'UYU') {
-                htmlContentToAppend += `
-                <div class="container-fluid list-group m-4 producto" id='${product.id}'>
-                    <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                        <div class="col-3">
-                            <img src="${product.img}" alt="${product.name}" class="product-image img-thumbnail">
-                        </div>
-                        <div class="col-7">
-                            <h2 class="product-name">${product.name}</h2>
-                            <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))} c/u</p>
-                        </div>
-                        <div class="col-1">
-                            <input id="input${product.id}" type="number" class='row contador'  min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.cost / exchangeRateUyu).toFixed(0))}' style="width: 2.5rem"/>
-                        </div>
-                        <div class="row">
-                            <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                                <i id="icon${product.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            };
-            
-        } else {
-            articles[articleIndex].count += product.count;
-        }
-    });
-  };
-  let countUpdate = sessionStorage.getItem('countUpd') != null ?sessionStorage.getItem('countUpd') :0;
+  // Añadimos los artículos de la api a cartContent
   articles.forEach(article => {
-    if (!apiProductRemoved.includes(article.id)){
-      if (article.currency === 'USD'){
-          htmlContentToAppend += `
-            <div class="container list-group m-4 producto" id='${article.id}'>
-                <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                    <div class="col-3">
-                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
-                    </div>
-                    <div class="col-7">
-                        <h2 class="product-name">${article.name}</h2>
-                        <p id="product-cost${article.id}" class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
-                    </div>
-                    <div class="col-1">
-                        <input id="input${article.id}" type="number" class='contador row'  min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 5vh"/>
-                    </div>
-                    <div class="row">
-                        <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                            <i id="icon${article.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-      } else if (article.currency === 'UYU'){
-          htmlContentToAppend += `
-            <div class="container list-group m-4 producto" id='${article.id}'>
-                <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
-                    <div class="col-3">
-                        <img src="${article.image}" alt="${article.name}" class="product-image img-thumbnail">
-                    </div>
-                    <div class="col-7">
-                        <h2 class="product-name">${article.name}</h2>
-                        <p id="product-cost${article.id}" class="product-cost" data-name='${article.name}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}'>${selectedCur} ${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))} c/u</p>
-                    </div>
-                    <div class="col-1">
-                        <input id="input${article.id}" type="number" class='contador row' min="1" value="${parseInt(parseInt(article.count) + parseInt(countUpdate))}" data-name='${article.name}' data-cur='${article.currency}' data-cost='${hasDiscount(article.id, (article.unitCost / exchangeRateUyu).toFixed(0))}' style="width: 5vh"/>
-                    </div>
-                    <div class="row">
-                        <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
-                            <i id="icon${article.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${article.id}'></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+    if (cartContent != null){
+      if (cartContent.indexOf(cartContent.find(prod => prod.id === article.id)) === -1){
+        cartContent.push(article);
+        sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
       };
+    } else {
+        cartContent = [];
+        cartContent.push(article);
+        sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
     };
   });
+  if(cartContent != null){
+    cartContent.forEach(product => {    
+      htmlContentToAppend += `
+        <div class="container-fluid list-group m-4 producto" id='${product.id}'>
+            <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
+                <div class="col-3">
+                    <img onclick="setProdID(${product.id})" src="${product.image}" alt="${product.name}" class="product-image img-thumbnail" style="cursor: pointer">
+                </div>
+                <div class="col-7">
+                    <h2 class="product-name">${product.name}</h2>
+                    <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))}' data-cur='${product.currency}'>${selectedCur} ${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
+                </div>
+                <div class="col-1">
+                    <input id="input${product.id}" type="number" class='row contador' min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
+                </div>
+                <div class="row">
+                    <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
+                        <i id="icon${product.id}" class="row bin fa-solid fa-trash fa-xl" data-id='${product.id}'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+    });
+  } else {
+    htmlContentToAppend = `
+      <h2>El carrito está vacío... <a href='categories.html'>Llénalo!</a></h2>
+    `
+  };
   htmlContentToAppend += `
     <div class="empty-cart-btn d-flex justify-content-end align-items-center p-5">
         <button class="btn btn-danger" id="vaciarCarritoBtn">Vaciar Carrito</button>
@@ -145,16 +85,40 @@ async function showCart(data) {
     `;
   DIV.innerHTML = htmlContentToAppend;
 
-  
-  const cartItems = document.querySelectorAll('.contador');
-  const totalElement = document.getElementById('total');
+// Función para actualizar el precio en función de la moneda seleccionada
+  function updatePrice(){
+    const prodCost = document.querySelectorAll('.prodCost');
+    prodCost.forEach(cost => {
+      switch(cost.dataset.cur){
+        case 'USD':
+          cost.textContent = `${selectedCur} ${parseInt(cost.dataset.cost / exchangeRateUsd).toFixed(0)}`;
+          break;
+        
+        case 'UYU':
+          cost.textContent = `${selectedCur} ${parseInt(cost.dataset.cost / exchangeRateUyu).toFixed(0)}`;
+          break;
+      };
+    });
+  };
 
+  currencyBtns.forEach(btn => {
+    btn.addEventListener('click', updatePrice);
+  });
+  
+  updatePrice();
+
+
+  const CART_ITEMS = document.querySelectorAll('.contador');
+  const TOTAL_ELEMENT = document.getElementById('total');
+
+
+  // Función para actualizar el carrito
   function updateCart() {
 
       let total = 0;
       let lista = [];
   
-      cartItems.forEach(input => {
+      CART_ITEMS.forEach(input => {
         const divID = input.id.substring(5)
         const divDelInput = document.getElementById(divID)
   
@@ -176,18 +140,16 @@ async function showCart(data) {
               } else if (STANDARD.checked){
                 trackDiscount(totalGlobal, 0.05);
               } else{
-                totalElement.textContent = `Total: ${selectedCur} ${total.toFixed()}`;
+                TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${total.toFixed()}`;
               }
-      });
-
-    
-          
-        
-        TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
+      });   
+        TOTAL_TO_PRINT.textContent = TOTAL_ELEMENT.textContent;
         SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${total.toFixed()}`;
          
   };
   
+
+  // Función para actualizar el ticket
   function updateTicket(input){
     const text = document.getElementById(`p${input.id}`);
     const cost = document.getElementById(`cost${input.id}`);
@@ -201,7 +163,7 @@ async function showCart(data) {
         precio_imprimible.textContent = `${selectedCur} ${(parseInt(input.dataset.cost) * input.value)}`;
     } else {
         subTotalHtml += `
-        <div id='ticket${input.id}' class='row'>
+        <div id='TICKET${input.id}' class='row'>
             <div class="col-6">
                 <p>${input.dataset.name}</p>
                 <p id='p${input.id}'>x${input.value}</p>
@@ -214,9 +176,9 @@ async function showCart(data) {
         </div>
         
     `;
-        subTotal.innerHTML = subTotalHtml;
+        SUB_TOTAL.innerHTML = subTotalHtml;
 
-        IMPRIMIBLE.innerHTML += `
+        TO_PRINT.innerHTML += `
         <tr>
             <td>${input.dataset.name}</td>
             <td id='td1${input.id}'>${input.value}</td>
@@ -227,20 +189,14 @@ async function showCart(data) {
            
   };
 
-  cartItems.forEach(input => {
+  CART_ITEMS.forEach(input => {
     updateTicket(input);
       input.addEventListener('input', () => {
         updateCart();
         updateTicket(input);
         input.setAttribute('value', input.value);
-        const isFromApi = articles.find(art => `input${art.id}` === input.id) ?true :false;
-        if (isFromApi){
-          countUpdate = input.value - 1;
-          sessionStorage.setItem('countUpd', countUpdate);
-        } else {
-          CART_CONTENT[CART_CONTENT.indexOf(CART_CONTENT.find(prod => `input${prod.id}` === input.id))].count = input.value;
-          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
-        };
+          cartContent[cartContent.indexOf(cartContent.find(prod => `input${prod.id}` === input.id))].count = input.value;
+          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
     }); 
   });
 
@@ -256,26 +212,15 @@ async function showCart(data) {
       icon.addEventListener('click', () => {
         const iconId = parseInt(icon.dataset.id);
         document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft',);
-        const prodToRemove = CART_CONTENT.find(prod => prod.id === iconId);
+        const prodToRemove = cartContent.find(prod => prod.id === iconId);
         console.log(prodToRemove)
-        const prodToRemoveIndex = CART_CONTENT.indexOf(prodToRemove);
-        const isFromApi = articles.find(art => art.id === iconId) ?true :false;
-        if (isFromApi){
-          apiProductRemoved.push(iconId);
-          sessionStorage.setItem('apiProdRemoved', JSON.stringify(apiProductRemoved));
-        };
-        if (prodToRemoveIndex != -1 && !isFromApi){
-          CART_CONTENT.splice(prodToRemoveIndex, 1);
-          sessionStorage.setItem('buyProduct', JSON.stringify(CART_CONTENT));
-
+        const prodToRemoveIndex = cartContent.indexOf(prodToRemove);
+        if (prodToRemoveIndex != -1){
+          cartContent.splice(prodToRemoveIndex, 1);
+          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
           const PRODUCTO_PARA_ELIMINAR = document.getElementById(`product-cost${prodToRemove.id}`);
           const CONTADOR_PRODUCTO_A_ELIMINAR = document.getElementById(`input${prodToRemove.id}`)
-          
-          //if(prodToRemove.currency === 'USD'){
-          totalGlobal = totalGlobal - (PRODUCTO_PARA_ELIMINAR.dataset.cost * CONTADOR_PRODUCTO_A_ELIMINAR.value);
-          //} else if (prodToRemove.currency === 'UYU'){
-            //totalGlobal -= ((prodToRemove.cost / exchangeRateUyu)  * prodToRemove.count)
-          //}
+          totalGlobal = totalGlobal - (PRODUCTO_PARA_ELIMINAR.dataset.cost * CONTADOR_PRODUCTO_A_ELIMINAR.value);  
           SUB_TOTAL_TICKET.textContent = `Subtotal: ${selectedCur} ${totalGlobal.toFixed()}`;
 
           if(PREMIUM.checked){
@@ -285,29 +230,30 @@ async function showCart(data) {
           } else if (STANDARD.checked){
             trackDiscount(totalGlobal, 0.05);
           } else {
-            totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed()}`;
+            TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed()}`;
           }
-          TOTAL_IMPRIMIBLE.textContent = totalElement.textContent;
-          const DIV_PARA_ELIMINAR = document.getElementById(`ticketinput${prodToRemove.id}`);
-          let parent = DIV_PARA_ELIMINAR.parentElement;
-          parent.removeChild(DIV_PARA_ELIMINAR);
+          TOTAL_TO_PRINT.textContent = TOTAL_ELEMENT.textContent;
           
         };
         setTimeout(() => {
           document.getElementById(`${iconId}`).classList.add('hidden');
+          location.reload();
         }, 1000);
       });
     });
+  
   };
 
 
-  window.addEventListener('load', () => {
-  fetchData(showCart, url);
+
+// Mostrar los productos del carrito al cargar la página
+window.addEventListener('load', () => {
+  fetchData(showCart, URL);
 });
 
 
 
-
+// Seleccionar tipo de envío
 const PREMIUM = document.getElementById('premiumShipping');
 const EXPRESS = document.getElementById('expressShipping');
 const STANDARD = document.getElementById('standardShipping');
@@ -330,11 +276,13 @@ const creditoOptions = document.getElementById('creditoOptions');
 const creditRadios = document.querySelectorAll('input[name="creditOption"]');
 
 
-CONT_COMPRA.addEventListener('click', ()=> {
-    DIV_OCULTO.removeAttribute('hidden');
-})
+CONTINUE.addEventListener('click', ()=> {
+    HIDDEN_DIV.removeAttribute('hidden');
+});
 
 
+
+// Métodos de pago
 const tarjetaMaster = document.getElementById('tarjetaMaster');
 const tarjetaMaestro = document.getElementById('tarjetaMaestro');
 const tarjetaVisa = document.getElementById('tarjetaVisa');
@@ -468,9 +416,9 @@ INPUTS_ENVIOS.forEach(element => {
 
     
     if (lista.length === numeroInputs) {
-        CONF_COMPRA.removeAttribute('disabled');
+        CONFIRM_PURCHASE.removeAttribute('disabled');
     } else {
-        CONF_COMPRA.setAttribute('disabled', '')
+        CONFIRM_PURCHASE.setAttribute('disabled', '')
     }
 
     console.log(lista);
@@ -480,6 +428,8 @@ INPUTS_ENVIOS.forEach(element => {
 });
 
 
+
+// Cupón de descuento
 const couponCodeInput = document.getElementById('coupon-code');
 const applyCouponBtn = document.getElementById('apply-coupon');
 
@@ -487,8 +437,8 @@ applyCouponBtn.addEventListener('click', () => {
     const couponCode = couponCodeInput.value;
     if (couponCode === 'DESCUENTO10') {
         totalGlobal = totalGlobal * 0.9;
-        const totalElement = document.getElementById('total');
-        totalElement.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed(2)}`;
+        const TOTAL_ELEMENT = document.getElementById('total');
+        TOTAL_ELEMENT.textContent = `Total: ${selectedCur} ${totalGlobal.toFixed(2)}`;
         couponCodeInput.value = '';
         alert('Cupón aplicado con éxito.');
     } else {
@@ -547,8 +497,8 @@ radioCredito.addEventListener('change', function() {
   });
 });
 
-
-CONF_COMPRA.addEventListener('click', (e) => {
+ // Confirmar compra
+CONFIRM_PURCHASE.addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById("alert-success").classList.add("show");
   setTimeout(function() {
@@ -557,11 +507,12 @@ CONF_COMPRA.addEventListener('click', (e) => {
 });
 
 const E_TICKET = document.getElementById('e-Ticket');
-const BOTON_TICKET = document.getElementById;
 
+
+// Función para imprimir ticket
 function imprimirDiv(divId) {
-    var contenido = document.getElementById(divId).innerHTML;
-    var ventana = window.open('', 'PRINT', 'width=600,height=600');
+    var content = document.getElementById(divId).innerHTML;
+    var ventana = window.open('', 'PRINT', 'width=600,height=600'); // Esta variable la dejamos en español ya que "window" es una palabra reservada.
     
     ventana.document.open();
     ventana.document.write('<html><head><title>Imprimir Ticket</title><style>');
@@ -574,7 +525,7 @@ function imprimirDiv(divId) {
     ventana.document.write('}');
     ventana.document.write('</style></head><body>');
     
-    ventana.document.write(contenido);
+    ventana.document.write(content);
     ventana.document.write('</body></html>');
     ventana.document.close();
     ventana.print();

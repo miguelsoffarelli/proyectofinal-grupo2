@@ -122,7 +122,10 @@
     </div>
   </nav>
   <main>
-    
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+      <p style="color: #0f5132 !important;">Cambios guardados correctamente.</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <div class="profileContainer">
       <div class="profilePicArea">
@@ -135,31 +138,61 @@
           <label class="resetBtn" id="resetProfilePic">Restablecer foto de Perfil<i class="fa-solid fa-image"></i></label>
    
       </div>
-      <div id="profileUserName" class="profileUserName">
-        <form action="">
-          <i class="fa-solid fa-pen-clip" style="color: orange;" id="changeNameBtn"></i>
-        <div class="inputBox" hidden>
-          <input type="text" id="changeName">
-          <label for="changeName">Nuevo nombre de Usuario</label>
-          <button class="profileBtn" id="saveNewName">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
-        </div>
-        
-      </div>
-      <div class="userData">
-        <h5>Datos del Usuario:</h5>
-        <!-- <div>
-          Nombre: <input type="text">
-          Apellido: <input type="text">
-          Correo: <input type="text">
-          <div>
-            Direccion: <input type="text">
+      <form class="needs-validation" id="dataForm">
+        <div id="profileUserName" class="profileUserName">
+            <i class="fa-solid fa-pen-clip" style="color: orange;" id="changeNameBtn"></i>
+          <div class="inputBox form-check" hidden>
+            <input type="text" id="changeName" class="form-control">
+            <label for="changeName" class="form-label">Nuevo nombre de Usuario</label>
+            <button class="profileBtn" id="saveNewName">Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
           </div>
-          
-        </div> -->
+        </div>
+        <div class="userData">
+          <h5>Tus Datos:</h5>
+        <div>
+          <div class="inputBox form-check">
+            <input type="text" id="changeFname" class="userDataForm form-control" required>
+            <label for="changeFname" class="form-label vacio">Primer Nombre: <span style="color: red;">*</span></label>
+            <div class="invalid-feedback">
+                Debe ingresar un nombre.
+            </div>
+        </div>
+          <div class="inputBox form-check">
+            <input type="text" id="changeSecondFname" class="userDataForm form-control">
+            <label for="changeSecondFname" class="form-label vacio">Segundo Nombre:</label>
+          </div>
+          <div class="inputBox form-check">
+            <input type="text" id="changeLname" class="userDataForm form-control" required>
+            <label for="changeLname" class="form-label vacio">Primer Apellido: <span style="color: red;">*</span></label>
+            <div class="invalid-feedback">
+              Debe ingresar un apellido.
+            </div>
+          </div>
+          <div class="inputBox form-check">
+            <input type="text" id="changeSecondLname" class="userDataForm form-control">
+            <label for="changeSecondLname" class="form-label vacio">Segundo Apellido:</label>
+          </div>
+          <div class="inputBox form-check">
+            <input type="email" id="changeEmail" class="userDataForm form-control" required>
+            <label for="changeEmail" class="form-label vacio">Email: <span style="color: red;">*</span></label>
+            <div class="invalid-feedback">
+              Debe ingresar un email válido.
+            </div>
+          </div>
+          <div class="inputBox form-check">
+            <input type="tel" id="changePhone" class="userDataForm form-control" pattern="[0-9]{9}" placeholder="Ejemplo: 123456789">
+            <label for="changePhone" class="form-label" id="label_celular">Teléfono de Contacto (Debe contener 9 dígitos): </label>
+            <div class="invalid-feedback">
+              El número de teléfono debe tener 9 dígitos.
+            </div>
+          </div>
+          <button class="profileBtn" id="saveNewData" disabled>Guardar Cambios <i class="fa-solid fa-floppy-disk"></i></button>
+        </div>
       </div>
-      <div class="userPersonalData"></div>
-      <div class="selling"></div>
-      <div class="logOutContainer">
+    </form>
+    
+    
+      <div class="logOutContainer" hidden>
         <button id="logOut">Cerrar Sesion <i class="fa-solid fa-power-off"></i></button>
       </div>
       
