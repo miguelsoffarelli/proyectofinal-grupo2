@@ -231,11 +231,11 @@ function showRelatedProducts(data) {
 // Clase producto para guardar en el local storage
 // y poder utilizar en el carrito-------------------------------------------------------------------------------------------
 class Product {
-  constructor(id, img, name, cost, unitCount, currency) {
+  constructor(id, image, name, unitCost, unitCount, currency) {
     this.id = id;
-    this.img = img;
+    this.image = image;
     this.name = name;
-    this.cost = cost;
+    this.unitCost = unitCost;
     this.count = unitCount;
     this.currency = currency;
   }
