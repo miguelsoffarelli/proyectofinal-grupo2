@@ -1,27 +1,29 @@
-const idProducto = localStorage.getItem("prodID");
-const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + idProducto + EXT_TYPE; //* Actualizado para hacer uso de las variables declaradas en init.js
-const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + idProducto + EXT_TYPE;
-const container = document.getElementById("product-info");
-const comments = document.getElementById("comments")
-let currentProductArray = [];
-const commentTxt = document.getElementById('comentarioNuevo');
+const PROD_ID = localStorage.getItem("prodID");
+const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + PROD_ID + EXT_TYPE; //* Actualizado para hacer uso de las variables declaradas en init.js
+const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + PROD_ID + EXT_TYPE;
+const CONTAINER = document.getElementById("product-info");
+const COMMENTS = document.getElementById("comments")
+const COMMENT_TXT = document.getElementById('comentarioNuevo');
 const SUBMIT_COMMENT = document.getElementById('enviarComentario');
-const fecha = localStorage.getItem('fecha');
-const comentario = localStorage.getItem('comentario');
-let currentUser = localStorage.getItem('user');
-let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
+const DATE = localStorage.getItem('DATE');
+const COMMENT = localStorage.getItem('COMMENT');
 const PRODUCT_ID = localStorage.getItem('prodID');
 const RELATED_PRODUCTS_DIV = document.querySelector(".related");
 const BUY_BTN = document.getElementById("buyBtn");
 const ADD_TO_CART = document.getElementById("addToCart");
+const SELECTED_STARS = document.querySelectorAll(".star");
+const CURRENCY_BTNS = document.querySelectorAll('.currencyBtn');
 let cartProducts = JSON.parse(sessionStorage.getItem('buyProduct'));
-if (!Array.isArray(cartProducts)) {
-  cartProducts = [];
-};
-let unitCount = 0;
-const selectedStars = document.querySelectorAll(".star");
-const currencyBtns = document.querySelectorAll('.currencyBtn');
 
+!Array.isArray(cartProducts) ?cartProducts = [] :cartProducts;
+
+let unitCount = 0;
+
+let currentProductArray = [];
+
+let currentUser = localStorage.getItem('user');
+
+let savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
 
 
 // Función para mostrar el producto
@@ -123,7 +125,7 @@ async function showProduct(data) {
       </div>   
       `;  
     
-      container.innerHTML = htmlContentToAppend;
+      CONTAINER.innerHTML = htmlContentToAppend;
 
       function updatePrice(){
         const prodCost = document.getElementById('prodCost');
@@ -134,7 +136,7 @@ async function showProduct(data) {
         };
       };
 
-      currencyBtns.forEach(btn => {
+      CURRENCY_BTNS.forEach(btn => {
         btn.addEventListener('click', updatePrice);
       });
       
@@ -155,7 +157,7 @@ function stars(userScore){
 };
 
 let SCORE = 0;
-selectedStars.forEach(star => {
+SELECTED_STARS.forEach(star => {
   star.addEventListener("click", ()=> {
     SUBMIT_COMMENT.removeAttribute('disabled');
     document.getElementById('starsWarning').textContent = "";
@@ -166,11 +168,11 @@ selectedStars.forEach(star => {
 
 // Función que guarda los comentarios nuevos
 function addedComments(){
-  const NEW_COMMENT = commentTxt.value;
+  const NEW_COMMENT = COMMENT_TXT.value;
   const CURRENT_DATE = new Date().toLocaleString();
   savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
   const nuevoComentarioObj = {
-    user: currentUser,
+    user: CURRENT_USER,
     score: SCORE,
     description: NEW_COMMENT,
     dateTime: CURRENT_DATE,
@@ -178,15 +180,15 @@ function addedComments(){
   };  
   savedComments.push(nuevoComentarioObj);
   localStorage.setItem("comentarios", JSON.stringify(savedComments));
-  commentTxt.value = "";
+  COMMENT_TXT.value = "";
 };
 
 
 // Función que carga los comentarios
 function showComments(data){
-  for(let comentario of savedComments){
-    if(comentario.ID === PRODUCT_ID){
-    data.push(comentario);
+  for(let COMMENT of savedComments){
+    if(COMMENT.ID === PRODUCT_ID){
+    data.push(COMMENT);
     };
   };
   let htmlContentToAppend = ""; 
@@ -208,7 +210,7 @@ function showComments(data){
           </div>
         </div>
       `};
-  comments.innerHTML = htmlContentToAppend;
+  COMMENTS.innerHTML = htmlContentToAppend;
 };
 
 

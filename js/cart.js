@@ -237,6 +237,7 @@ async function showCart(data) {
         };
         setTimeout(() => {
           document.getElementById(`${iconId}`).classList.add('hidden');
+          location.reload();
         }, 1000);
       });
     });

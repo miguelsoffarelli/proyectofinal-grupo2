@@ -1,21 +1,18 @@
-const regbtn = document.getElementById("boton_registrarse"); //llamamos al botón de registro
-const usuario = document.getElementById("uName");
-const pass1 = document.getElementById("pass1");
-const pass2 = document.getElementById("pass2");
-const email = document.getElementById("email");
+const REGISTER = document.getElementById("boton_registrarse"); //llamamos al botón de registro
+const USER = document.getElementById("uName");
+const PASS1 = document.getElementById("pass1");
+const PASS2 = document.getElementById("pass2");
+const EMAIL = document.getElementById("email");
 let usersList = [];
-if (!Array.isArray(usersList)) {
-  usersList = [];
-} else{
-  usersList = JSON.parse(localStorage.getItem('usersList'));
-};
+!Array.isArray(usersList) ?usersList = [] :usersList = JSON.parse(localStorage.getItem('usersList'));
+
 
 // Event Listener que valida los datos ingresados y, en caso positivo los guarda e inicia sesión, o de lo contrario muestra alerta de error
-regbtn.addEventListener('click', (e)=> { 
+REGISTER.addEventListener('click', (e)=> { 
     e.preventDefault()
-    if (usuario.value !== "" && pass1.value !== "" && pass2.value && pass1.value.length >= 6 && email.value !== ""){ 
+    if (USER.value !== "" && PASS1.value !== "" && PASS2.value && PASS1.value.length >= 6 && EMAIL.value !== ""){ 
         saveUser();
-        localStorage.setItem('user', usuario.value);                                                                             
+        localStorage.setItem('user', USER.value);                                                                             
         localStorage.setItem('isLoggedIn', 'true');   
         localStorage.setItem("userPic", "img/img_perfil.png");                                                                     
         showAlertSuccess();                                                                                                
@@ -65,7 +62,7 @@ class User {
 }
 
 function saveUser(){
-  let currentUser = new User(usuario.value, email.value, pass1.value, "", "", "", "", "");
+  let currentUser = new User(USER.value, EMAIL.value, PASS1.value, "", "", "", "", "");
   currentUser.saveUserData();
 }
 
