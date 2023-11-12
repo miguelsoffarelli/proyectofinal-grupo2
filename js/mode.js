@@ -1,30 +1,29 @@
  //Codigo del modo oscuro
-const body = document.querySelector("body");
-const btnMode = document.getElementById("modeBtn");
-const jumbotron = document.querySelector(".jumbotron");
-const jumbotronDKMode = document.querySelector(".jumbotronDarkMode");
-const icon = document.querySelector(".modeBtnIcon");
-const main = document.querySelector("main");
-const footer = document.querySelector("footer");
+const BODY = document.querySelector("body");
+const BTN_MODE = document.getElementById("modeBtn");
+const JUMBOTRON = document.querySelector(".jumbotron");
+const JUMBOTRON_DK_MODE = document.querySelector(".jumbotronDarkMode");
+const ICON = document.querySelector(".modeBtnIcon");
+const MAIN = document.querySelector("main");
+const FOOTER = document.querySelector("footer");
 const INPUT_ELEMENTS = document.getElementsByTagName('input');
 const SELECT_ELEMENTS = document.getElementsByTagName('select');
 
-
-
-btnMode.addEventListener("click", ()=> {
+// Aplicar el modo oscuro
+BTN_MODE.addEventListener("click", ()=> {
   
-  body.classList.toggle(".darkMode");
-  if(jumbotron !== null){
-    jumbotron.toggleAttribute("hidden");
-    jumbotronDKMode.toggleAttribute("hidden");
+  BODY.classList.toggle(".darkMode");
+  if(JUMBOTRON !== null){
+    JUMBOTRON.toggleAttribute("hidden");
+    JUMBOTRON_DK_MODE.toggleAttribute("hidden");
   }
-  storeDarkMode(body.classList.contains("darkMode"));
-   if(body.classList.contains("darkMode")){
-    icon.classList.remove("fa-sun");
-    icon.classList.add("fa-moon");
+  storeDarkMode(BODY.classList.contains("darkMode"));
+   if(BODY.classList.contains("darkMode")){
+    ICON.classList.remove("fa-sun");
+    ICON.classList.add("fa-moon");
   } else {
-    icon.classList.remove("fa-moon");
-    icon.classList.add("fa-sun");
+    ICON.classList.remove("fa-moon");
+    ICON.classList.add("fa-sun");
   }
 });
 
@@ -40,11 +39,11 @@ function loadDarkMode(){
   if(!darkMode){
     storeDarkMode(false);
   } else if(darkMode == "true"){
-    body.classList.add("darkMode");
-    icon.classList.add("fa-moon");
-    if(jumbotron !== null){
-      jumbotron.toggleAttribute("hidden");
-      jumbotronDKMode.toggleAttribute("hidden");
+    BODY.classList.add("darkMode");
+    ICON.classList.add("fa-moon");
+    if(JUMBOTRON !== null){
+      JUMBOTRON.toggleAttribute("hidden");
+      JUMBOTRON_DK_MODE.toggleAttribute("hidden");
     }
   }
 }
