@@ -243,8 +243,8 @@ CURRENCY_DIV.addEventListener("mouseleave", function(event) {
   CURRENCY_MENU.style.display = "none";
 });
 
-BTN_MODE.addEventListener("click", ()=> {
-  BODY.classList.toggle("darkMode");
+MODE_BTN.addEventListener("click", ()=> {
+  DOC_BODY.classList.toggle("darkMode");
 });
 
 UYU.addEventListener('click', (e) => {
