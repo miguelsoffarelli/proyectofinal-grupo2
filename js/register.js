@@ -3,8 +3,8 @@ const USER = document.getElementById("uName");
 const PASS1 = document.getElementById("pass1");
 const PASS2 = document.getElementById("pass2");
 const EMAIL = document.getElementById("email");
-let usersList = [];
-!Array.isArray(usersList) ?usersList = [] :usersList = JSON.parse(localStorage.getItem('usersList'));
+let usersList = JSON.parse(localStorage.getItem('usersList')) || [];
+
 
 
 // Event Listener que valida los datos ingresados y, en caso positivo los guarda e inicia sesión, o de lo contrario muestra alerta de error

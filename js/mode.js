@@ -1,6 +1,6 @@
  //Codigo del modo oscuro
-const BODY = document.querySelector("body");
-const BTN_MODE = document.getElementById("modeBtn");
+const DOC_BODY = document.querySelector("body");
+const MODE_BTN = document.getElementById("modeBtn");
 const JUMBOTRON = document.querySelector(".jumbotron");
 const JUMBOTRON_DK_MODE = document.querySelector(".jumbotronDarkMode");
 const ICON = document.querySelector(".modeBtnIcon");
@@ -10,15 +10,15 @@ const INPUT_ELEMENTS = document.getElementsByTagName('input');
 const SELECT_ELEMENTS = document.getElementsByTagName('select');
 
 // Aplicar el modo oscuro
-BTN_MODE.addEventListener("click", ()=> {
+MODE_BTN.addEventListener("click", ()=> {
   
-  BODY.classList.toggle(".darkMode");
+  DOC_BODY.classList.toggle(".darkMode");
   if(JUMBOTRON !== null){
     JUMBOTRON.toggleAttribute("hidden");
     JUMBOTRON_DK_MODE.toggleAttribute("hidden");
   }
-  storeDarkMode(BODY.classList.contains("darkMode"));
-   if(BODY.classList.contains("darkMode")){
+  storeDarkMode(DOC_BODY.classList.contains("darkMode"));
+   if(DOC_BODY.classList.contains("darkMode")){
     ICON.classList.remove("fa-sun");
     ICON.classList.add("fa-moon");
   } else {
@@ -39,7 +39,7 @@ function loadDarkMode(){
   if(!darkMode){
     storeDarkMode(false);
   } else if(darkMode == "true"){
-    BODY.classList.add("darkMode");
+    DOC_BODY.classList.add("darkMode");
     ICON.classList.add("fa-moon");
     if(JUMBOTRON !== null){
       JUMBOTRON.toggleAttribute("hidden");
