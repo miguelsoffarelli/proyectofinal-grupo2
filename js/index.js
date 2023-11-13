@@ -44,7 +44,7 @@ const nombreUsuario = localStorage.getItem('user'); //accedemos al valor almacen
 const enlaceLogin = document.getElementById("linkLogin");
 const account = document.getElementById('accountDropdown');
 const BODY = document.querySelector("body");
-const BTN_MODE = document.getElementById("modeBtn");
+const MODE_BUTTON = document.getElementById("modeBtn");
 const SETTINGS = document.getElementById('settingsDropdown');
 const SETTINGS_DROPBTN = document.getElementById('settings');
 const SETTINGS_MENU = document.getElementById('settingsMenu');
@@ -243,7 +243,7 @@ CURRENCY_DIV.addEventListener("mouseleave", function(event) {
   CURRENCY_MENU.style.display = "none";
 });
 
-MODE_BTN.addEventListener("click", ()=> {
+MODE_BUTTON.addEventListener("click", ()=> {
   DOC_BODY.classList.toggle("darkMode");
 });
 
