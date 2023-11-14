@@ -1,5 +1,5 @@
 const CATEGORY = localStorage.getItem('catID'); // Ya que los archivos index.js y categories.js ya incluyen la función de guardar la id de la categoría en localStorage, accedemos a ella
-const DATA_URL = "http://localhost:3000/api/" + CATEGORY; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
+const DATA_URL = "http://localhost:3000/api/cats_products/" + CATEGORY; // y reemplazamos en la url por la id de la api correspondiente //* Actualizado para hacer uso de las variables declaradas en init.js
 const CONTAINER = document.getElementById("product-list");
 const ORDER_DESC = document.getElementById('priceDesc');
 const ORDER_ASC = document.getElementById('priceAsc');
