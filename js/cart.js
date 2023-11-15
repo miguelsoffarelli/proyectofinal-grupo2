@@ -15,7 +15,7 @@ let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
 let totalGlobal = 0;
 
 
-
+// Función para añadir el costo de envío
 function trackDiscount(total, number) {
     const TOTAL_ELEMENT = document.getElementById('total');
     const DISCOUNT_ON = total + (total * number); 

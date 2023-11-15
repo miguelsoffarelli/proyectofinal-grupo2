@@ -1,6 +1,6 @@
 const PROD_ID = localStorage.getItem("prodID");
-const CURRENT_PRODUCT_URL = "http://localhost:3000/api/products/" + PROD_ID; //* Actualizado para hacer uso de las variables declaradas en init.js
-const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + PROD_ID + EXT_TYPE;
+const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + PROD_ID; //* Actualizado para hacer uso de las variables declaradas en init.js
+const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + PROD_ID;
 const CONTAINER = document.getElementById("product-info");
 const COMMENTS = document.getElementById("comments")
 const COMMENT_TXT = document.getElementById('comentarioNuevo');

@@ -17,9 +17,12 @@ app.get("/", (req, res) => {
     res.send("<h1>Bienvenid@ al servidor</h1>");
   });
 
+app.get("/api/:category", (req, res) => {
+  const DATOS = require("./api/"+req.params.category+"/cat.json"); 
+  res.json(DATOS);
+});
 
 app.get("/api/:category/:index", (req, res) => {
-
   const DATOS = require("./api/"+req.params.category+"/"+req.params.index+".json"); 
   res.json(DATOS);
 });

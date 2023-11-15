@@ -93,7 +93,7 @@ function discount(){
   let activeElement = false;
   CATEGORIES_LIST.forEach(cat => {
     currentCategory = cat;
-    DATA_URL = PRODUCTS_URL + currentCategory + EXT_TYPE;
+    DATA_URL = PRODUCTS_URL + currentCategory;
     urlList.push(DATA_URL);
   });
   urlListFetch(urlList)
