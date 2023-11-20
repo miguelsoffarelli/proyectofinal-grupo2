@@ -10,6 +10,33 @@
             "currency": "USD",
             "soldCount": 11,
             "image": "img/prod40281_1.jpg"
+        },
+        {
+            "id": 40282,
+            "name": "Tablet",
+            "description": "Tablet versátil para entretenimiento y productividad",
+            "cost": 499,
+            "currency": "USD",
+            "soldCount": 8,
+            "image": "img/prod40282_1.jpg"
+        },
+        {
+            "id": 40283,
+            "name": "iPad",
+            "description": "iPad de última generación con pantalla retina y rendimiento excepcional",
+            "cost": 799,
+            "currency": "USD",
+            "soldCount": 15,
+            "image": "img/prod40283_1.jpg"
+        },
+        {
+            "id": 40284,
+            "name": "Computadora portátil",
+            "description": "Computadora portátil ligera y potente, ideal para trabajo en movimiento",
+            "cost": 1499,
+            "currency": "USD",
+            "soldCount": 6,
+            "image": "img/prod40284_1.jpeg"
         }
     ]
 }

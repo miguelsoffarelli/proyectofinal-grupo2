@@ -1,0 +1,27 @@
+{
+    "id": 40283,
+    "name": "iPad",
+    "description": "iPad de última generación con pantalla retina y rendimiento excepcional",
+    "cost": 799,
+    "currency": "USD",
+    "soldCount": 15,
+    "category": "Computadoras",
+    "images": [
+        "img/prod40283_1.jpg",
+        "img/prod40283_2.jpeg",
+        "img/prod40283_3.jpg",
+        "img/prod40283_4.jpg"
+    ],
+    "relatedProducts": [
+        {
+            "id": 40282,
+            "name": "Tablet",
+            "image": "img/prod40282_1.jpg"
+        },
+        {
+            "id": 40284,
+            "name": "Computadora portátil",
+            "image": "img/prod40284_1.jpeg"
+        }
+    ]
+}

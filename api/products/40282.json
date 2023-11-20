@@ -1,0 +1,27 @@
+{
+    "id": 40282,
+    "name": "Tablet",
+    "description": "Tablet versátil para entretenimiento y productividad",
+    "cost": 499,
+    "currency": "USD",
+    "soldCount": 8,
+    "category": "Computadoras",
+    "images": [
+        "img/prod40282_1.jpg",
+        "img/prod40282_2.png",
+        "img/prod40282_3.jpg",
+        "img/prod40282_4.jpeg"
+    ],
+    "relatedProducts": [
+        {
+            "id": 40281,
+            "name": "Computadora de escritorio",
+            "image": "img/prod40281_1.jpg"
+        },
+        {
+            "id": 40283,
+            "name": "iPad",
+            "image": "img/prod40283_1.jpg"
+        }
+    ]
+}

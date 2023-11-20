@@ -1,0 +1,27 @@
+{
+    "id": 40284,
+    "name": "Computadora portátil",
+    "description": "Computadora portátil ligera y potente, ideal para trabajo en movimiento",
+    "cost": 1499,
+    "currency": "USD",
+    "soldCount": 6,
+    "category": "Computadoras",
+    "images": [
+        "img/prod40284_1.jpeg",
+        "img/prod40284_2.jpg",
+        "img/prod40284_3.jpeg",
+        "img/prod40284_4.jpeg"
+    ],
+    "relatedProducts": [
+        {
+            "id": 40283,
+            "name": "iPad",
+            "image": "img/prod40283_1.jpg"
+        },
+        {
+            "id": 40282,
+            "name": "Tablet",
+            "image": "img/prod40282_1.jpg"
+        }
+    ]
+}

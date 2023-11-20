@@ -14,13 +14,13 @@
     ],
     "relatedProducts": [
         {
-            "id":50743,
-            "name":"PlayStation 5",
+            "id": 50743,
+            "name": "PlayStation 5",
             "image": "img/prod50743_1.jpg"
         },
         {
-            "id":50744,
-            "name":"Bicicleta",
+            "id": 50744,
+            "name": "Bicicleta",
             "image": "img/prod50744_1.jpg"
         }
     ]
