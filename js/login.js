@@ -15,6 +15,7 @@ const MESSAGE = document.getElementById("mensaje");
 const BTN_MOBILE_DEVICE = document.getElementById("btnMobileFoot"); 
 const REGISTER_CONTAINER = document.querySelector(".registerContainer"); 
 const REGISTER_LOGIN_BACK = document.getElementById("registerLoginBack");
+const AUTH_URL = "http://localhost:3000/login";
 
 
 
@@ -27,11 +28,19 @@ function showAlertError() {
     }, 2000);
 };
 
+
+
 // Event Listener que valida si las credenciales son correctas, las guarda en localStorage y valida el checkbox "recordarme" 
-BUTTON_LOGIN.addEventListener('click', (e)=> {
+BUTTON_LOGIN.addEventListener('click', async (e)=> {
     e.preventDefault();
+    const response = await fetch(AUTH_URL);
+    const DB_USERS = await response.json();
+    console.log(DB_USERS);
+    let auth = false;
+    const username = USERNAME.value;
+    const password = PASSWORD.value;
     if(USERNAME.value, PASSWORD.value){
-        if (SAVED_USERS.some(user => user.uName === USERNAME.value) && SAVED_USERS.some(user => user.password === PASSWORD.value)){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
+        if (DB_USERS.some(user => user.username === USERNAME.value) && DB_USERS.some(user => user.password === PASSWORD.value)){ // Si bien solicitamos una contraseña de 6 caracteres o más al registrarse, al loguearse permitía hacerlo con cualquier contraseña, por lo que agregamos la condición.
             if (REMEMBER_ME_CHECKBOX.checked) {
                 localStorage.setItem('savedUser', USERNAME.value);
                 localStorage.setItem('savedPassword', PASSWORD.value);
@@ -39,6 +48,21 @@ BUTTON_LOGIN.addEventListener('click', (e)=> {
                 localStorage.removeItem('savedUser');
                 localStorage.removeItem('savedPassword');
             }
+            auth = true;
+            const postOptions = {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password, auth }),
+              };
+            try {
+              const response = await fetch(AUTH_URL, postOptions);
+              const data = await response.json();
+              console.log(data);
+            } catch {
+              console.error(error);
+            };  
             localStorage.setItem('user', USERNAME.value);
             localStorage.setItem('isLoggedIn', 'true');
             location.href = "index.html";

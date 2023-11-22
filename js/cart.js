@@ -1,5 +1,5 @@
 const USER_ID = 25801;
-const URL = `https://japceibal.github.io/emercado-api/user_cart/${USER_ID}.json`;
+const URL = CART_INFO_URL + localStorage.getItem('user');
 const DIV = document.getElementById('cartContent');
 const TICKET = document.getElementById('ticket');
 const SUB_TOTAL = document.querySelector('.sub-total');
@@ -13,6 +13,11 @@ const currencyBtns = document.querySelectorAll('.currencyBtn');
 let articles = [];
 let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
 let totalGlobal = 0;
+
+
+const myHeaders = new Headers();
+myHeaders.append("access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVlZWVlZSIsImlhdCI6MTcwMDY3ODQ3Mn0.gHkQyyJMLkc8tfxzR8oOtWbsl8BQrlrSitxmAvrfphk");
+myHeaders.append("Content-Type", "application/json");
 
 
 // Función para añadir el costo de envío

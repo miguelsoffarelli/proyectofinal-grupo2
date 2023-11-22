@@ -4,21 +4,42 @@ const PASS1 = document.getElementById("pass1");
 const PASS2 = document.getElementById("pass2");
 const EMAIL = document.getElementById("email");
 let usersList = JSON.parse(localStorage.getItem('usersList')) || [];
+const POST_URL = "http://localhost:3000/register";
+const USERS_URL = "http://localhost:3000/login";
 
 
 
 // Event Listener que valida los datos ingresados y, en caso positivo los guarda e inicia sesión, o de lo contrario muestra alerta de error
-REGISTER.addEventListener('click', (e)=> { 
-    e.preventDefault()
-    if (USER.value !== "" && PASS1.value !== "" && PASS2.value && PASS1.value.length >= 6 && EMAIL.value !== ""){ 
-        saveUser();
-        localStorage.setItem('user', USER.value);                                                                             
-        localStorage.setItem('isLoggedIn', 'true');   
-        localStorage.setItem("userPic", "img/img_perfil.png");                                                                     
-        showAlertSuccess();                                                                                                
-        setTimeout(function() {
-            location.href = "my-profile.html"                                                                                   
-        }, 2000);                                                                                                                                                                                                       
+REGISTER.addEventListener('click', async (e)=> { 
+    e.preventDefault();
+    const USERS = await fetch(USERS_URL);
+    const USERS_DATA = await USERS.json();
+    console.log(USERS_DATA);
+    const username = USER.value;
+    const password = PASS1.value;
+    if (!(USERS_DATA.some(user => user.username === USER.value)) && USER.value !== "" && PASS1.value !== "" && PASS2.value && PASS1.value.length >= 6 && EMAIL.value !== ""){
+      const postOptions = {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+      };
+      try {
+        const response = await fetch(POST_URL, postOptions);
+        const data = await response.json();
+        console.log(data);
+      } catch {
+        console.error(error);
+      }; 
+      saveUser();
+      localStorage.setItem('user', USER.value);                                                                             
+      localStorage.setItem('isLoggedIn', 'true');   
+      localStorage.setItem("userPic", "img/img_perfil.png");                                                                     
+      showAlertSuccess();                                                                                                
+      setTimeout(function() {
+          location.href = "my-profile.html"                                                                                   
+      }, 2000);                                                                                                                                                                                                       
     } else {                                                                                                               
         showAlertError()                                                                                                         
     };
@@ -66,4 +87,5 @@ function saveUser(){
   currentUser.saveUserData();
 }
 
-  
+
+

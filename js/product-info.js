@@ -234,6 +234,7 @@ function showRelatedProducts(data) {
 // y poder utilizar en el carrito-------------------------------------------------------------------------------------------
 class Product {
   constructor(id, image, name, unitCost, unitCount, currency) {
+    this.user = localStorage.getItem('user');
     this.id = id;
     this.image = image;
     this.name = name;
