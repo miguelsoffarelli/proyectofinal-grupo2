@@ -13,11 +13,8 @@ const currencyBtns = document.querySelectorAll('.currencyBtn');
 let articles = [];
 let cartContent = JSON.parse(sessionStorage.getItem('buyProduct'));
 let totalGlobal = 0;
+let currentUser = localStorage.getItem('user');
 
-
-const myHeaders = new Headers();
-myHeaders.append("access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVlZWVlZSIsImlhdCI6MTcwMDY3ODQ3Mn0.gHkQyyJMLkc8tfxzR8oOtWbsl8BQrlrSitxmAvrfphk");
-myHeaders.append("Content-Type", "application/json");
 
 
 // Función para añadir el costo de envío
@@ -40,22 +37,8 @@ async function showCart(data) {
   let exchangeRateUyu = await getExchangeRate('uyu');
   let htmlContentToAppend = "";
   let subTotalHtml = "";
-  articles = data.articles;
-  // Añadimos los artículos de la api a cartContent
-  articles.forEach(article => {
-    if (cartContent != null){
-      if (cartContent.indexOf(cartContent.find(prod => prod.id === article.id)) === -1){
-        cartContent.push(article);
-        sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
-      };
-    } else {
-        cartContent = [];
-        cartContent.push(article);
-        sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
-    };
-  });
-  if(cartContent != null){
-    cartContent.forEach(product => {    
+  if(data != null){
+    data.forEach(product => {    
       htmlContentToAppend += `
         <div class="container-fluid list-group m-4 producto" id='${product.id}'>
             <div class="product row list-group-item list-group-item-action d-flex justify-content-between">
@@ -67,7 +50,7 @@ async function showCart(data) {
                     <p id="product-cost${product.id}" class="product-cost" data-name='${product.name}' data-cost='${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))}' data-cur='${product.currency}'>${selectedCur} ${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))} c/u</p>
                 </div>
                 <div class="col-1">
-                    <input id="input${product.id}" type="number" class='row contador' min="1" value="${product.count}" data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
+                    <input id="input${product.id}" type="number" class='row contador' min="1" value="${product.unitCount}" data-id='${product.id}' data-name='${product.name}' data-cur='${product.currency}' data-cost='${hasDiscount(product.id, (product.unitCost / exchangeRateUsd).toFixed(0))}' style="width: 2.5rem"/>
                 </div>
                 <div class="row">
                     <div class="col-1 offset-11 d-flex justify-content-end align-items-end mb-3">
@@ -196,12 +179,24 @@ async function showCart(data) {
 
   CART_ITEMS.forEach(input => {
     updateTicket(input);
-      input.addEventListener('input', () => {
+      input.addEventListener('input', async () => {
         updateCart();
         updateTicket(input);
         input.setAttribute('value', input.value);
-          cartContent[cartContent.indexOf(cartContent.find(prod => `input${prod.id}` === input.id))].count = input.value;
-          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
+          try {
+            const response = await fetch(CART_INFO_URL + currentUser + "/" + input.dataset.id, {
+              method: "PUT",
+              headers: myHeaders,
+              body: JSON.stringify({
+                unitCount: input.value,
+              }),
+            });
+            if (response.ok) {
+              console.log("Cantidad actualizada correctamente");
+            }
+          } catch (error) {
+            console.error("Error al actualizar la cantidad del producto en el carrito");
+          };
     }); 
   });
 
@@ -214,15 +209,25 @@ async function showCart(data) {
   let deleteIcons = document.querySelectorAll('.fa-trash');
 
   deleteIcons.forEach(icon => {
-      icon.addEventListener('click', () => {
-        const iconId = parseInt(icon.dataset.id);
+      icon.addEventListener('click', async () => {
+        const iconId = icon.dataset.id;
         document.getElementById(`${iconId}`).classList.add('animate__animated', 'animate__slideOutLeft',);
-        const prodToRemove = cartContent.find(prod => prod.id === iconId);
+        const prodToRemove = data.find(prod => prod.id === iconId);
         console.log(prodToRemove)
-        const prodToRemoveIndex = cartContent.indexOf(prodToRemove);
+        const prodToRemoveIndex = data.indexOf(prodToRemove);
+        console.log(CART_INFO_URL + prodToRemove.id);
         if (prodToRemoveIndex != -1){
-          cartContent.splice(prodToRemoveIndex, 1);
-          sessionStorage.setItem('buyProduct', JSON.stringify(cartContent));
+          try {
+            const response = await fetch(CART_INFO_URL + prodToRemove.id, {
+              method: "DELETE",
+              headers: myHeaders,
+            });
+            if (response.ok) {
+              console.log("Producto eliminado correctamente");
+            }
+          } catch (error) {
+            console.error("Error al eliminar el producto del carrito");
+          };
           const PRODUCTO_PARA_ELIMINAR = document.getElementById(`product-cost${prodToRemove.id}`);
           const CONTADOR_PRODUCTO_A_ELIMINAR = document.getElementById(`input${prodToRemove.id}`)
           totalGlobal = totalGlobal - (PRODUCTO_PARA_ELIMINAR.dataset.cost * CONTADOR_PRODUCTO_A_ELIMINAR.value);  
@@ -242,7 +247,6 @@ async function showCart(data) {
         };
         setTimeout(() => {
           document.getElementById(`${iconId}`).classList.add('hidden');
-          location.reload();
         }, 1000);
       });
     });

@@ -157,7 +157,7 @@ function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); 
     if (!isLoggedIn || isLoggedIn === "false") {
     dropbtn.style.display = "none";
-    window.location.href = 'login.html'; 
+    //window.location.href = 'login.html'; 
     } else if (nombreUsuario === 'Invitado') { 
       dropbtn.innerHTML = 'Iniciar Sesión'; 
       dropbtn.setAttribute('href', 'login.html');

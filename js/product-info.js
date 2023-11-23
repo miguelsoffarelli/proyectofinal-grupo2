@@ -2,7 +2,7 @@ const PROD_ID = localStorage.getItem("prodID");
 const CURRENT_PRODUCT_URL = PRODUCT_INFO_URL + PROD_ID; //* Actualizado para hacer uso de las variables declaradas en init.js
 const CURRENT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + PROD_ID;
 const CONTAINER = document.getElementById("product-info");
-const COMMENTS = document.getElementById("comments")
+const COMMENTS = document.getElementById("comments");
 const COMMENT_TXT = document.getElementById('comentarioNuevo');
 const SUBMIT_COMMENT = document.getElementById('enviarComentario');
 const DATE = localStorage.getItem('DATE');
@@ -92,10 +92,10 @@ async function showProduct(data) {
                   <p class="fs-5">En 12x sin interés</p>
                 </div>
                 <div class="card-title">
-                  <button onclick="fetchData(buyProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-primary btn-lg" id="buyBtn" style="min-width: 100%">Comprar!</button>
+                  <button type="button" class="btn btn-primary btn-lg" id="buyBtn" style="min-width: 100%">Comprar!</button>
                 </div>
                 <div class="card-text d-flex justify-content-center">
-                  <button onclick="fetchData(addProduct, CURRENT_PRODUCT_URL)" type="button" class="btn btn-outline-success" id="addToCart" style="min-width: 80%">Añadir al carrito</button>
+                  <button type="button" class="btn btn-outline-success" id="addToCart" style="min-width: 80%">Añadir al carrito</button>
                 </div>
               </div>
               <div class="col m-3">
@@ -141,6 +141,17 @@ async function showProduct(data) {
       });
       
       updatePrice();
+
+      document.getElementById('buyBtn').addEventListener('click', () => {
+        addProduct(data);
+        setTimeout(() => {
+          window.location = "cart.html";
+        }, 2000);
+      });
+
+      document.getElementById('addToCart').addEventListener('click', () => {
+        addProduct(data);
+      });
   
 };
 
@@ -172,7 +183,7 @@ function addedComments(){
   const CURRENT_DATE = new Date().toLocaleString();
   savedComments = JSON.parse(localStorage.getItem("comentarios")) || [];
   const nuevoComentarioObj = {
-    user: CURRENT_USER,
+    user: currentUser,
     score: SCORE,
     description: NEW_COMMENT,
     dateTime: CURRENT_DATE,
@@ -217,7 +228,7 @@ function showComments(data){
 function showRelatedProducts(data) {
   const RELATED_PROD = data.relatedProducts;
   let htmlContentToAppend = "";
-  for (product of RELATED_PROD){
+  for (let product of RELATED_PROD){
     htmlContentToAppend += `           
       <div onclick="setProdID(${product.id})" class="card m-3 cursor-active bg-transparent">
         <img class="card-img-top" src="${product.image}"</img>
@@ -233,43 +244,96 @@ function showRelatedProducts(data) {
 // Clase producto para guardar en el local storage
 // y poder utilizar en el carrito-------------------------------------------------------------------------------------------
 class Product {
-  constructor(id, image, name, unitCost, unitCount, currency) {
-    this.user = localStorage.getItem('user');
+  constructor(user, id, image, name, unitCost, unitCount, currency) {
+    this.user = currentUser;
     this.id = id;
     this.image = image;
     this.name = name;
-    this.unitCost = unitCost;
-    this.count = unitCount;
+    this.unitCost = parseInt(unitCost);
+    this.unitCount = parseInt(unitCount);
     this.currency = currency;
   }
   
-  addToCart() {
-    const existingProduct = cartProducts.find(prod => prod.id === this.id);
-    if (!existingProduct) {
-      cartProducts.push(this);
-      this.count++
-    } else {
+  async addToCart(productData) {
+    const cartData = await fetch(CART_INFO_URL + currentUser, {
+      method: "GET",
+      headers: myHeaders,
+    });
+    const cartDataList = await cartData.json();
+    console.log(cartDataList);
+    const existingProduct = cartDataList.find(prod => prod.id === productData.id);
+    console.log(existingProduct);
+    if (existingProduct) {
+      try {
+        const response = await fetch(CART_INFO_URL + currentUser + "/" + productData.id, {
+          method: "PUT",
+          headers: myHeaders,
+          body: JSON.stringify({
+            unitCount: existingProduct.unitCount + 1,
+          }),
+        });
+        
+        if (response.ok) {
+          console.log("Se ha actualizado la cantidad del producto en el carrito");
+        } else {
+          console.log("Error al actualizar la cantidad del producto en el carrito");
+        }
+      } catch (error) {
+        console.error("Error al actualizar la cantidad del producto en el carrito");
+      }
+
       existingProduct.count++;
+      sessionStorage.setItem("buyProduct", JSON.stringify(cartProducts));
+      console.log("Producto ya en el carrito, cantidad actualizada");
+      return;
+    }
+
+    // Si el producto no está en el carrito, lo agregamos
+    const newProduct = {
+      user: productData.user,
+      id: productData.id,
+      image: productData.image,
+      name: productData.name,
+      unitCost: productData.unitCost,
+      unitCount: productData.unitCount,
+      currency: productData.currency,
     };
-    sessionStorage.setItem("buyProduct", JSON.stringify(cartProducts));
+
+    try {
+      const response = await fetch(CART_INFO_URL, {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(newProduct),
+      });
+
+      if (response.ok) {
+        console.log("Producto añadido al carrito");
+        document.getElementById("alert-success").classList.add("show");
+        setTimeout(function () {
+          document.getElementById("alert-success").classList.remove("show");
+        }, 2000);
+        
+      } else {
+        console.error("Error al agregar el producto al carrito");  
+      }
+    } catch (error) {
+      console.error("Error de red al intentar añadir el producto al carrito");
+      document.getElementById("alert-danger").classList.add("show");
+        setTimeout(function () {
+        document.getElementById("alert-danger").classList.remove("show");
+      }, 2000);
+    }
+
+    
   };
 };
 
 
-// Funciones para comprar y añadir al carrito--------------------------------
-function buyProduct(data) {
-  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount, data.currency);
-  currentProduct.addToCart();
-  window.location = "cart.html";
-}
+// Función para comprar y añadir al carrito--------------------------------
 
 function addProduct(data) {
-  const currentProduct = new Product(data.id, data.images[0], data.name, data.cost, unitCount, data.currency);
-  currentProduct.addToCart();
-  document.getElementById("alert-success").classList.add("show");
-  setTimeout(function() {
-    document.getElementById("alert-success").classList.remove("show");
-  }, 2000);
+  const productInstance = new Product(currentUser, currentUser + data.id, data.images[0], data.name, data.cost, 1, data.currency);
+  productInstance.addToCart(productInstance);
 };
 
 

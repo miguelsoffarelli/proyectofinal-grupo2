@@ -24,7 +24,18 @@ app.use(cors());
 
 app.use(express.json()); // Permite que el servidor analice el cuerpo de las peticiones como JSON
 
-const fs = require ('fs')
+const fs = require ('fs');
+
+app.use("/cart", (req, res, next) => {
+  try {
+    const token = req.headers["access-token"];
+    const decoded = jwt.verify(token, SECRET_KEY);
+    console.log(decoded);
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "Usuario no autorizado" });
+  };
+});
 
 app.get("/", (req, res) => {
     // El primer parámetro SIEMPRE es asociado a la request (petición) y el segundo a la response (respuesta)
@@ -114,14 +125,34 @@ app.get("/cart/:user", async (req, res) => {
   };
 });
 
-app.use("/cart", (req, res, next) => {
+app.delete("/cart/:id", async (req, res) => {
+  let conn;
   try {
-    const decoded = jwt.verify(req.headers["access-token"], SECRET_KEY);
-    next();
+    conn = await pool.getConnection();
+    const rows = await conn.query("DELETE FROM cart WHERE id=?", [
+      req.params.id,
+    ]);
+    res.json({ message: "Elemento eliminado correctamente" });
   } catch (error) {
-    res.status(401).json({message: "Usuario no autorizado"});
+    res.status(500).json({ message: "Se rompió el servidor" });
+  };
+});
+
+app.put("/cart/:user/:id", async (req, res) => {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const response = await conn.query(
+      `UPDATE cart SET unitCount=? WHERE user=? AND id=?`,
+      [req.body.unitCount, req.params.user, req.params.id]
+    );
+
+    res.json({ id: req.params.id, user: req.params.user, ...req.body });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Se rompió el servidor" });
   }
-})
+});
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);

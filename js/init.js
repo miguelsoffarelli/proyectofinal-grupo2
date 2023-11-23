@@ -44,9 +44,17 @@ let getJSONData = function(url){
 }
 
 // Fetch---------------------------------------------------------
+
+const myHeaders = new Headers();
+myHeaders.append("access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVlZWVlZSIsImlhdCI6MTcwMDY3ODQ3Mn0.gHkQyyJMLkc8tfxzR8oOtWbsl8BQrlrSitxmAvrfphk");
+myHeaders.append("Content-Type", "application/json");
+
 function fetchData(funcion, url) {
   try {
-    return fetch(url)
+    return fetch(url, {
+      method: "GET",
+      headers: myHeaders,
+    })
     .then(response => response.json())
     .then(data => {
       funcion(data);

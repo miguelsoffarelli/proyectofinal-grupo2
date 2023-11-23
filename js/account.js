@@ -37,7 +37,7 @@ function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); 
     if (!isLoggedIn || isLoggedIn === "false") { 
     DROPBTN.style.display = "none"; 
-    window.location.href = 'login.html'; 
+    //window.location.href = 'login.html'; 
     } else if (USERNAME === 'Invitado') {
       DROPBTN.innerHTML = 'Iniciar Sesión';
       DROPBTN.setAttribute('href', 'login.html');
