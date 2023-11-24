@@ -7,6 +7,7 @@ const CART_INFO_URL = "http://localhost:3000/cart/";
 const CART_BUY_URL = "http://localhost:3000/api/cart/";
 const EXT_TYPE = ".json";
 const CART_BUTTON = document.getElementById("shopping-cart");
+const token = localStorage.getItem('token');
 
 
 
@@ -46,7 +47,7 @@ let getJSONData = function(url){
 // Fetch---------------------------------------------------------
 
 const myHeaders = new Headers();
-myHeaders.append("access-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVlZWVlZSIsImlhdCI6MTcwMDY3ODQ3Mn0.gHkQyyJMLkc8tfxzR8oOtWbsl8BQrlrSitxmAvrfphk");
+myHeaders.append("access-token", token);
 myHeaders.append("Content-Type", "application/json");
 
 function fetchData(funcion, url) {

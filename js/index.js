@@ -113,7 +113,7 @@ function discount(){
         if(!activeElement){
           htmlContentToAppend = `
             <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item active cursor-active" id="${product.name}" >
-              <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
+              <img class="d-block w-100" src="img/prod${product.id}_2.jpg" alt="Llévame ahí!">
               <img class="discountPer animate__animated animate__tada" src="img/10.png" alt="">
               <br>
               <h3 class="m-3">${product.name}</h3>
@@ -126,7 +126,7 @@ function discount(){
         } else {
           htmlContentToAppend += `
             <div onclick="setProdID(${product.id}); setCatID(${cat.catID})" class="carousel-item cursor-active" id="${product.name}" >
-              <img class="d-block w-100" src="img/prod${product.id}_1.jpg" alt="Llévame ahí!">
+              <img class="d-block w-100" src="img/prod${product.id}_2.jpg" alt="Llévame ahí!">
               <img class="discountPer animate__animated animate__tada" src="img/10.png" alt="">
               <br>
               <h3 class="m-3">${product.name}</h3>
@@ -157,7 +157,7 @@ function validar(){
     const isLoggedIn = localStorage.getItem("isLoggedIn"); 
     if (!isLoggedIn || isLoggedIn === "false") {
     dropbtn.style.display = "none";
-    //window.location.href = 'login.html'; 
+    window.location.href = 'login.html'; 
     } else if (nombreUsuario === 'Invitado') { 
       dropbtn.innerHTML = 'Iniciar Sesión'; 
       dropbtn.setAttribute('href', 'login.html');

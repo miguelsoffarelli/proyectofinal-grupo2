@@ -59,7 +59,8 @@ BUTTON_LOGIN.addEventListener('click', async (e)=> {
             try {
               const response = await fetch(AUTH_URL, postOptions);
               const data = await response.json();
-              console.log(data);
+              console.log(data.token);
+              localStorage.setItem('token', data.token);
             } catch {
               console.error(error);
             };  
